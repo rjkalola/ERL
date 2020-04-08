@@ -10,10 +10,13 @@ import android.preference.PreferenceManager;
 
 import java.util.Locale;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class LocaleManager {
 
     public static Context setLocale(Context c) {
-        return updateResources(c, getLanguage(c));
+//        return updateResources(c, getLanguage(c));
+        return CalligraphyContextWrapper.wrap(c);
     }
 
     public static Context setNewLocale(Context c, String language) {

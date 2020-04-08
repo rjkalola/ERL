@@ -6,10 +6,13 @@
         <item>jpeg</item>
     </string-array>
 
-    <string name="app_name" translatable="false">Chai Ki Chuski</string>
+    <string name="app_name" translatable="false">ERL</string>
     <string name="ok">Ok</string>
-    <string name="font_family_medium" translatable="false">sans-serif-medium</string>
-    <string name="font_family_regular" translatable="false">sans-serif</string>
+
+    <!--    <string name="font_family_regular" translatable="false">sans-serif</string>-->
+    <!--    <string name="font_family_medium" translatable="false">sans-serif-medium</string>-->
+
+    <string name="font_family_regular" translatable="false">fonts/Montserrat-Regular.otf</string>
 
     <string name="error_access_denied">Access Denied</string>
     <string name="error_bad_request_400">The request could not be understood by the server due to malformed syntax.</string>
@@ -29,4 +32,20 @@
     //Error Strings
     <string name="ERR100">Parameters Missing</string>
 
+
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_forgot_password">Forgot Password?</string>
+    <string name="lbl_dont_have_an_account">Don\'t have an Account?</string>
+    <string name="lbl_register_here">Register here</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_phone">Phone</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="lbl_already_have_an_account">Already have an account?</string>
+
+
+    <!--    <string name=""></string>-->
 </resources>

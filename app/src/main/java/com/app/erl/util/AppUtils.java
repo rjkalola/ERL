@@ -16,8 +16,10 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
@@ -33,7 +35,6 @@ import com.app.erl.model.entity.response.BaseResponse;
 import com.app.erl.model.entity.response.User;
 import com.app.erl.network.RetrofitException;
 import com.app.erl.view.activity.BaseActivity;
-import com.app.erl.view.activity.MainActivity;
 import com.app.imagepicker.Model.FileWithPath;
 import com.app.imagepicker.utils.ImageUtil;
 import com.app.utilities.callbacks.DialogButtonClickListener;
@@ -233,7 +234,6 @@ public final class AppUtils {
     }
 
 
-
     //------------------------------------Copy and rename  image-------------------------------------------
     public static String copyFileFromUri(Context context, Uri fileUri, String newFileName) {
         InputStream inputStream = null;
@@ -279,7 +279,7 @@ public final class AppUtils {
                         public void onPositiveButtonClicked(int dialogIdentifier) {
                             OwlManagementApp.get().clearData();
                             if (context instanceof BaseActivity) {
-                                ((BaseActivity) context).moveActivity(context, MainActivity.class, true, true, null);
+//                                ((BaseActivity) context).moveActivity(context, MainActivity.class, true, true, null);
                             }
                         }
 

@@ -6,22 +6,37 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:background="@drawable/img_splash_bg"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_180sdp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/img_splash_screen_logo" />
+
+        </RelativeLayout>
+
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgLogo"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="@dimen/_150sdp" />
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/_60sdp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/img_splash_footer_image" />
 
-        <TextView
-            style="@style/MediumFontTextView"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:text="@string/app_name"
-            android:textColor="#7A6A5C" />
-
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

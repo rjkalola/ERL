@@ -35,28 +35,15 @@ public class OwlManagementApp extends Application {
 
     @Override
     protected void attachBaseContext(Context base) {
-        super.attachBaseContext(LocaleManager.setNewLocale(base, "en"));
-        CalligraphyContextWrapper.wrap(base);
+//        super.attachBaseContext(LocaleManager.setNewLocale(base, "en"));
+        super.attachBaseContext(LocaleManager.setLocale(base));
 
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-//        Log.e("test","Light Mode");
         LocaleManager.setLocale(this);
-//        switch (OwlManagementApp.preferenceGetInteger(AppConstant.SharedPrefKey.THEME_MODE, 0)) {
-//            case 0:
-//                Log.e("test","Light Mode");
-//                AppCompatDelegate.setDefaultNightMode(
-//                        AppCompatDelegate.MODE_NIGHT_NO);
-//                break;
-//            case 1:
-//                Log.e("test","Dark Mode");
-//                AppCompatDelegate.setDefaultNightMode(
-//                        AppCompatDelegate.MODE_NIGHT_YES);
-//                break;
-//        }
     }
 
     @Override
@@ -251,10 +238,10 @@ public class OwlManagementApp extends Application {
 
 
     private void setupFont() {
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath(getString(R.string.font_family_regular))
-                .setFontAttrId(R.attr.fontPath)
-                .build());
+//        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+//                .setDefaultFontPath(getString(R.string.font_family_regular))
+//                .setFontAttrId(R.attr.fontPath)
+//                .build());
     }
 
     public void clearData() {

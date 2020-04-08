@@ -119,5 +119,7 @@ dependencies {
     implementation 'com.intellij:annotations:+@jar'
     implementation "com.intuit.sdp:${SDP_LIB_VERSION}"
     implementation "com.intuit.ssp:${SSP_LIB_VERSION}"
+
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
 }
 apply plugin: 'com.google.gms.google-services'
