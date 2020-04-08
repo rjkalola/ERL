@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_150sdp" />
+
+        <TextView
+            style="@style/MediumFontTextView"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:text="@string/app_name"
+            android:textColor="#7A6A5C" />
+
+    </LinearLayout>
+</layout>

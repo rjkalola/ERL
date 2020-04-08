@@ -1,0 +1,32 @@
+<resources>
+
+    <string-array name="imageExtension" translatable="false">
+        <item>jpg</item>
+        <item>png</item>
+        <item>jpeg</item>
+    </string-array>
+
+    <string name="app_name" translatable="false">Chai Ki Chuski</string>
+    <string name="ok">Ok</string>
+    <string name="font_family_medium" translatable="false">sans-serif-medium</string>
+    <string name="font_family_regular" translatable="false">sans-serif</string>
+
+    <string name="error_access_denied">Access Denied</string>
+    <string name="error_bad_request_400">The request could not be understood by the server due to malformed syntax.</string>
+    <string name="error_unauthorized_401">The request requires user authentication. The response MUST include a WWW-Authenticate header field.</string>
+    <string name="error_forbidden_403">The server understood the request but is refusing to fulfill it.</string>
+    <string name="error_not_found_404">The server has not found anything matching the Request-URI.</string>
+    <string name="error_method_not_allowed_405">The method specified in the Request-Line is not allowed for the resource identified by the Request-URI.</string>
+    <string name="error_request_timeout_408">Your request timed out. Please retry the request.</string>
+    <string name="error_request_entity_too_large_413">The server is refusing to process a request because the request entity is larger than the server is willing or able to process.</string>
+    <string name="error_request_uri_too_long_414">The server is refusing to service the request because the Request-URI is longer than the server is willing to interpret.</string>
+    <string name="error_internal_server_error_500">The server encountered an unexpected condition which prevented it from fulfilling the request.</string>
+    <string name="error_unknown">An unknown error occurred</string>
+    <string name="msg_unauthorized">We are signing you out as we found your account access from another device</string>
+    <string name="error_network">There is a problem connecting to the Server, please check your network connection, and then try again.</string>
+
+
+    //Error Strings
+    <string name="ERR100">Parameters Missing</string>
+
+</resources>

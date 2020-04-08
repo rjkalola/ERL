@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ERL.iml" filepath="$PROJECT_DIR$/ERL.iml" group="ERL" />
+      <module fileurl="file://$PROJECT_DIR$/Imagepickers/Imagepickers.iml" filepath="$PROJECT_DIR$/Imagepickers/Imagepickers.iml" group="ERL/Imagepickers" />
+      <module fileurl="file://$PROJECT_DIR$/Utilities/Utilities.iml" filepath="$PROJECT_DIR$/Utilities/Utilities.iml" group="ERL/Utilities" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="ERL/app" />
+    </modules>
+  </component>
+</project>
