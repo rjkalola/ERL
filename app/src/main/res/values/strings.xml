@@ -45,7 +45,8 @@
     <string name="hint_phone">Phone</string>
     <string name="hint_confirm_password">Confirm Password</string>
     <string name="lbl_already_have_an_account">Already have an account?</string>
-
+    <string name="reset_password">Reset Password</string>
+    <string name="info_reset_password">We just need your registered Email Id\nto send your password reset instructions.</string>
 
     <!--    <string name=""></string>-->
 </resources>

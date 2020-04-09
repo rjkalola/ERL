@@ -16,23 +16,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_20ssp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:fontFamily="@font/montserrat_semi_bold"
                 android:gravity="center"
                 android:text="@string/sign_up"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryText"
-                android:textSize="@dimen/_18ssp" />
+                android:textSize="@dimen/_17ssp" />
 
             <ImageView
-                android:layout_width="@dimen/_95sdp"
+                android:layout_width="@dimen/_94sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_34sdp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/ic_login_screen_logo" />
 
@@ -40,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_24sdp"
-                android:layout_marginTop="@dimen/_38sdp"
+                android:layout_marginTop="@dimen/_35sdp"
                 android:layout_marginEnd="@dimen/_24sdp"
                 android:background="@drawable/img_edit_text_bg"
                 android:gravity="center_vertical"
@@ -48,8 +49,8 @@
                 android:paddingEnd="0dp">
 
                 <ImageView
-                    android:layout_width="@dimen/_14sdp"
-                    android:layout_height="@dimen/_14sdp"
+                    android:layout_width="@dimen/_13sdp"
+                    android:layout_height="@dimen/_13sdp"
                     android:src="@drawable/ic_name" />
 
                 <EditText
@@ -60,14 +61,14 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:hint="@string/hint_name"
                     android:imeOptions="actionNext"
-                    android:inputType="textCapWords"
+                    android:inputType="textAutoComplete"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingTop="@dimen/_12sdp"
                     android:paddingEnd="@dimen/_16sdp"
                     android:paddingBottom="@dimen/_12sdp"
                     android:singleLine="true"
                     android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
             </LinearLayout>
 
@@ -75,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_24sdp"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginEnd="@dimen/_24sdp"
                 android:background="@drawable/img_edit_text_bg"
                 android:gravity="center_vertical"
@@ -83,8 +84,8 @@
                 android:paddingEnd="0dp">
 
                 <ImageView
-                    android:layout_width="@dimen/_14sdp"
-                    android:layout_height="@dimen/_14sdp"
+                    android:layout_width="@dimen/_13sdp"
+                    android:layout_height="@dimen/_13sdp"
                     android:src="@drawable/ic_email" />
 
                 <EditText
@@ -102,7 +103,7 @@
                     android:paddingBottom="@dimen/_12sdp"
                     android:singleLine="true"
                     android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
             </LinearLayout>
 
@@ -110,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_24sdp"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginEnd="@dimen/_24sdp"
                 android:background="@drawable/img_edit_text_bg"
                 android:gravity="center_vertical"
@@ -118,8 +119,8 @@
                 android:paddingEnd="0dp">
 
                 <ImageView
-                    android:layout_width="@dimen/_14sdp"
-                    android:layout_height="@dimen/_14sdp"
+                    android:layout_width="@dimen/_13sdp"
+                    android:layout_height="@dimen/_13sdp"
                     android:src="@drawable/ic_phone" />
 
                 <EditText
@@ -137,7 +138,7 @@
                     android:paddingBottom="@dimen/_12sdp"
                     android:singleLine="true"
                     android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_11ssp" />
 
             </LinearLayout>
 
@@ -145,7 +146,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_24sdp"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginEnd="@dimen/_24sdp"
                 android:background="@drawable/img_edit_text_bg"
                 android:gravity="center_vertical"
@@ -153,8 +154,8 @@
                 android:paddingEnd="0dp">
 
                 <ImageView
-                    android:layout_width="@dimen/_14sdp"
-                    android:layout_height="@dimen/_14sdp"
+                    android:layout_width="@dimen/_13sdp"
+                    android:layout_height="@dimen/_13sdp"
                     android:src="@drawable/ic_password" />
 
                 <EditText
@@ -164,22 +165,22 @@
                     android:background="@color/transparent"
                     android:fontFamily="@font/montserrat_regular"
                     android:hint="@string/hint_password"
+                    android:imeOptions="actionNext"
                     android:inputType="textPassword"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingTop="@dimen/_12sdp"
-                    android:imeOptions="actionNext"
                     android:paddingEnd="@dimen/_16sdp"
                     android:paddingBottom="@dimen/_12sdp"
                     android:singleLine="true"
                     android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_11ssp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_24sdp"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginEnd="@dimen/_24sdp"
                 android:background="@drawable/img_edit_text_bg"
                 android:gravity="center_vertical"
@@ -187,8 +188,8 @@
                 android:paddingEnd="0dp">
 
                 <ImageView
-                    android:layout_width="@dimen/_14sdp"
-                    android:layout_height="@dimen/_14sdp"
+                    android:layout_width="@dimen/_13sdp"
+                    android:layout_height="@dimen/_13sdp"
                     android:src="@drawable/ic_password" />
 
                 <EditText
@@ -198,15 +199,15 @@
                     android:background="@color/transparent"
                     android:fontFamily="@font/montserrat_regular"
                     android:hint="@string/hint_confirm_password"
+                    android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingTop="@dimen/_12sdp"
                     android:paddingEnd="@dimen/_16sdp"
                     android:paddingBottom="@dimen/_12sdp"
-                    android:imeOptions="actionDone"
                     android:singleLine="true"
                     android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_11ssp" />
             </LinearLayout>
 
             <com.balysv.materialripple.MaterialRippleLayout
@@ -234,16 +235,14 @@
                     android:text="@string/sign_up"
                     android:textAllCaps="true"
                     android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_15ssp" />
+                    android:textSize="@dimen/_14ssp" />
             </com.balysv.materialripple.MaterialRippleLayout>
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_34sdp"
-
-                android:layout_marginBottom="@dimen/_26sdp"
+                android:layout_marginTop="@dimen/_30sdp"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -251,7 +250,7 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:text="@string/lbl_already_have_an_account"
                     android:textColor="@color/colorSecondaryText"
-                    android:textSize="@dimen/_11ssp" />
+                    android:textSize="@dimen/_10ssp" />
 
                 <TextView
                     android:id="@+id/txtLogin"
@@ -259,7 +258,8 @@
                     android:fontFamily="@font/montserrat_medium"
                     android:padding="@dimen/_3sdp"
                     android:text="@string/login"
-                    android:textColor="@color/colorPrimaryText" />
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/_11ssp" />
 
             </LinearLayout>
 

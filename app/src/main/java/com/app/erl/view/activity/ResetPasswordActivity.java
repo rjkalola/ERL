@@ -9,30 +9,27 @@ import androidx.databinding.DataBindingUtil;
 
 import com.app.erl.R;
 import com.app.erl.databinding.ActivityLoginBinding;
+import com.app.erl.databinding.ActivityResetPasswordBinding;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
-    private ActivityLoginBinding binding;
+public class ResetPasswordActivity extends BaseActivity implements View.OnClickListener {
+    private ActivityResetPasswordBinding binding;
     private Context mContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStatusBarColor();
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_reset_password);
         mContext = this;
 
-        binding.txtLogin.setOnClickListener(this);
-        binding.txtForgotPassword.setOnClickListener(this);
+        binding.txtResetPassword.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.txtLogin:
-                moveActivity(mContext, SignUpActivity.class, false, false, null);
-                break;
-            case R.id.txtForgotPassword:
-                moveActivity(mContext, ResetPasswordActivity.class, false, false, null);
+            case R.id.txtResetPassword:
+//                moveActivity(mContext, SignUpActivity.class, false, false, null);
                 break;
         }
     }
