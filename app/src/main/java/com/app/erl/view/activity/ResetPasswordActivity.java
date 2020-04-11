@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import com.app.erl.R;
 import com.app.erl.databinding.ActivityLoginBinding;
 import com.app.erl.databinding.ActivityResetPasswordBinding;
+import com.app.erl.util.AppConstant;
 
 public class ResetPasswordActivity extends BaseActivity implements View.OnClickListener {
     private ActivityResetPasswordBinding binding;
@@ -29,7 +30,9 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtResetPassword:
-//                moveActivity(mContext, SignUpActivity.class, false, false, null);
+                Bundle bundle = new Bundle();
+                bundle.putString(AppConstant.IntentKey.VERIFICATION_CODE, binding.edtEmail.getText().toString().trim());
+                moveActivity(mContext, VerificationActivity.class, false, false, bundle);
                 break;
         }
     }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,7 @@ import com.app.utilities.utils.StringHelper;
 
 
 /**
+ *
  */
 public class BaseActivity extends AppCompatActivity implements ViewListener {
 
@@ -39,11 +41,11 @@ public class BaseActivity extends AppCompatActivity implements ViewListener {
 
     public void setStatusBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if(AppCompatDelegate.getDefaultNightMode()
-                    != AppCompatDelegate.MODE_NIGHT_YES){
+            if (AppCompatDelegate.getDefaultNightMode()
+                    != AppCompatDelegate.MODE_NIGHT_YES) {
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
                 getWindow().setStatusBarColor(Color.WHITE);
-            }else {
+            } else {
                 getWindow().setStatusBarColor(Color.parseColor("#191b24"));
             }
         }
@@ -90,6 +92,11 @@ public class BaseActivity extends AppCompatActivity implements ViewListener {
     public void setFullScreen() {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
+    public void setTransparentStatusBar() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 
     public int getStatusBarHeight() {

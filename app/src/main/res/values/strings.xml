@@ -28,10 +28,8 @@
     <string name="msg_unauthorized">We are signing you out as we found your account access from another device</string>
     <string name="error_network">There is a problem connecting to the Server, please check your network connection, and then try again.</string>
 
-
     //Error Strings
     <string name="ERR100">Parameters Missing</string>
-
 
     <string name="login">Login</string>
     <string name="sign_up">Sign Up</string>
@@ -47,6 +45,15 @@
     <string name="lbl_already_have_an_account">Already have an account?</string>
     <string name="reset_password">Reset Password</string>
     <string name="info_reset_password">We just need your registered Email Id\nto send your password reset instructions.</string>
+    <string name="lbl_verification">Verification</string>
+    <string name="lbl_verification_code">Verification Code</string>
+    <string name="lbl_display_verification_code_hint">Please type the verification code sent to your mobile  number %s</string>
+    <string name="lbl_dont_receive_the_code">Don\'t receive the code?</string>
+    <string name="lbl_resend">Resend</string>
+    <string name="lbl_verify">Verify</string>
+    <string name="lbl_dashboard">Dashboard</string>
+    <string name="lbl_dry_clean">Dry Clean</string>
+    <string name="lbl_wash_and_ironing">Wash and\nIroning</string>
 
     <!--    <string name=""></string>-->
 </resources>

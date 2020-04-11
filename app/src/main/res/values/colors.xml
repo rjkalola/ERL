@@ -9,5 +9,7 @@
     <color name="colorDivider">#989898</color>
     <color name="colorPrimaryText">#0b0b0b</color>
     <color name="colorSecondaryText">#5a5a5a</color>
+    <color name="colorYellowDark">#dc9e51</color>
+
 
 </resources>

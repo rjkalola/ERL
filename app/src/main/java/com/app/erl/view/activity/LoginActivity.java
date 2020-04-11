@@ -21,14 +21,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         mContext = this;
 
-        binding.txtLogin.setOnClickListener(this);
+        binding.txtRegisterHere.setOnClickListener(this);
         binding.txtForgotPassword.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.txtLogin:
+            case R.id.txtRegisterHere:
                 moveActivity(mContext, SignUpActivity.class, false, false, null);
                 break;
             case R.id.txtForgotPassword:

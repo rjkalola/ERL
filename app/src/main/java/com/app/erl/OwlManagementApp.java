@@ -246,8 +246,6 @@ public class OwlManagementApp extends Application {
 
     public void clearData() {
         OwlManagementApp.preferenceRemoveKey(AppConstant.SharedPrefKey.USER_INFO);
-        OwlManagementApp.preferenceRemoveKey(AppConstant.SharedPrefKey.PERMISSION_SETTINGS);
-        OwlManagementApp.preferenceRemoveKey(AppConstant.SharedPrefKey.NOTIFICATION_SETTINGS);
     }
 
 }
