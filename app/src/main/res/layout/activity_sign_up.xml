@@ -4,7 +4,9 @@
 
     <data>
 
-
+        <variable
+            name="userAuthenticationViewModel"
+            type="com.app.erl.viewModel.UserAuthenticationViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -61,12 +63,13 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:hint="@string/hint_name"
                     android:imeOptions="actionNext"
-                    android:inputType="textAutoComplete"
+                    android:inputType="textCapWords"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingTop="@dimen/_12sdp"
                     android:paddingEnd="@dimen/_16sdp"
                     android:paddingBottom="@dimen/_12sdp"
                     android:singleLine="true"
+                    android:text="@={userAuthenticationViewModel.signUpRequest.name}"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/_11ssp" />
 
@@ -102,6 +105,7 @@
                     android:paddingEnd="@dimen/_16sdp"
                     android:paddingBottom="@dimen/_12sdp"
                     android:singleLine="true"
+                    android:text="@={userAuthenticationViewModel.signUpRequest.email}"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/_11ssp" />
 
@@ -132,11 +136,13 @@
                     android:hint="@string/hint_phone"
                     android:imeOptions="actionNext"
                     android:inputType="phone"
+                    android:maxLength="15"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingTop="@dimen/_12sdp"
                     android:paddingEnd="@dimen/_16sdp"
                     android:paddingBottom="@dimen/_12sdp"
                     android:singleLine="true"
+                    android:text="@={userAuthenticationViewModel.signUpRequest.phone}"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/_11ssp" />
 
@@ -172,6 +178,7 @@
                     android:paddingEnd="@dimen/_16sdp"
                     android:paddingBottom="@dimen/_12sdp"
                     android:singleLine="true"
+                    android:text="@={userAuthenticationViewModel.signUpRequest.password}"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/_11ssp" />
             </LinearLayout>
@@ -206,6 +213,7 @@
                     android:paddingEnd="@dimen/_16sdp"
                     android:paddingBottom="@dimen/_12sdp"
                     android:singleLine="true"
+                    android:text="@={userAuthenticationViewModel.signUpRequest.confirmPassword}"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/_11ssp" />
             </LinearLayout>

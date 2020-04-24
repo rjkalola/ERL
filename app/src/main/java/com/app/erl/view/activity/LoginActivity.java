@@ -6,13 +6,23 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.app.erl.R;
 import com.app.erl.databinding.ActivityLoginBinding;
+import com.app.erl.model.entity.response.UserResponse;
+import com.app.erl.util.AppUtils;
+import com.app.erl.util.LoginViewModelFactory;
+import com.app.erl.util.ResourceProvider;
+import com.app.erl.viewModel.UserAuthenticationViewModel;
+import com.app.utilities.utils.AlertDialogHelper;
+import com.app.utilities.utils.ValidationUtil;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
     private ActivityLoginBinding binding;
     private Context mContext;
+    private UserAuthenticationViewModel userAuthenticationViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,7 +30,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         setStatusBarColor();
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         mContext = this;
+        userAuthenticationViewModel = ViewModelProviders.of(this, new LoginViewModelFactory(new ResourceProvider(getResources()))).get(UserAuthenticationViewModel.class);
+        userAuthenticationViewModel.createView(this);
+        userAuthenticationViewModel.mUserResponse()
+                .observe(this, getUserResponse());
+        binding.setUserAuthenticationViewModel(userAuthenticationViewModel);
 
+        binding.txtLogin.setOnClickListener(this);
         binding.txtRegisterHere.setOnClickListener(this);
         binding.txtForgotPassword.setOnClickListener(this);
     }
@@ -32,8 +48,58 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 moveActivity(mContext, SignUpActivity.class, false, false, null);
                 break;
             case R.id.txtForgotPassword:
-                moveActivity(mContext, ResetPasswordActivity.class, false, false, null);
+                moveActivity(mContext, ForgotPasswordActivity.class, false, false, null);
+                break;
+            case R.id.txtLogin:
+                if (isValid()) {
+                    userAuthenticationViewModel.sendLoginRequest();
+                }
                 break;
         }
+    }
+
+    public Observer getUserResponse() {
+        return (Observer<UserResponse>) response -> {
+            try {
+                if (response == null) {
+                    AlertDialogHelper.showDialog(mContext, null,
+                            mContext.getString(R.string.error_unknown), mContext.getString(R.string.ok),
+                            null, false, null, 0);
+                    return;
+                }
+                if (response.isSuccess()) {
+                    AppUtils.setUserPrefrence(mContext, response.getInfo());
+                    moveActivity(mContext, DashBoardActivity.class, true, true, null);
+                } else {
+                    AppUtils.handleUnauthorized(mContext, response);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+    }
+
+    public boolean isValid() {
+        boolean isValid = true;
+
+        if (!ValidationUtil.isEmptyEditText(userAuthenticationViewModel.getLoginRequest().getPassword())) {
+            binding.edtPassword.setError(null);
+        } else {
+            ValidationUtil.setErrorIntoEditext(binding.edtPassword, mContext.getString(R.string.error_empty_password));
+            isValid = false;
+        }
+
+        if (!ValidationUtil.isEmptyEditText(userAuthenticationViewModel.getLoginRequest().getEmail())) {
+            if (ValidationUtil.isValidEmail(binding.edtEmail.getText().toString())) {
+                binding.edtEmail.setError(null);
+            } else {
+                ValidationUtil.setErrorIntoEditext(binding.edtEmail, mContext.getString(R.string.error_invalid_email));
+                isValid = false;
+            }
+        } else {
+            ValidationUtil.setErrorIntoEditext(binding.edtEmail, mContext.getString(R.string.error_empty_email));
+            isValid = false;
+        }
+        return isValid;
     }
 }

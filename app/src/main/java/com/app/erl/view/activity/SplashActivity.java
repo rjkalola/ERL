@@ -7,8 +7,11 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
+import com.app.erl.ERLApp;
 import com.app.erl.R;
 import com.app.erl.databinding.ActivitySplashBinding;
+import com.app.erl.util.AppConstant;
+import com.app.utilities.utils.StringHelper;
 
 public class SplashActivity extends BaseActivity {
     private ActivitySplashBinding binding;
@@ -22,11 +25,25 @@ public class SplashActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
         mContext = this;
         callTimerCount();
+
+//        Log.e("test","TimeZone1:"+ TimeZone.getDefault().getID());
+//
+//        Calendar cal = Calendar.getInstance();
+//        TimeZone tz = cal.getTimeZone();
+//        Log.e("test","TimeZone2"+tz.getID());
+//        Log.e("test","TimeZone2"+tz.getDisplayName(true, TimeZone.SHORT));
+
+
     }
 
     public void callTimerCount() {
         new Handler().postDelayed(() -> {
-            moveActivity(mContext, LoginActivity.class, true, false, null);
+            String userInfo = ERLApp.preferenceGetString(AppConstant.SharedPrefKey.USER_INFO, "");
+            if (StringHelper.isEmpty(userInfo) || userInfo.equalsIgnoreCase("null")) {
+                moveActivity(mContext, LoginActivity.class, true, true, null);
+            } else {
+                moveActivity(mContext, DashBoardActivity.class, true, true, null);
+            }
         }, SPLASH_TIME_OUT);
     }
 }

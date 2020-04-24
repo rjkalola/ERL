@@ -1,9 +1,5 @@
 package com.app.erl.util;
 
-/**
- * Created by Dhaval on 05-02-2018.
- */
-
 public final class AppConstant {
 
     public static final String DEVICE_TYPE = "1";
@@ -21,16 +17,22 @@ public final class AppConstant {
 
     public static final class DialogIdentifier {
         public static final int LOGOUT = 1;
+        public static final int SELECT_FROM_TIME = 2;
+        public static final int SELECT_TO_TIME = 3;
     }
 
     public static final class IntentKey {
+        public static final String USER_ID = "USER_ID";
         public static final String VERIFICATION_CODE = "VERIFICATION_CODE";
+        public static final String EMAIL = "EMAIL";
+        public static final String POSITION = "POSITION";
+        public static final String DASHBOARD_DATA = "DASHBOARD_DATA";
+        public static final String SERVICE_ITEMS_DATA = "SERVICE_ITEMS_DATA";
     }
 
     public static final class AppLanguage {
         public static final String ISO_CODE_ENG = "en";
     }
-
 
     public static final class SharedPrefKey {
         public static final String USER_INFO = "USER_INFO";
@@ -44,7 +46,19 @@ public final class AppConstant {
 
 
     public static final class Action {
+        public static final int ADD = 1;
+        public static final int REMOVE = 2;
+    }
 
+    public static final class NAVIGATION_ITEM {
+        public static final int MY_PROFILE = 1;
+        public static final int MY_ORDER = 2;
+        public static final int SETTINGS = 3;
+        public static final int PRIVACY_POLICY = 4;
+        public static final int TERMS_AND_CONDITIONS = 5;
+        public static final int ABOUT_APP = 6;
+        public static final int SHARE = 7;
+        public static final int LOGOUT = 8;
     }
 
     public static final class UserType {

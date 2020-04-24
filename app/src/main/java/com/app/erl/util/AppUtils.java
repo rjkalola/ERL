@@ -29,7 +29,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.app.erl.OwlManagementApp;
+import com.app.erl.ERLApp;
 import com.app.erl.R;
 import com.app.erl.model.entity.response.BaseResponse;
 import com.app.erl.model.entity.response.User;
@@ -70,9 +70,9 @@ public final class AppUtils {
     public static User getUserPrefrence(Context context) {
         if (context != null
                 && context.getApplicationContext() != null) {
-            Gson gson = ((OwlManagementApp) context.getApplicationContext()).getNetworkComponent().provideGson();
+            Gson gson = ((ERLApp) context.getApplicationContext()).getNetworkComponent().provideGson();
             if (gson != null) {
-                String userInfo = OwlManagementApp.preferenceGetString(AppConstant.SharedPrefKey.USER_INFO, "");
+                String userInfo = ERLApp.preferenceGetString(AppConstant.SharedPrefKey.USER_INFO, "");
                 if (!StringHelper.isEmpty(userInfo)) {
                     return gson.fromJson(userInfo, User.class);
                 }
@@ -84,43 +84,13 @@ public final class AppUtils {
     public static void setUserPrefrence(Context context, User userInfo) {
         if (context != null
                 && context.getApplicationContext() != null) {
-            Gson gson = ((OwlManagementApp) context.getApplicationContext()).getNetworkComponent().provideGson();
+            Gson gson = ((ERLApp) context.getApplicationContext()).getNetworkComponent().provideGson();
             if (gson != null) {
-                OwlManagementApp.preferencePutString(AppConstant.SharedPrefKey.USER_INFO, gson.toJson(userInfo));
+                ERLApp.preferencePutString(AppConstant.SharedPrefKey.USER_INFO, gson.toJson(userInfo));
             }
         }
     }
 
-    public static boolean isEmployee(Context context) {
-        boolean employee = false;
-        User user = AppUtils.getUserPrefrence(context);
-        if (user != null && user.getUser_type_id() == AppConstant.UserType.EMPLOYEE) {
-            employee = true;
-        }
-        return employee;
-    }
-
-    public static void setMenuItemVisibility(Context context, MenuItem item) {
-        User user = AppUtils.getUserPrefrence(context);
-        if (user != null) {
-            if (user.getUser_type_id() == AppConstant.UserType.EMPLOYEE) {
-                item.setVisible(false);
-            } else {
-                item.setVisible(true);
-            }
-        }
-    }
-
-    public static void setViewVisibility(Context context, View view) {
-        User user = AppUtils.getUserPrefrence(context);
-        if (user != null) {
-            if (user.getUser_type_id() == AppConstant.UserType.EMPLOYEE) {
-                view.setVisibility(View.GONE);
-            } else {
-                view.setVisibility(View.VISIBLE);
-            }
-        }
-    }
 
     public static void showError(Context mContext, String errorCode) {
         try {
@@ -277,7 +247,7 @@ public final class AppUtils {
                     context.getString(R.string.ok), null, false, new DialogButtonClickListener() {
                         @Override
                         public void onPositiveButtonClicked(int dialogIdentifier) {
-                            OwlManagementApp.get().clearData();
+                            ERLApp.get().clearData();
                             if (context instanceof BaseActivity) {
 //                                ((BaseActivity) context).moveActivity(context, MainActivity.class, true, true, null);
                             }

@@ -146,7 +146,7 @@
                     android:textSize="@dimen/_10ssp" />
 
                 <TextView
-                    android:id="@+id/txtRegisterHere"
+                    android:id="@+id/txtResend"
                     style="@style/SmallFontTextView"
                     android:fontFamily="@font/montserrat_medium"
                     android:padding="@dimen/_3sdp"

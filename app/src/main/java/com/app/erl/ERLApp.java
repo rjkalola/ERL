@@ -18,10 +18,7 @@ import com.app.erl.util.AppConstant;
 import com.app.erl.util.LocaleManager;
 import com.app.erl.util.VariantConfig;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
-public class OwlManagementApp extends Application {
+public class ERLApp extends Application {
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
@@ -31,7 +28,7 @@ public class OwlManagementApp extends Application {
     private static SharedPreferences.Editor sharedPreferencesEditor;
     private static SharedPreferences sharedPreferences;
     private static Context context;
-    private static OwlManagementApp instance;
+    private static ERLApp instance;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -65,7 +62,7 @@ public class OwlManagementApp extends Application {
 
         sharedPreferencesEditor = networkComponent.provideSharedPreference().edit();
         sharedPreferences = networkComponent.provideSharedPreference();
-        OwlManagementApp.instance = this;
+        ERLApp.instance = this;
 
 //        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
 //            @Override
@@ -115,7 +112,7 @@ public class OwlManagementApp extends Application {
 //            }
 //        });
 
-        switch (OwlManagementApp.preferenceGetInteger(AppConstant.SharedPrefKey.THEME_MODE, 0)) {
+        switch (ERLApp.preferenceGetInteger(AppConstant.SharedPrefKey.THEME_MODE, 0)) {
             case 0:
                 AppCompatDelegate.setDefaultNightMode(
                         AppCompatDelegate.MODE_NIGHT_NO);
@@ -141,7 +138,7 @@ public class OwlManagementApp extends Application {
 //        }
     }
 
-    public static OwlManagementApp get() {
+    public static ERLApp get() {
         return instance;
     }
 
@@ -166,7 +163,7 @@ public class OwlManagementApp extends Application {
     }
 
     public static void setSharedPreferencesEditor(SharedPreferences.Editor sharedPreferencesEditor) {
-        OwlManagementApp.sharedPreferencesEditor = sharedPreferencesEditor;
+        ERLApp.sharedPreferencesEditor = sharedPreferencesEditor;
     }
 
     public static SharedPreferences getSharedPreferences() {
@@ -174,7 +171,7 @@ public class OwlManagementApp extends Application {
     }
 
     public static void setSharedPreferences(SharedPreferences sharedPreferences) {
-        OwlManagementApp.sharedPreferences = sharedPreferences;
+        ERLApp.sharedPreferences = sharedPreferences;
     }
 
     public static Context getContext() {
@@ -182,7 +179,7 @@ public class OwlManagementApp extends Application {
     }
 
     public static void setContext(Context context) {
-        OwlManagementApp.context = context;
+        ERLApp.context = context;
     }
 
     /**
@@ -245,7 +242,7 @@ public class OwlManagementApp extends Application {
     }
 
     public void clearData() {
-        OwlManagementApp.preferenceRemoveKey(AppConstant.SharedPrefKey.USER_INFO);
+        ERLApp.preferenceRemoveKey(AppConstant.SharedPrefKey.USER_INFO);
     }
 
 }

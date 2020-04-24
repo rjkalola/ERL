@@ -4,7 +4,7 @@
     package="com.app.erl">
 
     <application
-        android:name="com.app.erl.OwlManagementApp"
+        android:name="com.app.erl.ERLApp"
         android:allowBackup="false"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -48,7 +48,7 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name="com.app.erl.view.activity.ResetPasswordActivity"
+            android:name="com.app.erl.view.activity.ForgotPasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
@@ -58,8 +58,21 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
+            android:name="com.app.erl.view.activity.CreateNewPasswordActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name="com.app.erl.view.activity.DashBoardActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name="com.app.erl.view.activity.SelectOrderItemsActivity"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name="com.app.erl.view.activity.CreateOrderActivity"
             android:windowSoftInputMode="adjustResize" />
 
         <provider

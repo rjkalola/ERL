@@ -13,7 +13,6 @@ import retrofit2.Retrofit;
  */
 @Module
 public class UserAuthenticationModule {
-
     @UserScope
     @Provides
     public UserAuthenticationServiceInterface provideUserAuthenticationService(Retrofit retrofit){

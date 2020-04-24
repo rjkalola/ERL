@@ -6,20 +6,31 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.app.erl.R;
-import com.app.erl.databinding.ActivityResetPasswordBinding;
 import com.app.erl.databinding.ActivityVerificationBinding;
+import com.app.erl.model.entity.response.BaseResponse;
 import com.app.erl.util.AppConstant;
+import com.app.erl.util.AppUtils;
+import com.app.erl.util.LoginViewModelFactory;
+import com.app.erl.util.ResourceProvider;
+import com.app.erl.viewModel.UserAuthenticationViewModel;
+import com.app.utilities.utils.AlertDialogHelper;
 import com.app.utilities.utils.StringHelper;
+import com.app.utilities.utils.ToastHelper;
 
-public class VerificationActivity extends BaseActivity implements View.OnClickListener , View.OnKeyListener {
+public class VerificationActivity extends BaseActivity implements View.OnClickListener, View.OnKeyListener {
     private ActivityVerificationBinding binding;
     private Context mContext;
-    private String verificationCode;
+    private String email, code;
+    private int userId;
+    private UserAuthenticationViewModel userAuthenticationViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,8 +38,15 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
         setStatusBarColor();
         binding = DataBindingUtil.setContentView(this, R.layout.activity_verification);
         mContext = this;
+        userAuthenticationViewModel = ViewModelProviders.of(this, new LoginViewModelFactory(new ResourceProvider(getResources()))).get(UserAuthenticationViewModel.class);
+        userAuthenticationViewModel.createView(this);
+        userAuthenticationViewModel.mBaseResponse()
+                .observe(this, mBaseResponse());
+        userAuthenticationViewModel.mForgotPasswordResponse()
+                .observe(this, mForgotPasswordResponse());
 
         binding.txtVerify.setOnClickListener(this);
+        binding.txtResend.setOnClickListener(this);
 
         binding.edtVerifyCode1.addTextChangedListener(new GenericTextWatcher(binding.edtVerifyCode1));
         binding.edtVerifyCode2.addTextChangedListener(new GenericTextWatcher(binding.edtVerifyCode2));
@@ -45,8 +63,9 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
 
     public void getIntentData() {
         if (getIntent().getExtras() != null && getIntent().hasExtra(AppConstant.IntentKey.VERIFICATION_CODE)) {
-            verificationCode = getIntent().getStringExtra(AppConstant.IntentKey.VERIFICATION_CODE);
-            binding.txtVerificationCodeHint.setText(String.format(getString(R.string.lbl_display_verification_code_hint), verificationCode));
+            email = getIntent().getStringExtra(AppConstant.IntentKey.EMAIL);
+            userId = getIntent().getIntExtra(AppConstant.IntentKey.USER_ID, 0);
+            binding.txtVerificationCodeHint.setText(String.format(getString(R.string.lbl_display_verification_code_hint), email));
         }
     }
 
@@ -54,9 +73,55 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtVerify:
-                moveActivity(mContext, DashBoardActivity.class, false, false, null);
+                if (validateCode())
+                    userAuthenticationViewModel.verifyCode(userId, code);
+                break;
+            case R.id.txtResend:
+                userAuthenticationViewModel.resendCode(userId);
                 break;
         }
+    }
+
+    public Observer mBaseResponse() {
+        return (Observer<BaseResponse>) response -> {
+            try {
+                if (response == null) {
+                    AlertDialogHelper.showDialog(mContext, null,
+                            mContext.getString(R.string.error_unknown), mContext.getString(R.string.ok),
+                            null, false, null, 0);
+                    return;
+                }
+                if (response.isSuccess()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(AppConstant.IntentKey.USER_ID,userId);
+                    moveActivity(mContext, CreateNewPasswordActivity.class, false, false, bundle);
+                } else {
+                    AppUtils.handleUnauthorized(mContext, response);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+    }
+
+    public Observer mForgotPasswordResponse() {
+        return (Observer<BaseResponse>) response -> {
+            try {
+                if (response == null) {
+                    AlertDialogHelper.showDialog(mContext, null,
+                            mContext.getString(R.string.error_unknown), mContext.getString(R.string.ok),
+                            null, false, null, 0);
+                    return;
+                }
+                if (response.isSuccess()) {
+
+                } else {
+                    AppUtils.handleUnauthorized(mContext, response);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
     }
 
     private class GenericTextWatcher implements TextWatcher {
@@ -194,4 +259,27 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
         return key;
     }
 
+    private boolean validateCode() {
+        if (StringHelper.isEmpty(binding.edtVerifyCode1.getText().toString().trim())) {
+            ToastHelper.error(mContext, getString(R.string.error_verify_code), Toast.LENGTH_SHORT, false);
+            return false;
+        } else if (StringHelper.isEmpty(binding.edtVerifyCode2.getText().toString().trim())) {
+            ToastHelper.error(mContext, getString(R.string.error_verify_code), Toast.LENGTH_SHORT, false);
+            return false;
+        } else if (StringHelper.isEmpty(binding.edtVerifyCode3.getText().toString().trim())) {
+            ToastHelper.error(mContext, getString(R.string.error_verify_code), Toast.LENGTH_SHORT, false);
+            return false;
+        } else if (StringHelper.isEmpty(binding.edtVerifyCode4.getText().toString().trim())) {
+            ToastHelper.error(mContext, getString(R.string.error_verify_code), Toast.LENGTH_SHORT, false);
+            return false;
+        } else {
+            code = binding.edtVerifyCode1.getText().toString()
+                    + binding.edtVerifyCode2.getText().toString()
+                    + binding.edtVerifyCode3.getText().toString()
+                    + binding.edtVerifyCode4.getText().toString();
+//            setOtp(code);
+        }
+        return true;
+
+    }
 }

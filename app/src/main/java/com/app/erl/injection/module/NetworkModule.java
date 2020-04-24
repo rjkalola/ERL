@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.app.erl.BuildConfig;
-import com.app.erl.OwlManagementApp;
+import com.app.erl.ERLApp;
 import com.app.erl.model.entity.response.User;
 import com.app.erl.network.RxErrorHandlingCallAdapterFactory;
 import com.app.erl.util.AppUtils;
@@ -101,7 +101,7 @@ public class NetworkModule {
             Request original = chain.request();
             Request.Builder requestBuilder = original.newBuilder();
             try{
-                User userInfo = AppUtils.getUserPrefrence(OwlManagementApp.getContext());
+                User userInfo = AppUtils.getUserPrefrence(ERLApp.getContext());
                 if ( userInfo != null && !StringHelper.isEmpty(userInfo.getApi_token())) {
                     requestBuilder.addHeader("Authorization", "Bearer "+userInfo.getApi_token());
                 }

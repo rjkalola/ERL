@@ -30,7 +30,13 @@
 
     //Error Strings
     <string name="ERR100">Parameters Missing</string>
+    <string name="ERR101">Requested data is empty.</string>
+    <string name="ERR102">First parameters must be an array</string>
+    <string name="ERR103">You have entered an invalid email address.</string>
+    <string name="ERR104">You have entered an invalid password.</string>
+    <string name="ERR105">You have entered invalid access code</string>
 
+    <string name="dash_sign">-</string>
     <string name="login">Login</string>
     <string name="sign_up">Sign Up</string>
     <string name="forgot_password">Forgot Password</string>
@@ -44,16 +50,88 @@
     <string name="hint_confirm_password">Confirm Password</string>
     <string name="lbl_already_have_an_account">Already have an account?</string>
     <string name="reset_password">Reset Password</string>
+    <string name="change_password">Change Password</string>
     <string name="info_reset_password">We just need your registered Email Id\nto send your password reset instructions.</string>
     <string name="lbl_verification">Verification</string>
     <string name="lbl_verification_code">Verification Code</string>
-    <string name="lbl_display_verification_code_hint">Please type the verification code sent to your mobile  number %s</string>
+    <string name="lbl_display_verification_code_hint">Please type the verification code sent to your email %s</string>
     <string name="lbl_dont_receive_the_code">Don\'t receive the code?</string>
     <string name="lbl_resend">Resend</string>
     <string name="lbl_verify">Verify</string>
     <string name="lbl_dashboard">Dashboard</string>
-    <string name="lbl_dry_clean">Dry Clean</string>
-    <string name="lbl_wash_and_ironing">Wash and\nIroning</string>
+    <string name="error_verify_code">Verification code is not valid</string>
+    <string name="create_new_password">Create New Password</string>
+    <string name="my_profile">My Profile</string>
+    <string name="my_order">My Order</string>
+    <string name="settings">Settings</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="about_app">About App</string>
+    <string name="share">Share</string>
+    <string name="logout">Logout</string>
+    <string name="logout_msg">Are you sure you want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="hint_new_password">New Password</string>
+    <string name="hint_confirm_new_password">Confirm New Password</string>
+    <string name="lbl_select_item">Select Item</string>
+    <string name="lbl_display_tab_name_and_count">%s (%d)</string>
+    <string name="lbl_display_price">AED %s</string>
+    <string name="add">Add</string>
+    <string name="lbl_continue">Continue</string>
+    <string name="lbl_pick_time_slot">Pick a time slot</string>
+    <string name="lbl_select_date">Select Date:</string>
+    <string name="lbl_select_time">Select Time:</string>
+    <string name="lbl_address">Address:</string>
+    <string name="lbl_change_add_Address">change address / add address</string>
+    <string name="lbl_order_details">Order Details:</string>
+    <string name="lbl_item">Item:</string>
+    <string name="lbl_qty">Qty:</string>
+    <string name="lbl_update">Update:</string>
+    <string name="lbl_display_selected_item_title">%s:</string>
+    <string name="next">Next</string>
+    <string name="lbl_from_time">From Time</string>
+    <string name="lbl_to_time">To Time</string>
+    <string name="lbl_select">Select</string>
+    <string name="lbl_cancel">Cancel</string>
+    <string name="lbl_hour">Hour</string>
+    <string name="lbl_minute">Minute</string>
+    <string name="lbl_display_time">%s to %s</string>
 
     <!--    <string name=""></string>-->
+
+    <!--Validation message-->
+    <string name="error_empty_name">Please enter name</string>
+    <string name="error_empty_email">Please enter email</string>
+    <string name="error_invalid_email">Please enter valid email</string>
+    <string name="error_empty_phone">Please enter phone number</string>
+    <string name="error_empty_password">Please enter password</string>
+    <string name="error_empty_confirm_password">Please enter confirm password</string>
+    <string name="error_not_match_password">Password does not match</string>
+    <string name="error_select_at_least_one_item">Please Select at least 1 item</string>
+
+    <!--    <string name=""></string>-->
+
+    <integer-array name="navigationItemsDrawable">
+        <item>@drawable/ic_nav_my_profile</item>
+        <item>@drawable/ic_nav_my_order</item>
+        <item>@drawable/ic_nav_settings</item>
+        <item>@drawable/ic_nav_privacy_policy</item>
+        <item>@drawable/ic_nav_terms_and_conditions</item>
+        <item>@drawable/ic_nav_about_app</item>
+        <item>@drawable/ic_nav_share</item>
+        <item>@drawable/ic_nav_logout</item>
+    </integer-array>
+
+    <string-array name="navigationItems">
+        <item>@string/my_profile</item>
+        <item>@string/my_order</item>
+        <item>@string/settings</item>
+        <item>@string/privacy_policy</item>
+        <item>@string/terms_and_conditions</item>
+        <item>@string/about_app</item>
+        <item>@string/share</item>
+        <item>@string/logout</item>
+    </string-array>
+
 </resources>

@@ -3,6 +3,9 @@ package com.app.erl.util;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.app.erl.viewModel.DashBoardViewModel;
+import com.app.erl.viewModel.UserAuthenticationViewModel;
+
 public class LoginViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private ResourceProvider resourceProvider;
 
@@ -14,11 +17,12 @@ public class LoginViewModelFactory extends ViewModelProvider.NewInstanceFactory 
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
-//        if (modelClass.isAssignableFrom(LoginViewModel.class)) {
-//            return (T) new LoginViewModel(resourceProvider);
-//        }else if (modelClass.isAssignableFrom(SignUpViewModel.class)) {
-//            return (T) new SignUpViewModel(resourceProvider);
-//        }else if (modelClass.isAssignableFrom(ManageProjectViewModel.class)) {
+        if (modelClass.isAssignableFrom(UserAuthenticationViewModel.class)) {
+            return (T) new UserAuthenticationViewModel(resourceProvider);
+        } else if (modelClass.isAssignableFrom(DashBoardViewModel.class)) {
+            return (T) new DashBoardViewModel(resourceProvider);
+        }
+//        else if (modelClass.isAssignableFrom(ManageProjectViewModel.class)) {
 //            return (T) new ManageProjectViewModel(resourceProvider);
 //        }else if (modelClass.isAssignableFrom(ManageProfileViewModel.class)) {
 //            return (T) new ManageProfileViewModel(resourceProvider);
