@@ -12,7 +12,6 @@
         android:background="@drawable/img_splash_bg"
         android:orientation="vertical">
 
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -121,5 +121,9 @@ dependencies {
     implementation "com.intuit.ssp:${SSP_LIB_VERSION}"
 
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
+    implementation "pub.devrel:easypermissions:${EASY_PERMISSSION}"
+    implementation "com.google.android.gms:play-services-location:${GOOGLE_LOCATION}"
+    implementation "com.google.android.gms:play-services-maps:${GOOGLE_MAP}"
 }
 apply plugin: 'com.google.gms.google-services'

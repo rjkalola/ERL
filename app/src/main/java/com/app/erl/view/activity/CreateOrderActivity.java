@@ -1,11 +1,13 @@
 package com.app.erl.view.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
@@ -30,15 +32,22 @@ import org.parceler.Parcels;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
-public class CreateOrderActivity extends BaseActivity implements View.OnClickListener, SelectedServiceItemListener, OnDateSetListener, SelectTimeListener {
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
+
+public class CreateOrderActivity extends BaseActivity implements View.OnClickListener
+        , SelectedServiceItemListener, OnDateSetListener
+        , SelectTimeListener, EasyPermissions.PermissionCallbacks {
     private ActivityCreateOrderBinding binding;
     private Context mContext;
     String fromTime, toTime;
     private ClientDashBoardResponse dashBoardData;
     private ServiceSelectedItemsTitleListAdapter adapter;
     private String DATE_PICKER = "DATE_PICKER";
+    private String[] LOCATION_PERMISSION = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +60,7 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
         binding.edtSelectDate.setOnClickListener(this);
         binding.edtSelectTime.setOnClickListener(this);
         binding.edtSelectTimeType.setOnClickListener(this);
+        binding.txtChangeAddress.setOnClickListener(this);
 
         getIntentData();
     }
@@ -89,6 +99,9 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.edtSelectTimeType:
 
+                break;
+            case R.id.txtChangeAddress:
+                checkPermission();
                 break;
         }
     }
@@ -129,7 +142,7 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
     public void onSelectTime(String fromTime, String toTime, int identifier) {
         this.fromTime = fromTime;
         this.toTime = toTime;
-        binding.edtSelectTime.setText(String.format(getString(R.string.lbl_display_time),fromTime,toTime));
+        binding.edtSelectTime.setText(String.format(getString(R.string.lbl_display_time), fromTime, toTime));
     }
 
     public void showDatePicker(long minDate, long maxDate, String tag, String selDate) {
@@ -140,8 +153,45 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
     public void selectTimeDialog() {
         FragmentManager fm = ((BaseActivity) mContext).getSupportFragmentManager();
         SelectTimeDialog selectTimeDialog = SelectTimeDialog.newInstance(mContext, fromTime
-                , toTime,this);
+                , toTime, this);
         selectTimeDialog.show(fm, "selectTimeDialog");
+    }
+
+    private boolean hasPermission() {
+        return EasyPermissions.hasPermissions(this, LOCATION_PERMISSION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    public void checkPermission() {
+        if (hasPermission()) {
+            moveActivityForResult(mContext, AddAddressActivity.class, false, false, AppConstant.IntentKey.CHANGE_ADDRESS, null);
+        } else {
+            EasyPermissions.requestPermissions(
+                    this,
+                    getString(R.string.msg_location_permission),
+                    AppConstant.IntentKey.RC_LOCATION_PERM,
+                    LOCATION_PERMISSION);
+        }
+    }
+
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        moveActivityForResult(mContext, AddAddressActivity.class, false, false, AppConstant.IntentKey.CHANGE_ADDRESS, null);
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
+        }
     }
 
     public ClientDashBoardResponse getDashBoardData() {

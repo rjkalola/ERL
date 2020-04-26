@@ -19,6 +19,8 @@ public final class AppConstant {
         public static final int LOGOUT = 1;
         public static final int SELECT_FROM_TIME = 2;
         public static final int SELECT_TO_TIME = 3;
+        public static final int SELECT_CITY = 4;
+        public static final int SELECT_AREA = 5;
     }
 
     public static final class IntentKey {
@@ -28,6 +30,9 @@ public final class AppConstant {
         public static final String POSITION = "POSITION";
         public static final String DASHBOARD_DATA = "DASHBOARD_DATA";
         public static final String SERVICE_ITEMS_DATA = "SERVICE_ITEMS_DATA";
+        public static final int RC_LOCATION_PERM = 1;
+        public static final int LOCATION_SETTING_STATUS = 2;
+        public static final int CHANGE_ADDRESS = 3;
     }
 
     public static final class AppLanguage {
@@ -44,10 +49,23 @@ public final class AppConstant {
         public static final String CAMERA = "camera";
     }
 
+    public static final class LocationMode {
+        public static final int LOCATION_MODE_OFF = 0;
+        public static final int LOCATION_MODE_SENSORS_ONLY = 1;
+        public static final int LOCATION_MODE_BATTERY_SAVING = 2;
+        public static final int LOCATION_MODE_HIGH_ACCURACY = 3;
+    }
 
     public static final class Action {
         public static final int ADD = 1;
         public static final int REMOVE = 2;
+    }
+
+    public static final class DrawerState {
+        public static final String COLLAPSED = "COLLAPSED";
+        public static final String ANCHORED = "ANCHORED";
+        public static final String EXPANDED = "EXPANDED";
+
     }
 
     public static final class NAVIGATION_ITEM {

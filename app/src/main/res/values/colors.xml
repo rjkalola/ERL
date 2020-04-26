@@ -11,5 +11,6 @@
     <color name="colorSecondaryText">#5a5a5a</color>
     <color name="colorYellowDark">#dc9e51</color>
     <color name="colorNavigationHeaderBg">#ebe9e6</color>
+    <color name="colorErrorColor">#e50914</color>
 
 </resources>

@@ -202,6 +202,7 @@
                     android:textSize="@dimen/_11ssp" />
 
                 <TextView
+                    android:id="@+id/txtChangeAddress"
                     style="@style/SmallFontTextView"
                     android:layout_marginTop="@dimen/_6sdp"
                     android:fontFamily="@font/montserrat_medium"

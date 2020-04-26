@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.app.erl.viewModel.DashBoardViewModel;
+import com.app.erl.viewModel.ManageAddressViewModel;
 import com.app.erl.viewModel.UserAuthenticationViewModel;
 
 public class LoginViewModelFactory extends ViewModelProvider.NewInstanceFactory {
@@ -21,6 +22,8 @@ public class LoginViewModelFactory extends ViewModelProvider.NewInstanceFactory 
             return (T) new UserAuthenticationViewModel(resourceProvider);
         } else if (modelClass.isAssignableFrom(DashBoardViewModel.class)) {
             return (T) new DashBoardViewModel(resourceProvider);
+        }else if (modelClass.isAssignableFrom(ManageAddressViewModel.class)) {
+            return (T) new ManageAddressViewModel(resourceProvider);
         }
 //        else if (modelClass.isAssignableFrom(ManageProjectViewModel.class)) {
 //            return (T) new ManageProjectViewModel(resourceProvider);
