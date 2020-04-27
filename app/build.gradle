@@ -125,5 +125,6 @@ dependencies {
     implementation "pub.devrel:easypermissions:${EASY_PERMISSSION}"
     implementation "com.google.android.gms:play-services-location:${GOOGLE_LOCATION}"
     implementation "com.google.android.gms:play-services-maps:${GOOGLE_MAP}"
+
 }
 apply plugin: 'com.google.gms.google-services'

@@ -21,6 +21,8 @@ public final class AppConstant {
         public static final int SELECT_TO_TIME = 3;
         public static final int SELECT_CITY = 4;
         public static final int SELECT_AREA = 5;
+        public static final int SELECT_TIME = 6;
+        public static final int DELETE_ADDRESS = 7;
     }
 
     public static final class IntentKey {
@@ -30,9 +32,11 @@ public final class AppConstant {
         public static final String POSITION = "POSITION";
         public static final String DASHBOARD_DATA = "DASHBOARD_DATA";
         public static final String SERVICE_ITEMS_DATA = "SERVICE_ITEMS_DATA";
+        public static final String ADDRESS_DATA = "ADDRESS_DATA";
         public static final int RC_LOCATION_PERM = 1;
         public static final int LOCATION_SETTING_STATUS = 2;
         public static final int CHANGE_ADDRESS = 3;
+        public static final int ADD_NEW_ADDRESS = 4;
     }
 
     public static final class AppLanguage {
@@ -57,8 +61,9 @@ public final class AppConstant {
     }
 
     public static final class Action {
-        public static final int ADD = 1;
-        public static final int REMOVE = 2;
+        public static final int SELECT_ADDRESS = 1;
+        public static final int DELETE_ADDRESS = 2;
+        public static final int EDIT_ADDRESS = 3;
     }
 
     public static final class DrawerState {

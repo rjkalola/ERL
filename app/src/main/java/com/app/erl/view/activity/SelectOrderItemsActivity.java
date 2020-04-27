@@ -151,6 +151,13 @@ public class SelectOrderItemsActivity extends BaseActivity implements View.OnCli
 
     public void setItemsQuantity(int itemPosition, int quantity) {
         getDashBoardData().getInfo().get(binding.vpOrderItems.getCurrentItem()).getService_item().get(itemPosition).setQuantity(quantity);
+        int count = 0;
+        for (ServiceItemInfo info : getDashBoardData().getInfo().get(binding.vpOrderItems.getCurrentItem()).getService_item()) {
+            if (info.getQuantity() > 0) {
+                count = count + 1;
+            }
+        }
+        adapter.refreshTabCount(binding.vpOrderItems.getCurrentItem(), count);
     }
 
     @Override

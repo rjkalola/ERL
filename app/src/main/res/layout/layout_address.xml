@@ -68,7 +68,7 @@
             android:layout_marginTop="@dimen/_6sdp"
             android:layout_marginBottom="@dimen/_20sdp"
             android:fontFamily="@font/montserrat_regular"
-            android:text=""
+            android:text="@={manageAddressViewModel.saveAddressRequest.address}"
             android:textColor="@color/colorSecondaryText"
             android:textSize="@dimen/_9ssp" />
 
@@ -172,6 +172,7 @@
                 android:focusable="false"
                 android:hint="@string/hint_city"
                 android:imeOptions="actionNext"
+                android:text="@={manageAddressViewModel.saveAddressRequest.city_name}"
                 android:inputType="text"
                 app:met_errorColor="@color/colorErrorColor"
                 app:met_floatingLabel="normal"
@@ -188,6 +189,7 @@
                 android:drawableEnd="@drawable/ic_arrow_drop_down"
                 android:focusable="false"
                 android:hint="@string/hint_area"
+                android:text="@={manageAddressViewModel.saveAddressRequest.area_name}"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 app:met_errorColor="@color/colorErrorColor"

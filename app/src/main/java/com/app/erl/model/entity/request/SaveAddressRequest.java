@@ -1,8 +1,43 @@
 package com.app.erl.model.entity.request;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class SaveAddressRequest {
-    private String name, phone, address, street, landmark;
-    private int area_id;
+    int id, area_id, city_id, is_default;
+    String name, phone, address, street, landmark, area_name, city_name,latitude,longitude;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getArea_id() {
+        return area_id;
+    }
+
+    public void setArea_id(int area_id) {
+        this.area_id = area_id;
+    }
+
+    public int getCity_id() {
+        return city_id;
+    }
+
+    public void setCity_id(int city_id) {
+        this.city_id = city_id;
+    }
+
+    public int getIs_default() {
+        return is_default;
+    }
+
+    public void setIs_default(int is_default) {
+        this.is_default = is_default;
+    }
 
     public String getName() {
         return name;
@@ -44,11 +79,35 @@ public class SaveAddressRequest {
         this.landmark = landmark;
     }
 
-    public int getArea_id() {
-        return area_id;
+    public String getArea_name() {
+        return area_name;
     }
 
-    public void setArea_id(int area_id) {
-        this.area_id = area_id;
+    public void setArea_name(String area_name) {
+        this.area_name = area_name;
+    }
+
+    public String getCity_name() {
+        return city_name;
+    }
+
+    public void setCity_name(String city_name) {
+        this.city_name = city_name;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }

@@ -23,6 +23,7 @@ import com.app.erl.databinding.ActivityAddAddressBinding;
 import com.app.erl.model.entity.info.ModuleInfo;
 import com.app.erl.model.entity.info.ModuleSelection;
 import com.app.erl.model.entity.response.AddressResourcesResponse;
+import com.app.erl.model.entity.response.BaseResponse;
 import com.app.erl.model.entity.response.User;
 import com.app.erl.util.AppConstant;
 import com.app.erl.util.AppUtils;
@@ -34,6 +35,7 @@ import com.app.erl.viewModel.ManageAddressViewModel;
 import com.app.utilities.utils.AlertDialogHelper;
 import com.app.utilities.utils.StringHelper;
 import com.app.utilities.utils.ToastHelper;
+import com.app.utilities.utils.ValidationUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -45,6 +47,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,6 +65,7 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
     private ManageAddressViewModel manageAddressViewModel;
     private AddressResourcesResponse addressData;
     private List<ModuleInfo> listArea;
+    private boolean isInit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +73,7 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
         mContext = AddAddressActivity.this;
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_address);
         mLocationHelper = new LocationHelper(this);
-        mLocationHelper.setLocationUpdateListener(this);
-        mLocationHelper.isGPSEnabled();
         listArea = new ArrayList<>();
-        startLocationUpdate();
 //        binding.slidingLayout.setAnchorPoint(0.5f);
 //        binding.slidingLayout.setClipPanel(true);
 
@@ -80,6 +81,8 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
         manageAddressViewModel.createView(this);
         manageAddressViewModel.addressResourcesResponse()
                 .observe(this, addressResourcesResponse());
+        manageAddressViewModel.mBaseResponse()
+                .observe(this, saveAddressResponse());
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -101,19 +104,31 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
         binding.imgMoveToCurrentLocation.setOnClickListener(this);
         binding.routAddressView.edtCity.setOnClickListener(this);
         binding.routAddressView.edtArea.setOnClickListener(this);
+        binding.txtAddAddress.setOnClickListener(this);
 
-        initData();
+        getIntentData();
     }
 
-    public void initData() {
-        User user = AppUtils.getUserPrefrence(mContext);
-        if (user != null) {
-            binding.routAddressView.edtName.setText(!StringHelper.isEmpty(user.getName()) ? user.getName() : "");
-            binding.routAddressView.edtMobileNumber.setText(!StringHelper.isEmpty(user.getPhone()) ? user.getPhone() : "");
-            manageAddressViewModel.getAddressResourcesRequest();
+    public void getIntentData() {
+        if (getIntent().getExtras() != null && getIntent().hasExtra(AppConstant.IntentKey.ADDRESS_DATA)) {
+            isInit = true;
+            manageAddressViewModel.setSaveAddressRequest(Parcels.unwrap(getIntent().getParcelableExtra(AppConstant.IntentKey.ADDRESS_DATA)));
+            binding.routAddressView.setManageAddressViewModel(manageAddressViewModel);
         } else {
-            finish();
+            User user = AppUtils.getUserPrefrence(mContext);
+            if (user != null) {
+                manageAddressViewModel.getSaveAddressRequest().setName(!StringHelper.isEmpty(user.getName()) ? user.getName() : "");
+                manageAddressViewModel.getSaveAddressRequest().setPhone(!StringHelper.isEmpty(user.getPhone()) ? user.getPhone() : "");
+                binding.routAddressView.setManageAddressViewModel(manageAddressViewModel);
+            } else {
+                finish();
+                return;
+            }
         }
+        manageAddressViewModel.getAddressResourcesRequest();
+        mLocationHelper.setLocationUpdateListener(this);
+        mLocationHelper.isGPSEnabled();
+        startLocationUpdate();
     }
 
     @Override
@@ -123,7 +138,8 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
                 onBackPressed();
                 break;
             case R.id.imgMoveToCurrentLocation:
-                setCurrentLocationPin();
+                if (mLocation != null)
+                    setCurrentLocationPin(mLocation.getLatitude(), mLocation.getLongitude());
                 break;
             case R.id.edtCity:
                 showModuleDialog(AppConstant.DialogIdentifier.SELECT_CITY, "", getAddressData().getCities(), true);
@@ -135,6 +151,11 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
                     ToastHelper.error(mContext, getString(R.string.msg_select_city_first), Toast.LENGTH_SHORT, false);
                 }
                 break;
+            case R.id.txtAddAddress:
+                if (validate()) {
+                    manageAddressViewModel.saveAddressRequest();
+                }
+                break;
         }
     }
 
@@ -143,16 +164,22 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
         mMap = googleMap;
         mMap.setOnCameraIdleListener(() -> {
             LatLng midLatLng = mMap.getCameraPosition().target;
-            String address = getAddress(mContext, midLatLng.latitude, midLatLng.longitude);
-            if (!StringHelper.isEmpty(address)) {
-                binding.routAddressView.txtFullAddress.setText(address);
-                binding.routAddressView.edtHouseNumber.setText(address);
-                manageAddressViewModel.getSaveAddressRequest().setAddress(address);
-            }
+            setAddress(mContext, midLatLng.latitude, midLatLng.longitude);
+//            if (!StringHelper.isEmpty(address)) {
+//                manageAddressViewModel.getSaveAddressRequest().setLatitude(String.valueOf(midLatLng.latitude));
+//                manageAddressViewModel.getSaveAddressRequest().setLongitude(String.valueOf(midLatLng.longitude));
+//                if (!isInit) {
+//                    binding.routAddressView.txtFullAddress.setText(address);
+//                    binding.routAddressView.edtHouseNumber.setText(address);
+//                    manageAddressViewModel.getSaveAddressRequest().setAddress(address);
+//                }else {
+//                    isInit = false;
+//                }
+//            }
         });
     }
 
-    public String getAddress(Context context, double latitude, double longitude) {
+    public void setAddress(Context context, double latitude, double longitude) {
         String address = "";
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         List<Address> addresses = null;
@@ -160,6 +187,18 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
             addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses != null && !addresses.isEmpty()) {
                 address = addresses.get(0).getAddressLine(0);
+
+                if (!StringHelper.isEmpty(address)) {
+                    if (!isInit) {
+                        binding.routAddressView.txtFullAddress.setText(address);
+                        binding.routAddressView.edtHouseNumber.setText(address);
+                        manageAddressViewModel.getSaveAddressRequest().setAddress(address);
+                        manageAddressViewModel.getSaveAddressRequest().setLatitude(String.valueOf(latitude));
+                        manageAddressViewModel.getSaveAddressRequest().setLongitude(String.valueOf(longitude));
+                    } else {
+                        isInit = false;
+                    }
+                }
 
                 if (!StringHelper.isEmpty(addresses.get(0).getSubLocality())) {
                     binding.routAddressView.txtShortAddress.setText(addresses.get(0).getSubLocality());
@@ -181,7 +220,7 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
             }
         } catch (IOException ignored) {
         }
-        return address;
+//        return address;
     }
 
     @Override
@@ -196,12 +235,9 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case AppConstant.IntentKey.LOCATION_SETTING_STATUS:
-                Log.e("test", "LOCATION_SETTING_STATUS");
                 if (resultCode == RESULT_CANCELED) {
-                    Log.e("test", "RESULT_CANCELED");
                     mLocationHelper.isGPSEnabled();
                 } else if (resultCode == RESULT_OK) {
-                    Log.e("test", "RESULT_OK");
                     startLocationUpdate();
                 }
                 break;
@@ -224,20 +260,27 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
     public void locationUpdate(Location location) {
         if (location != null) {
             mLocation = location;
-            setCurrentLocationPin();
+            if (manageAddressViewModel.getSaveAddressRequest().getId() != 0
+                    && !StringHelper.isEmpty(manageAddressViewModel.getSaveAddressRequest().getLatitude())
+                    && !StringHelper.isEmpty(manageAddressViewModel.getSaveAddressRequest().getLongitude())) {
+                setCurrentLocationPin(Double.parseDouble(manageAddressViewModel.getSaveAddressRequest().getLatitude())
+                        , Double.parseDouble(manageAddressViewModel.getSaveAddressRequest().getLongitude()));
+            } else {
+                isInit = false;
+                setCurrentLocationPin(mLocation.getLatitude(), mLocation.getLongitude());
+            }
+
             stopLocationUpdate();
         }
     }
 
-    public void setCurrentLocationPin() throws NumberFormatException {
-        if (mLocation != null) {
-            CameraPosition cPosition = new CameraPosition.Builder()
-                    .target(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()))
-                    .zoom(DEFAULT_ZOOM)
-                    .build();
-            if (mMap != null)
-                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cPosition));
-        }
+    public void setCurrentLocationPin(double latitude, double longitude) throws NumberFormatException {
+        CameraPosition cPosition = new CameraPosition.Builder()
+                .target(new LatLng(latitude, longitude))
+                .zoom(DEFAULT_ZOOM)
+                .build();
+        if (mMap != null)
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cPosition));
     }
 
     public Observer addressResourcesResponse() {
@@ -251,6 +294,27 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
                 }
                 if (response.isSuccess()) {
                     setAddressData(response);
+                } else {
+                    AppUtils.handleUnauthorized(mContext, response);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+    }
+
+    public Observer saveAddressResponse() {
+        return (Observer<BaseResponse>) response -> {
+            try {
+                if (response == null) {
+                    AlertDialogHelper.showDialog(mContext, null,
+                            mContext.getString(R.string.error_unknown), mContext.getString(R.string.ok),
+                            null, false, null, 0);
+                    return;
+                }
+                if (response.isSuccess()) {
+                    setResult(1);
+                    finish();
                 } else {
                     AppUtils.handleUnauthorized(mContext, response);
                 }
@@ -295,6 +359,56 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
                 binding.routAddressView.edtArea.setText(moduleInfo.getInfo().getName());
                 manageAddressViewModel.getSaveAddressRequest().setArea_id(moduleInfo.getInfo().getId());
             }
+        }
+    }
+
+    private boolean validate() {
+        boolean valid = true;
+        if (ValidationUtil.isEmptyEditText(manageAddressViewModel.getSaveAddressRequest().getName())) {
+            ToastHelper.error(mContext, getString(R.string.error_empty_name), Toast.LENGTH_LONG, false);
+            valid = false;
+            return valid;
+        }
+
+        if (ValidationUtil.isEmptyEditText(manageAddressViewModel.getSaveAddressRequest().getPhone())) {
+            ToastHelper.error(mContext, getString(R.string.error_empty_phone), Toast.LENGTH_LONG, false);
+            valid = false;
+            return valid;
+        }
+
+        if (ValidationUtil.isEmptyEditText(manageAddressViewModel.getSaveAddressRequest().getAddress())) {
+            ToastHelper.error(mContext, getString(R.string.error_empty_flat_house_number), Toast.LENGTH_LONG, false);
+            valid = false;
+            return valid;
+        }
+
+        if (ValidationUtil.isEmptyEditText(manageAddressViewModel.getSaveAddressRequest().getStreet())) {
+            ToastHelper.error(mContext, getString(R.string.error_empty_street), Toast.LENGTH_LONG, false);
+            valid = false;
+            return valid;
+        }
+
+        if (ValidationUtil.isEmptyEditText(manageAddressViewModel.getSaveAddressRequest().getLandmark())) {
+            ToastHelper.error(mContext, getString(R.string.error_empty_landmark), Toast.LENGTH_LONG, false);
+            valid = false;
+            return valid;
+        }
+
+        if (manageAddressViewModel.getSaveAddressRequest().getArea_id() == 0) {
+            ToastHelper.error(mContext, getString(R.string.error_empty_area), Toast.LENGTH_LONG, false);
+            valid = false;
+            return valid;
+        }
+
+        return valid;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (binding.slidingLayout.getPanelState().toString().equals(AppConstant.DrawerState.EXPANDED)) {
+            binding.slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+        } else {
+            finish();
         }
     }
 

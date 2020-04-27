@@ -9,6 +9,7 @@
     <color name="colorDivider">#ebe9e6</color>
     <color name="colorPrimaryText">#0b0b0b</color>
     <color name="colorSecondaryText">#5a5a5a</color>
+    <color name="colorSecondaryLightText">#9F9F9F</color>
     <color name="colorYellowDark">#dc9e51</color>
     <color name="colorNavigationHeaderBg">#ebe9e6</color>
     <color name="colorErrorColor">#e50914</color>

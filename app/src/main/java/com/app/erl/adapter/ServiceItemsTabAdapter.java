@@ -50,7 +50,7 @@ public class ServiceItemsTabAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             itemViewHolder.binding.txtTitle.setTextColor(mContext.getResources().getColor(R.color.colorPrimaryText));
         }
 
-        itemViewHolder.binding.txtTitle.setText(String.format(mContext.getString(R.string.lbl_display_tab_name_and_count), info.getName(), info.getService_item().size()));
+        itemViewHolder.binding.txtTitle.setText(String.format(mContext.getString(R.string.lbl_display_tab_name_and_count), info.getName(), info.getCount_order_items()));
         itemViewHolder.binding.routMainView.setOnClickListener(v -> {
             if (listener != null) {
                 setPosition(position);
@@ -80,6 +80,11 @@ public class ServiceItemsTabAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     public void refreshAdapter(int position) {
         this.position = position;
+        notifyDataSetChanged();
+    }
+
+    public void refreshTabCount(int position,int count) {
+        list.get(position).setCount_order_items(count);
         notifyDataSetChanged();
     }
 

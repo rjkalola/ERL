@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.app.erl.viewModel.DashBoardViewModel;
 import com.app.erl.viewModel.ManageAddressViewModel;
+import com.app.erl.viewModel.ManageOrderViewModel;
 import com.app.erl.viewModel.UserAuthenticationViewModel;
 
 public class LoginViewModelFactory extends ViewModelProvider.NewInstanceFactory {
@@ -24,20 +25,9 @@ public class LoginViewModelFactory extends ViewModelProvider.NewInstanceFactory 
             return (T) new DashBoardViewModel(resourceProvider);
         }else if (modelClass.isAssignableFrom(ManageAddressViewModel.class)) {
             return (T) new ManageAddressViewModel(resourceProvider);
+        }else if (modelClass.isAssignableFrom(ManageOrderViewModel.class)) {
+            return (T) new ManageOrderViewModel(resourceProvider);
         }
-//        else if (modelClass.isAssignableFrom(ManageProjectViewModel.class)) {
-//            return (T) new ManageProjectViewModel(resourceProvider);
-//        }else if (modelClass.isAssignableFrom(ManageProfileViewModel.class)) {
-//            return (T) new ManageProfileViewModel(resourceProvider);
-//        }else if (modelClass.isAssignableFrom(DashBoardViewModel.class)) {
-//            return (T) new DashBoardViewModel(resourceProvider);
-//        }else if (modelClass.isAssignableFrom(FilterModuleViewModel.class)) {
-//            return (T) new FilterModuleViewModel(resourceProvider);
-//        }else if (modelClass.isAssignableFrom(HealthSafetyViewModel.class)) {
-//            return (T) new HealthSafetyViewModel(resourceProvider);
-//        }else if (modelClass.isAssignableFrom(GoodsRequestViewModel.class)) {
-//            return (T) new GoodsRequestViewModel(resourceProvider);
-//        }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }
 }
