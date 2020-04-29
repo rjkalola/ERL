@@ -55,7 +55,6 @@
                             android:layout_marginStart="@dimen/_12sdp"
                             android:layout_toEndOf="@+id/imgUser"
                             android:fontFamily="@font/montserrat_medium"
-                            android:text="Ravi Kalola"
                             android:textColor="@color/colorPrimaryText"
                             android:textSize="@dimen/_14ssp" />
 

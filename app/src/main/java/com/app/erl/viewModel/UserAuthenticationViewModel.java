@@ -7,15 +7,21 @@ import com.app.erl.model.entity.request.LoginRequest;
 import com.app.erl.model.entity.request.SignUpRequest;
 import com.app.erl.model.entity.response.BaseResponse;
 import com.app.erl.model.entity.response.ForgotPasswordResponse;
+import com.app.erl.model.entity.response.OrderResourcesResponse;
+import com.app.erl.model.entity.response.ProfileResponse;
 import com.app.erl.model.entity.response.UserResponse;
 import com.app.erl.model.state.UserAuthenticationServiceInterface;
 import com.app.erl.network.RXRetroManager;
 import com.app.erl.network.RetrofitException;
 import com.app.erl.util.ResourceProvider;
+import com.app.utilities.utils.StringHelper;
+
+import java.io.File;
 
 import javax.inject.Inject;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class UserAuthenticationViewModel extends BaseViewModel {
@@ -28,6 +34,8 @@ public class UserAuthenticationViewModel extends BaseViewModel {
     private MutableLiveData<UserResponse> mUserResponse;
     private MutableLiveData<ForgotPasswordResponse> mForgotPasswordResponse;
     private MutableLiveData<BaseResponse> mBaseResponse;
+    private MutableLiveData<ProfileResponse> mProfileResponse;
+    private MutableLiveData<ProfileResponse> mSaveProfileResponse;
 
     public UserAuthenticationViewModel(ResourceProvider resourceProvider) {
         ERLApp.getServiceComponent().inject(this);
@@ -187,6 +195,65 @@ public class UserAuthenticationViewModel extends BaseViewModel {
         }.rxSingleCall(userAuthenticationServiceInterface.resetPassword(userIdBody, passwordBody));
     }
 
+    public void getProfileRequest() {
+        if (view != null) {
+            view.showProgress();
+        }
+        new RXRetroManager<ProfileResponse>() {
+            @Override
+            protected void onSuccess(ProfileResponse response) {
+                if (view != null) {
+                    mProfileResponse.postValue(response);
+                    view.hideProgress();
+                }
+            }
+
+            @Override
+            protected void onFailure(RetrofitException retrofitException, String errorCode) {
+                super.onFailure(retrofitException, errorCode);
+                if (view != null) {
+                    view.showApiError(retrofitException, errorCode);
+                    view.hideProgress();
+                }
+            }
+        }.rxSingleCall(userAuthenticationServiceInterface.getProfile());
+    }
+
+    public void saveProfile(ProfileResponse info) {
+        RequestBody nameBody = RequestBody.create(MediaType.parse("text/plain"), info.getName());
+        RequestBody emailBody = RequestBody.create(MediaType.parse("text/plain"), info.getEmail());
+        RequestBody phoneBody = RequestBody.create(MediaType.parse("text/plain"), info.getPhone());
+
+        MultipartBody.Part imageFileBody = null;
+        if (!StringHelper.isEmpty(info.getImage()) && !info.getImage().startsWith("http")) {
+            File file = new File(info.getImage());
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            imageFileBody = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
+        }
+
+        if (view != null) {
+            view.showProgress();
+        }
+        new RXRetroManager<ProfileResponse>() {
+            @Override
+            protected void onSuccess(ProfileResponse response) {
+                if (view != null) {
+                    mSaveProfileResponse.postValue(response);
+                    view.hideProgress();
+                }
+            }
+
+            @Override
+            protected void onFailure(RetrofitException retrofitException, String errorCode) {
+                super.onFailure(retrofitException, errorCode);
+                if (view != null) {
+                    view.showApiError(retrofitException, errorCode);
+                    view.hideProgress();
+                }
+            }
+        }.rxSingleCall(userAuthenticationServiceInterface.saveProfile(nameBody, emailBody, phoneBody, imageFileBody));
+    }
+
     public MutableLiveData<BaseResponse> mBaseResponse() {
         if (mBaseResponse == null) {
             mBaseResponse = new MutableLiveData<>();
@@ -206,6 +273,20 @@ public class UserAuthenticationViewModel extends BaseViewModel {
             mForgotPasswordResponse = new MutableLiveData<>();
         }
         return mForgotPasswordResponse;
+    }
+
+    public MutableLiveData<ProfileResponse> mProfileResponse() {
+        if (mProfileResponse == null) {
+            mProfileResponse = new MutableLiveData<>();
+        }
+        return mProfileResponse;
+    }
+
+    public MutableLiveData<ProfileResponse> mSaveProfileResponse() {
+        if (mSaveProfileResponse == null) {
+            mSaveProfileResponse = new MutableLiveData<>();
+        }
+        return mSaveProfileResponse;
     }
 
     public LoginRequest getLoginRequest() {

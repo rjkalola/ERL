@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.MergeCursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -17,9 +18,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
+import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
@@ -618,5 +621,28 @@ public final class AppUtils {
         }
         return currentLocation;
     }
+
+    public static int getAlbumCount(Context c, String albumName) {
+        Uri uriExternal = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        Uri uriInternal = MediaStore.Images.Media.INTERNAL_CONTENT_URI;
+        String[] projection = {MediaStore.MediaColumns.DATA,
+                MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.MediaColumns.DATE_MODIFIED};
+        Cursor cursorExternal = c.getContentResolver().query(uriExternal, projection, "bucket_display_name = \"" + albumName + "\"", null, null);
+        Cursor cursorInternal = c.getContentResolver().query(uriInternal, projection, "bucket_display_name = \"" + albumName + "\"", null, null);
+        Cursor cursor = new MergeCursor(new Cursor[]{cursorExternal, cursorInternal});
+        return cursor.getCount();
+    }
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
 }

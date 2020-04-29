@@ -5,11 +5,15 @@ import com.app.erl.model.entity.request.LoginRequest;
 import com.app.erl.model.entity.request.SignUpRequest;
 import com.app.erl.model.entity.response.BaseResponse;
 import com.app.erl.model.entity.response.ForgotPasswordResponse;
+import com.app.erl.model.entity.response.OrderResourcesResponse;
+import com.app.erl.model.entity.response.ProfileResponse;
 import com.app.erl.model.entity.response.UserResponse;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -36,4 +40,11 @@ public interface UserAuthenticationServiceInterface {
     @Multipart
     @POST("reset-password")
     Observable<BaseResponse> resetPassword(@Part("user_id") RequestBody user_id, @Part("password") RequestBody code);
+
+    @GET("get-profile")
+    Observable<ProfileResponse> getProfile();
+
+    @Multipart
+    @POST("save-profile")
+    Observable<ProfileResponse> saveProfile(@Part("name") RequestBody name, @Part("email") RequestBody email, @Part("phone") RequestBody phone,@Part MultipartBody.Part image);
 }

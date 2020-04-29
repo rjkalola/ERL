@@ -135,7 +135,7 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
                         && getOrderData().getPickup_hours().size() > 0) {
                     showSelectTimeDialog(AppConstant.DialogIdentifier.SELECT_TIME, v);
                 } else {
-                    ToastHelper.error(mContext, getString(R.string.msg_select_address_first), Toast.LENGTH_SHORT, false);
+                    ToastHelper.error(mContext, getString(R.string.msg_currently_no_service_available), Toast.LENGTH_SHORT, false);
                 }
                 break;
             case R.id.txtChangeAddress:

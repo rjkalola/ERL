@@ -36,18 +36,20 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/VerySmallFontTextView"
-                        android:fontFamily="@font/montserrat_medium"
+                        style="@style/SmallFontTextView"
+                        android:fontFamily="@font/montserrat_semi_bold"
                         android:text="@string/lbl_order_number"
-                        android:textColor="@color/colorPrimaryText" />
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_11ssp" />
 
                     <TextView
                         android:id="@+id/txtOrderNUmber"
-                        style="@style/VerySmallFontTextView"
+                        style="@style/SmallFontTextView"
                         android:layout_marginStart="@dimen/_4sdp"
                         android:fontFamily="@font/montserrat_regular"
                         android:text="@{info.order_no}"
-                        android:textColor="@color/colorSecondaryText" />
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_11ssp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -65,18 +67,20 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/VerySmallFontTextView"
-                        android:fontFamily="@font/montserrat_medium"
+                        style="@style/SmallFontTextView"
+                        android:fontFamily="@font/montserrat_semi_bold"
                         android:text="@string/lbl_status"
-                        android:textColor="@color/colorPrimaryText" />
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_11ssp" />
 
                     <TextView
                         android:id="@+id/txtStatus"
-                        style="@style/VerySmallFontTextView"
+                        style="@style/SmallFontTextView"
                         android:layout_marginStart="@dimen/_4sdp"
                         android:fontFamily="@font/montserrat_regular"
                         android:text="@{info.status}"
-                        android:textColor="@color/colorSecondaryText" />
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_11ssp" />
 
                 </LinearLayout>
 
@@ -103,18 +107,20 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/VerySmallFontTextView"
-                        android:fontFamily="@font/montserrat_medium"
+                        style="@style/SmallFontTextView"
+                        android:fontFamily="@font/montserrat_semi_bold"
                         android:text="@string/lbl_date"
-                        android:textColor="@color/colorPrimaryText" />
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_11ssp" />
 
                     <TextView
                         android:id="@+id/txtDate"
-                        style="@style/VerySmallFontTextView"
+                        style="@style/SmallFontTextView"
                         android:layout_marginStart="@dimen/_4sdp"
                         android:fontFamily="@font/montserrat_regular"
                         android:text="@{info.pickup_date}"
-                        android:textColor="@color/colorSecondaryText" />
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_11ssp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -132,17 +138,19 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/VerySmallFontTextView"
-                        android:fontFamily="@font/montserrat_medium"
+                        style="@style/SmallFontTextView"
+                        android:fontFamily="@font/montserrat_semi_bold"
                         android:text="@string/lbl_price"
-                        android:textColor="@color/colorPrimaryText" />
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_11ssp" />
 
                     <TextView
                         android:id="@+id/txtPrice"
-                        style="@style/VerySmallFontTextView"
+                        style="@style/SmallFontTextView"
                         android:layout_marginStart="@dimen/_4sdp"
                         android:fontFamily="@font/montserrat_regular"
-                        android:textColor="@color/colorSecondaryText" />
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_11ssp" />
 
                 </LinearLayout>
 
@@ -169,17 +177,19 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/VerySmallFontTextView"
-                        android:fontFamily="@font/montserrat_medium"
+                        style="@style/SmallFontTextView"
+                        android:fontFamily="@font/montserrat_semi_bold"
                         android:text="@string/lbl_number_of_paces"
-                        android:textColor="@color/colorPrimaryText" />
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_11ssp" />
 
                     <TextView
                         android:id="@+id/txtNumberOfPaces"
-                        style="@style/VerySmallFontTextView"
+                        style="@style/SmallFontTextView"
                         android:layout_marginStart="@dimen/_4sdp"
                         android:fontFamily="@font/montserrat_regular"
-                        android:textColor="@color/colorSecondaryText" />
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_11ssp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -198,22 +208,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/VerySmallFontTextView"
-                        android:fontFamily="@font/montserrat_medium"
+                        style="@style/SmallFontTextView"
+                        android:fontFamily="@font/montserrat_semi_bold"
                         android:text="@string/lbl_view_more"
-                        android:textColor="@color/colorYellowDark" />
+                        android:textColor="@color/colorYellowDark"
+                        android:textSize="@dimen/_11ssp" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="@dimen/_12sdp"
                         android:layout_height="@dimen/_12sdp"
                         android:layout_marginStart="@dimen/_2sdp"
+                        android:textSize="@dimen/_11ssp"
                         android:tint="@color/colorYellowDark"
                         app:srcCompat="@drawable/ic_arrow_forward" />
 
                 </LinearLayout>
-
             </LinearLayout>
-
         </LinearLayout>
 
         <View

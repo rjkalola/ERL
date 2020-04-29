@@ -1,6 +1,7 @@
 package com.app.erl.view.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -20,6 +21,7 @@ import com.app.erl.callback.SelectItemListener;
 import com.app.erl.databinding.ActivityDashboardBinding;
 import com.app.erl.databinding.NavHeaderDashboardBinding;
 import com.app.erl.model.entity.response.ClientDashBoardResponse;
+import com.app.erl.model.entity.response.User;
 import com.app.erl.util.AppConstant;
 import com.app.erl.util.AppUtils;
 import com.app.erl.util.LoginViewModelFactory;
@@ -27,6 +29,9 @@ import com.app.erl.util.ResourceProvider;
 import com.app.erl.viewModel.DashBoardViewModel;
 import com.app.utilities.callbacks.DialogButtonClickListener;
 import com.app.utilities.utils.AlertDialogHelper;
+import com.app.utilities.utils.Constant;
+import com.app.utilities.utils.GlideUtil;
+import com.app.utilities.utils.StringHelper;
 
 import org.parceler.Parcels;
 
@@ -51,6 +56,7 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
 
         dashBoardViewModel.getClientDashboardRequest();
         setNavigationItemAdapter();
+        setUserDetails();
     }
 
     @Override
@@ -107,9 +113,9 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onSelectItem(int position, String item) {
         if (item.equals(getString(R.string.my_profile))) {
-
+            moveActivityForResult(mContext, MyProfileActivity.class, false, false, AppConstant.IntentKey.VIEW_PROFILE, null);
         } else if (item.equals(getString(R.string.my_order))) {
-
+            moveActivity(mContext, MyOrderListActivity.class, false, false, null);
         } else if (item.equals(getString(R.string.logout))) {
             AlertDialogHelper.showDialog(mContext, "", getString(R.string.logout_msg), getString(R.string.yes), getString(R.string.no), false, this, AppConstant.DialogIdentifier.LOGOUT);
         }
@@ -120,7 +126,7 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
         Bundle bundle = new Bundle();
         bundle.putInt(AppConstant.IntentKey.POSITION, position);
         bundle.putParcelable(AppConstant.IntentKey.DASHBOARD_DATA, Parcels.wrap(getDashBoardData()));
-        moveActivity(mContext, SelectOrderItemsActivity.class, false, false,bundle );
+        moveActivity(mContext, SelectOrderItemsActivity.class, false, false, bundle);
     }
 
     @Override
@@ -139,6 +145,30 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onSelectItem(int position, int action) {
 
+    }
+
+    public void setUserDetails() {
+        User user = AppUtils.getUserPrefrence(mContext);
+        if (user != null) {
+            binding.txtUserName.setText(user.getName());
+            if (!StringHelper.isEmpty(user.getImage())) {
+                GlideUtil.loadImageUsingGlideTransformation(user.getImage(), binding.imgUser, Constant.TransformationType.CIRCLECROP_TRANSFORM, null, null, Constant.ImageScaleType.CENTER_CROP, 0, 0, "", 0, null);
+            }
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case AppConstant.IntentKey.VIEW_PROFILE:
+                if (resultCode == 1)
+                    setUserDetails();
+                    break;
+            default:
+                break;
+        }
     }
 
     public ClientDashBoardResponse getDashBoardData() {

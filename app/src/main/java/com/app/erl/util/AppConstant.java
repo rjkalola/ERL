@@ -23,6 +23,7 @@ public final class AppConstant {
         public static final int SELECT_AREA = 5;
         public static final int SELECT_TIME = 6;
         public static final int DELETE_ADDRESS = 7;
+        public static final int CANCEL_ORDER = 8;
     }
 
     public static final class IntentKey {
@@ -33,10 +34,14 @@ public final class AppConstant {
         public static final String DASHBOARD_DATA = "DASHBOARD_DATA";
         public static final String SERVICE_ITEMS_DATA = "SERVICE_ITEMS_DATA";
         public static final String ADDRESS_DATA = "ADDRESS_DATA";
+        public static final String ORDER_DATA = "ORDER_DATA";
         public static final int RC_LOCATION_PERM = 1;
         public static final int LOCATION_SETTING_STATUS = 2;
         public static final int CHANGE_ADDRESS = 3;
         public static final int ADD_NEW_ADDRESS = 4;
+        public static final int VIEW_ORDER = 5;
+        public static final int VIEW_PROFILE = 6;
+        public static final int SELECT_IMAGE_FROM_GALLERY = 7;
     }
 
     public static final class AppLanguage {
@@ -64,6 +69,9 @@ public final class AppConstant {
         public static final int SELECT_ADDRESS = 1;
         public static final int DELETE_ADDRESS = 2;
         public static final int EDIT_ADDRESS = 3;
+        public static final int VIEW_ORDER = 4;
+        public static final int SELECT_ALBUM = 5;
+        public static final int SELECT_PHOTO = 6;
     }
 
     public static final class DrawerState {

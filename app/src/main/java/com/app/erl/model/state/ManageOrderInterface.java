@@ -26,4 +26,9 @@ public interface ManageOrderInterface {
     @POST("client-orders")
     Observable<OrderListResponse> clientOrders(@Part("limit") int limit, @Part("offset") int offset);
 
+    @Multipart
+    @POST("client-cancel-order")
+    Observable<BaseResponse> clientCancelOrders(@Part("id") int id);
+
+
 }

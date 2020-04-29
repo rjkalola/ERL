@@ -3,12 +3,10 @@ package com.app.erl.viewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.app.erl.ERLApp;
-import com.app.erl.model.entity.request.SaveAddressRequest;
 import com.app.erl.model.entity.request.SaveOrderRequest;
-import com.app.erl.model.entity.response.AddressResourcesResponse;
 import com.app.erl.model.entity.response.BaseResponse;
+import com.app.erl.model.entity.response.OrderListResponse;
 import com.app.erl.model.entity.response.OrderResourcesResponse;
-import com.app.erl.model.state.ManageAddressInterface;
 import com.app.erl.model.state.ManageOrderInterface;
 import com.app.erl.network.RXRetroManager;
 import com.app.erl.network.RetrofitException;
@@ -22,6 +20,8 @@ public class ManageOrderViewModel extends BaseViewModel {
 
     private MutableLiveData<OrderResourcesResponse> orderResourcesResponse;
     private MutableLiveData<BaseResponse> mBaseResponse;
+    private MutableLiveData<OrderListResponse> mOrderListResponse;
+
     private SaveOrderRequest saveOrderRequest;
 
     public ManageOrderViewModel(ResourceProvider resourceProvider) {
@@ -77,6 +77,54 @@ public class ManageOrderViewModel extends BaseViewModel {
         }.rxSingleCall(manageOrderInterface.placeOrder(saveOrderRequest));
     }
 
+    public void getClientOrders(int limit, int offset, boolean isProgress) {
+        if (view != null && isProgress) {
+            view.showProgress();
+        }
+        new RXRetroManager<OrderListResponse>() {
+            @Override
+            protected void onSuccess(OrderListResponse response) {
+                if (view != null) {
+                    mOrderListResponse.postValue(response);
+                    view.hideProgress();
+                }
+            }
+
+            @Override
+            protected void onFailure(RetrofitException retrofitException, String errorCode) {
+                super.onFailure(retrofitException, errorCode);
+                if (view != null) {
+                    view.showApiError(retrofitException, errorCode);
+                    view.hideProgress();
+                }
+            }
+        }.rxSingleCall(manageOrderInterface.clientOrders(limit, offset));
+    }
+
+    public void clientCancelOrders(int id) {
+        if (view != null) {
+            view.showProgress();
+        }
+        new RXRetroManager<BaseResponse>() {
+            @Override
+            protected void onSuccess(BaseResponse response) {
+                if (view != null) {
+                    mBaseResponse.postValue(response);
+                    view.hideProgress();
+                }
+            }
+
+            @Override
+            protected void onFailure(RetrofitException retrofitException, String errorCode) {
+                super.onFailure(retrofitException, errorCode);
+                if (view != null) {
+                    view.showApiError(retrofitException, errorCode);
+                    view.hideProgress();
+                }
+            }
+        }.rxSingleCall(manageOrderInterface.clientCancelOrders(id));
+    }
+
     public MutableLiveData<BaseResponse> mBaseResponse() {
         if (mBaseResponse == null) {
             mBaseResponse = new MutableLiveData<>();
@@ -89,6 +137,13 @@ public class ManageOrderViewModel extends BaseViewModel {
             orderResourcesResponse = new MutableLiveData<>();
         }
         return orderResourcesResponse;
+    }
+
+    public MutableLiveData<OrderListResponse> orderListResponse() {
+        if (mOrderListResponse == null) {
+            mOrderListResponse = new MutableLiveData<>();
+        }
+        return mOrderListResponse;
     }
 
     public SaveOrderRequest getSaveOrderRequest() {
