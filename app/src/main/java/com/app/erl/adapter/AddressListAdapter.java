@@ -1,11 +1,9 @@
 package com.app.erl.adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -77,21 +75,21 @@ public class AddressListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public void showManageAddressMenu() {
-        AlertDialog.Builder builderSingle = new AlertDialog.Builder(mContext);
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_selectable_list_item);
-        arrayAdapter.add(mContext.getString(R.string.edit));
-        arrayAdapter.add(mContext.getString(R.string.delete));
-
-        builderSingle.setAdapter(arrayAdapter, (dialog, which) -> {
-            if (listener != null) {
-                if (which == 0) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        String[] items = {mContext.getString(R.string.edit), mContext.getString(R.string.delete)};
+        builder.setItems(items, (dialog, which) -> {
+            switch (which) {
+                case 0:
                     listener.onSelectItem(position, AppConstant.Action.EDIT_ADDRESS);
-                } else if (which == 1) {
+                    break;
+                case 1:
                     listener.onSelectItem(position, AppConstant.Action.DELETE_ADDRESS);
-                }
+                    break;
             }
         });
-        builderSingle.show();
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
     public int getPosition() {

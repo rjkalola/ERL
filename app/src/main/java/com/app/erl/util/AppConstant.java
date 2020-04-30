@@ -35,13 +35,25 @@ public final class AppConstant {
         public static final String SERVICE_ITEMS_DATA = "SERVICE_ITEMS_DATA";
         public static final String ADDRESS_DATA = "ADDRESS_DATA";
         public static final String ORDER_DATA = "ORDER_DATA";
+        public static final String IMAGE_PATH = "IMAGE_PATH";
+        public static final String IMAGE_URI = "image_uri";
+        public static final String CROP_RATIO_X = "crop_ratio_X";
+        public static final String CROP_RATIO_Y = "crop_ratio_Y";
+        public static final String FILE_EXTENSION = "file_extension";
+
+
+
         public static final int RC_LOCATION_PERM = 1;
         public static final int LOCATION_SETTING_STATUS = 2;
         public static final int CHANGE_ADDRESS = 3;
         public static final int ADD_NEW_ADDRESS = 4;
         public static final int VIEW_ORDER = 5;
         public static final int VIEW_PROFILE = 6;
-        public static final int SELECT_IMAGE_FROM_GALLERY = 7;
+        public static final int REQUEST_CROP_IMAGE = 7;
+        public static final int REQUEST_GALLERY = 8;
+        public static final int REQUEST_CAMERA = 9;
+        public static final int REQUEST_CAMERA_KITKAT = 10;
+        public static final int EXTERNAL_STORAGE_PERMISSION = 11;
     }
 
     public static final class AppLanguage {

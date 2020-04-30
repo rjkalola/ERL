@@ -177,6 +177,59 @@ public class GlideUtil {
 
     }
 
+    public static void loadRoundedImageFromFile(ImageView view, File fileName, String transformation, Drawable placeHolder, final Drawable errorDrawable, int scaleType, int corner, int margin, String color, int border, final ImageLoadingListener imageLoadingListener) {
+        SetScaleType(scaleType);
+        switch (transformation) {
+            case Constant.TransformationType.CENTERCROP_TRANSFORM:
+                GlideApp.with(view.getContext())
+                        .load(Uri.fromFile(fileName))
+                        .apply(RequestOptions.centerCropTransform()) // center crop image
+                        .placeholder(placeHolder)
+                        .error(errorDrawable)
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                if (imageLoadingListener != null) imageLoadingListener.onFailed(e);
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                if (imageLoadingListener != null)
+                                    imageLoadingListener.onLoaded(null, errorDrawable);
+                                return false;
+                            }
+                        })
+                        .into(view);
+                break;
+
+            case Constant.TransformationType.CIRCLECROP_TRANSFORM:
+                GlideApp.with(view.getContext())
+                        .load(Uri.fromFile(fileName))
+                        .apply(RequestOptions.circleCropTransform()) // circle crop image
+                        .placeholder(placeHolder)
+                        .error(errorDrawable)
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                if (imageLoadingListener != null) imageLoadingListener.onFailed(e);
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                if (imageLoadingListener != null)
+                                    imageLoadingListener.onLoaded(null, errorDrawable);
+                                return false;
+                            }
+                        })
+                        .into(view);
+                break;
+            default:
+                break;
+        }
+    }
+
     public static void loadGifImageFromFile(ImageView imageView, int file, Drawable placeHolder,
                                          Drawable errorDrawable, int scaleType, final ImageLoadingListener imageLoadingListener) {
         SetScaleType(scaleType);

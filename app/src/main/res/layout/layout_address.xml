@@ -2,15 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <!--    - Name ( Fetch by Deafult from Profile, user can edit name)
-          - mobile no ( Fetch by Deafult from Profile, user can edit number)
-          - Flat / House / Floor / Building Name and Number
-          - Street
-          - Landmark
-          - City (From Dropdown - city list from DB)
-          - Area (From Dropdown - area list from DB)-->
-
     <data>
 
         <import type="android.view.View" />
@@ -118,8 +109,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_10sdp"
             android:hint="@string/hint_house_number"
-            android:imeOptions="actionNext"
-            android:inputType="text"
             android:text="@={manageAddressViewModel.saveAddressRequest.address}"
             app:met_errorColor="@color/colorErrorColor"
             app:met_floatingLabel="normal"

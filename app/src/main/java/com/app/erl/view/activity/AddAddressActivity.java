@@ -294,6 +294,14 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
                 }
                 if (response.isSuccess()) {
                     setAddressData(response);
+                    if(manageAddressViewModel.getSaveAddressRequest().getCity_id() > 0){
+                        listArea = new ArrayList<>();
+                        for (int i = 0; i < getAddressData().getArea().size(); i++) {
+                            if (getAddressData().getArea().get(i).getCity_id() == manageAddressViewModel.getSaveAddressRequest().getCity_id()) {
+                                listArea.add(getAddressData().getArea().get(i));
+                            }
+                        }
+                    }
                 } else {
                     AppUtils.handleUnauthorized(mContext, response);
                 }
