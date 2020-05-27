@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/routPagerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.app.erl.util.OfferImageViewByWidth
+                        android:id="@+id/imgOfferSized"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.app.erl.util.HeightWrappingViewPager
+                        android:id="@+id/vpOffers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/imgOfferSized"
+                        android:layout_alignBottom="@+id/imgOfferSized"
+                        android:minHeight="@dimen/_200sdp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvDots"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/vpOffers"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/_10sdp" />
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="@dimen/_42sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_30ssp"
+                    android:background="@drawable/img_dashboard_button_background"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:layout_marginStart="@dimen/_22sdp"
+                        android:src="@drawable/ic_dashboard_place_order" />
+
+                    <TextView
+                        style="@style/SmallFontTextView"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:fontFamily="@font/montserrat_semi_bold"
+                        android:text="@string/lbl_place_order"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_11ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="@dimen/_42sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16ssp"
+                    android:background="@drawable/img_dashboard_button_background"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:layout_marginStart="@dimen/_22sdp"
+                        android:src="@drawable/ic_dashboard_store_locator" />
+
+                    <TextView
+                        style="@style/SmallFontTextView"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:fontFamily="@font/montserrat_semi_bold"
+                        android:text="@string/lbl_store_locator"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_11ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="@dimen/_42sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16ssp"
+                    android:background="@drawable/img_dashboard_button_background"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:layout_marginStart="@dimen/_22sdp"
+                        android:src="@drawable/ic_dashboard_live_support" />
+
+                    <TextView
+                        style="@style/SmallFontTextView"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:fontFamily="@font/montserrat_semi_bold"
+                        android:text="@string/lbl_live_support"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_11ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="@dimen/_42sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16ssp"
+                    android:background="@drawable/img_dashboard_button_background"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:layout_marginStart="@dimen/_22sdp"
+                        android:src="@drawable/ic_dashboard_contact_us" />
+
+                    <TextView
+                        style="@style/SmallFontTextView"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:fontFamily="@font/montserrat_semi_bold"
+                        android:text="@string/lbl_contact_us"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_11ssp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</layout>

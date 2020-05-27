@@ -14,5 +14,9 @@
     <color name="colorNavigationHeaderBg">#ebe9e6</color>
     <color name="colorErrorColor">#e50914</color>
     <color name="colorViewBg">#ebe9e6</color>
+    <color name="colorHint">#9d9d9d</color>
+
+    <color name="colorActiveHourModule">#dc9e51</color>
+    <color name="colorInActiveHourModule">#faf5ef</color>
 
 </resources>

@@ -162,6 +162,21 @@
     <string name="error_empty_order_time">Please select time</string>
     <string name="error_empty_address">Please select address</string>
     <string name="loading_more">Loading more&#8230;</string>
+    <string name="lbl_home">Home</string>
+    <string name="lbl_price_list">Price List</string>
+    <string name="lbl_wallet">Wallet</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="lbl_place_order">Place Order</string>
+    <string name="lbl_store_locator">Store Locator</string>
+    <string name="lbl_live_support">Live Support</string>
+    <string name="lbl_contact_us">Contact us</string>
+    <string name="lbl_select_service">Select Service</string>
+    <string name="lbl_48_hours">48\nHours</string>
+    <string name="lbl_24_hours">24\nHours</string>
+    <string name="lbl_5_hours">5\nHours</string>
+    <string name="lbl_skip_item_lazy_order">Skip Item Lazy Order</string>
+    <!--        <string name=""></string>-->
 
     <!--    <string name=""></string>-->
 

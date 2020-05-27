@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +18,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
+import com.app.erl.R;
 import com.app.erl.callback.ViewListener;
 import com.app.erl.network.RetrofitException;
 import com.app.erl.util.AppUtils;
@@ -72,21 +75,21 @@ public class BaseActivity extends AppCompatActivity implements ViewListener {
 
 
     public void setupToolbar(final String text, boolean isShowBack) {
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        TextView title = findViewById(R.id.toolBarNavigation);
-//        if (toolbar != null) {
-//            setSupportActionBar(toolbar);
-//            if (getSupportActionBar() != null) {
-//                //getSupportActionBar().setTitle(toolbarTitle.toUpperCase());
-//                getSupportActionBar().setDisplayShowTitleEnabled(false);
-//                title.setText(text);
-//            }
-//
-//            if (isShowBack) {
-//                toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
-//                toolbar.setNavigationOnClickListener(v -> onBackPressed());
-//            }
-//        }
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView title = findViewById(R.id.toolBarNavigation);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            if (getSupportActionBar() != null) {
+                //getSupportActionBar().setTitle(toolbarTitle.toUpperCase());
+                getSupportActionBar().setDisplayShowTitleEnabled(false);
+                title.setText(text);
+            }
+
+            if (isShowBack) {
+                toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+                toolbar.setNavigationOnClickListener(v -> onBackPressed());
+            }
+        }
     }
 
     public void setFullScreen() {
