@@ -15,6 +15,8 @@ import com.app.erl.R;
 import com.app.erl.adapter.ServiceItemsListAdapter;
 import com.app.erl.callback.SelectItemListener;
 import com.app.erl.databinding.FragmentOrderItemsBinding;
+import com.app.erl.model.entity.info.ItemInfo;
+import com.app.erl.model.entity.info.ServiceInfo;
 import com.app.erl.model.entity.info.ServiceItemInfo;
 import com.app.erl.util.AppConstant;
 import com.app.erl.view.activity.SelectOrderItemsActivity;
@@ -41,16 +43,14 @@ public class OrderItemsTabFragment extends BaseFragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, LAYOUT_ACTIVITY, container, false);
         mContext = getActivity();
-
         getBundleData();
-
         return binding.getRoot();
     }
 
     private void getBundleData() {
         if (getArguments() != null) {
             if (Parcels.unwrap(getArguments().getParcelable(AppConstant.IntentKey.SERVICE_ITEMS_DATA)) != null) {
-                List<ServiceItemInfo> list = Parcels.unwrap(getArguments().getParcelable(AppConstant.IntentKey.SERVICE_ITEMS_DATA));
+                List<ItemInfo> list = Parcels.unwrap(getArguments().getParcelable(AppConstant.IntentKey.SERVICE_ITEMS_DATA));
                 Log.e("test", "Fragment Size:" + list.size());
                 setAdapter(list);
             }
@@ -64,7 +64,7 @@ public class OrderItemsTabFragment extends BaseFragment implements View.OnClickL
         }
     }
 
-    private void setAdapter(List<ServiceItemInfo> list) {
+    private void setAdapter(List<ItemInfo> list) {
         if (list != null && list.size() > 0) {
             binding.rvOrderItemsList.setVisibility(View.VISIBLE);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
@@ -80,6 +80,6 @@ public class OrderItemsTabFragment extends BaseFragment implements View.OnClickL
     @Override
     public void onSelectItem(int position, int quantity) {
         if (getActivity() != null)
-            ((SelectOrderItemsActivity) getActivity()).setItemsQuantity(position,quantity);
+            ((SelectOrderItemsActivity) getActivity()).setItemsQuantity(position, quantity);
     }
 }

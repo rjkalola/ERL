@@ -42,7 +42,6 @@ public final class AppConstant {
         public static final String FILE_EXTENSION = "file_extension";
 
 
-
         public static final int RC_LOCATION_PERM = 1;
         public static final int LOCATION_SETTING_STATUS = 2;
         public static final int CHANGE_ADDRESS = 3;
@@ -84,7 +83,9 @@ public final class AppConstant {
         public static final int VIEW_ORDER = 4;
         public static final int SELECT_ALBUM = 5;
         public static final int SELECT_PHOTO = 6;
+        public static final int SELECT_SERVICE_HOUR_TYPE = 7;
     }
+
 
     public static final class DrawerState {
         public static final String COLLAPSED = "COLLAPSED";

@@ -46,7 +46,7 @@ public class ServiceSelectedItemsTitleListAdapter extends RecyclerView.Adapter<R
         ClientDashBoardInfo info = list.get(position);
         itemViewHolder.getData(info);
         itemViewHolder.binding.txtTitle.setText(String.format(mContext.getString(R.string.lbl_display_selected_item_title), info.getName()));
-        setSelectedItemsAdapter(itemViewHolder.binding.rvSelectedItems, info.getService_item(),position);
+        setSelectedItemsAdapter(itemViewHolder.binding.rvSelectedItems, info.getService_item(), position);
     }
 
     @Override
@@ -67,11 +67,11 @@ public class ServiceSelectedItemsTitleListAdapter extends RecyclerView.Adapter<R
         }
     }
 
-    private void setSelectedItemsAdapter(RecyclerView recyclerView, List<ServiceItemInfo> service_item,int position) {
+    private void setSelectedItemsAdapter(RecyclerView recyclerView, List<ServiceItemInfo> service_item, int position) {
         if (service_item != null && service_item.size() > 0) {
             recyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
             recyclerView.setHasFixedSize(true);
-            ServiceSelectedItemsListAdapter adapter = new ServiceSelectedItemsListAdapter(mContext, service_item,position, listener);
+            ServiceSelectedItemsListAdapter adapter = new ServiceSelectedItemsListAdapter(mContext, service_item, position, listener);
             recyclerView.setAdapter(adapter);
         }
     }

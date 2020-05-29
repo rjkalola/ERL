@@ -13,7 +13,6 @@ public interface DashBoardServiceInterface {
     @GET("client-dashboard")
     Observable<ClientDashBoardResponse> getClientDashboard();
 
-    @Multipart
-    @POST("get-service-item")
+    @GET("get-service-items")
     Observable<ServiceItemsResponse> getServiceItems();
 }

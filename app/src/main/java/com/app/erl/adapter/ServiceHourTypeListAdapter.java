@@ -11,19 +11,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.erl.R;
 import com.app.erl.callback.SelectItemListener;
-import com.app.erl.databinding.RowServiceItemsListBinding;
-import com.app.erl.model.entity.info.ItemInfo;
+import com.app.erl.databinding.RowMyOrderListBinding;
+import com.app.erl.databinding.RowServiceHourTypeListBinding;
+import com.app.erl.model.entity.info.OrderInfo;
+import com.app.erl.model.entity.info.ServiceInfo;
 import com.app.erl.util.AppConstant;
 
 import java.util.List;
 
-public class ServiceItemsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ServiceHourTypeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-    private List<ItemInfo> list;
+    private List<ServiceInfo> list;
     private SelectItemListener listener;
     private int position;
 
-    public ServiceItemsListAdapter(Context context, List<ItemInfo> list, SelectItemListener listener) {
+    public ServiceHourTypeListAdapter(Context context, List<ServiceInfo> list, SelectItemListener listener) {
         this.mContext = context;
         this.list = list;
         this.listener = listener;
@@ -32,18 +34,28 @@ public class ServiceItemsListAdapter extends RecyclerView.Adapter<RecyclerView.V
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_service_items_list, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_service_hour_type_list, parent, false);
         return new ItemViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-        ItemInfo info = list.get(position);
+        ServiceInfo info = list.get(position);
         itemViewHolder.getData(info);
+
+        if (this.position == position) {
+            itemViewHolder.binding.txtHourType.setBackgroundColor(mContext.getResources().getColor(R.color.colorActiveHourModule));
+            itemViewHolder.binding.txtHourType.setTextColor(mContext.getResources().getColor(R.color.colorWhite));
+        } else {
+            itemViewHolder.binding.txtHourType.setBackgroundColor(mContext.getResources().getColor(R.color.colorInActiveHourModule));
+            itemViewHolder.binding.txtHourType.setTextColor(mContext.getResources().getColor(R.color.colorPrimaryText));
+        }
 
         itemViewHolder.binding.routMainView.setOnClickListener(v -> {
             if (listener != null) {
+                setPosition(position);
+                notifyDataSetChanged();
                 listener.onSelectItem(position, AppConstant.Action.SELECT_SERVICE_HOUR_TYPE);
             }
         });
@@ -55,9 +67,9 @@ public class ServiceItemsListAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        private RowServiceItemsListBinding binding;
+        private RowServiceHourTypeListBinding binding;
 
-        public void getData(ItemInfo info) {
+        public void getData(ServiceInfo info) {
             binding.setInfo(info);
         }
 
@@ -67,22 +79,19 @@ public class ServiceItemsListAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-//    public void setSelectedItemCont(ServiceItemInfo info, RowServiceItemsListBinding binding) {
-//        if (info.getQuantity() > 0) {
-//            binding.txtAdd.setVisibility(View.INVISIBLE);
-//            binding.routAddRemoveView.setVisibility(View.VISIBLE);
-//        } else {
-//            binding.txtAdd.setVisibility(View.VISIBLE);
-//            binding.routAddRemoveView.setVisibility(View.INVISIBLE);
-//        }
-//        binding.txtQuantity.setText(String.valueOf(info.getQuantity()));
-//    }
-
     public int getPosition() {
         return position;
     }
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    public List<ServiceInfo> getList() {
+        return list;
+    }
+
+    public void setList(List<ServiceInfo> list) {
+        this.list = list;
     }
 }

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -20,7 +19,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.app.erl.R;
 import com.app.erl.adapter.DashboardOfferPagerAdapter;
 import com.app.erl.adapter.DashboardOfferPagerDotsAdapter;
-import com.app.erl.adapter.MyOrderListAdapter;
 import com.app.erl.databinding.FragmentHomeBinding;
 import com.app.erl.model.entity.response.ClientDashBoardResponse;
 import com.app.erl.util.AppUtils;
