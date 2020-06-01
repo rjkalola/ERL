@@ -21,11 +21,13 @@ import com.app.erl.callback.SelectINavigationItemListener;
 import com.app.erl.callback.SelectItemListener;
 import com.app.erl.databinding.ActivityDashboardBinding;
 import com.app.erl.databinding.NavHeaderDashboardBinding;
+import com.app.erl.model.entity.info.ServiceItemInfo;
 import com.app.erl.model.entity.response.User;
 import com.app.erl.util.AppConstant;
 import com.app.erl.util.AppUtils;
 import com.app.erl.util.ViewPagerDisableSwipe;
 import com.app.erl.view.fragment.HomeFragment;
+import com.app.erl.view.fragment.MyOrderFragment;
 import com.app.erl.view.fragment.PriceListFragment;
 import com.app.erl.viewModel.DashBoardViewModel;
 import com.app.utilities.callbacks.DialogButtonClickListener;
@@ -132,6 +134,14 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
 //        moveActivity(mContext, SelectOrderItemsActivity.class, false, false, bundle);
     }
 
+    public void refreshTotalItemPrice() {
+        for (int i = 0; i < pagerAdapter.getmFragmentList().size(); i++) {
+            if (pagerAdapter.getmFragmentList().get(i) instanceof PriceListFragment) {
+                ((PriceListFragment) (pagerAdapter.getmFragmentList().get(i))).setTotalItemPrice();
+            }
+        }
+    }
+
     @Override
     public void onPositiveButtonClicked(int dialogIdentifier) {
         if (dialogIdentifier == AppConstant.DialogIdentifier.LOGOUT) {
@@ -179,8 +189,8 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFrag(HomeFragment.newInstance(), "");
         pagerAdapter.addFrag(PriceListFragment.newInstance(), "");
-        pagerAdapter.addFrag(PriceListFragment.newInstance(), "");
-        pagerAdapter.addFrag(PriceListFragment.newInstance(), "");
+        pagerAdapter.addFrag(MyOrderFragment.newInstance(), "");
+        pagerAdapter.addFrag(MyOrderFragment.newInstance(), "");
 
         viewPager.setAdapter(pagerAdapter);
         setupTab(selectedTabIndex);

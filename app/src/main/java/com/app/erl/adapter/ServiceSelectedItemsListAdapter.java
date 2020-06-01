@@ -15,6 +15,8 @@ import com.app.erl.callback.SelectedServiceItemListener;
 import com.app.erl.databinding.RowServiceItemsListBinding;
 import com.app.erl.databinding.RowServiceSelectedItemsListBinding;
 import com.app.erl.model.entity.info.ServiceItemInfo;
+import com.app.utilities.utils.GlideUtil;
+import com.app.utilities.utils.StringHelper;
 
 import java.util.List;
 
@@ -43,6 +45,11 @@ public class ServiceSelectedItemsListAdapter extends RecyclerView.Adapter<Recycl
         final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
         ServiceItemInfo info = list.get(position);
         itemViewHolder.getData(info);
+
+        if (!StringHelper.isEmpty(info.getImage()))
+            GlideUtil.loadImage(info.getImage(), itemViewHolder.binding.imgService, null, null, 0, null);
+
+        itemViewHolder.binding.txtPrice.setText(String.format(mContext.getString(R.string.lbl_display_price), String.valueOf(info.getPrice())));
 
         setSelectedItemCont(info, itemViewHolder.binding);
 

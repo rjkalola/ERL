@@ -14,19 +14,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.app.erl.R;
 import com.app.erl.adapter.ServiceItemsListAdapter;
 import com.app.erl.callback.SelectItemListener;
+import com.app.erl.callback.SelectedServiceItemListener;
 import com.app.erl.databinding.FragmentOrderItemsBinding;
 import com.app.erl.model.entity.info.ItemInfo;
-import com.app.erl.model.entity.info.ServiceInfo;
 import com.app.erl.model.entity.info.ServiceItemInfo;
 import com.app.erl.util.AppConstant;
-import com.app.erl.view.activity.SelectOrderItemsActivity;
+import com.app.erl.view.activity.DashBoardActivity;
+import com.app.erl.view.dialog.AddItemsToCardBottomSheetDialog;
 
 import org.parceler.Parcels;
 
 import java.util.List;
 
 
-public class OrderItemsTabFragment extends BaseFragment implements View.OnClickListener, SelectItemListener {
+public class OrderItemsTabFragment extends BaseFragment implements View.OnClickListener, SelectItemListener, SelectedServiceItemListener {
     private final int LAYOUT_ACTIVITY = R.layout.fragment_order_items;
     private FragmentOrderItemsBinding binding;
     private Context mContext;
@@ -78,8 +79,28 @@ public class OrderItemsTabFragment extends BaseFragment implements View.OnClickL
     }
 
     @Override
-    public void onSelectItem(int position, int quantity) {
-        if (getActivity() != null)
-            ((SelectOrderItemsActivity) getActivity()).setItemsQuantity(position, quantity);
+    public void onSelectItem(int position, int action) {
+        showAddItemsToCardBottomSheetDialog(position, adapter.getList().get(position).getServiceList(), adapter.getList().get(position).getImage());
+    }
+
+    @Override
+    public void onSelectServiceItem(int rootPosition, int itemPosition, int quantity) {
+        if (getActivity() != null && adapter != null) {
+            adapter.getList().get(rootPosition).getServiceList().get(itemPosition).setQuantity(quantity);
+            ((DashBoardActivity) getActivity()).refreshTotalItemPrice();
+        }
+
+
+        Log.e("test", "rootPosition:" + rootPosition);
+        Log.e("test", "itemPosition:" + itemPosition);
+    }
+
+    public void showAddItemsToCardBottomSheetDialog(int rootPosition, List<ServiceItemInfo> listItems, String itemImage) {
+        AddItemsToCardBottomSheetDialog addItemsToCardBottomSheetDialog = AddItemsToCardBottomSheetDialog.newInstance(mContext, rootPosition, listItems, itemImage, this);
+        addItemsToCardBottomSheetDialog.show();
+    }
+
+    public ServiceItemsListAdapter getAdapter() {
+        return adapter;
     }
 }

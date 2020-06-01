@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import com.app.erl.callback.SelectTimeListener;
 import com.app.erl.callback.SelectedServiceItemListener;
 import com.app.erl.databinding.ActivityCreateOrderBinding;
 import com.app.erl.model.entity.info.ClientDashBoardInfo;
+import com.app.erl.model.entity.info.ItemInfo;
 import com.app.erl.model.entity.info.ModuleInfo;
 import com.app.erl.model.entity.info.ModuleSelection;
 import com.app.erl.model.entity.info.PickUpTimeInfo;
@@ -67,20 +69,21 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
         , SelectTimeListener, EasyPermissions.PermissionCallbacks {
     private ActivityCreateOrderBinding binding;
     private Context mContext;
-    String fromTime, toTime;
-    private ClientDashBoardResponse dashBoardData;
+    private String fromTime, toTime;
+    private int serviceHourTypeId = 0;
     private ServiceSelectedItemsTitleListAdapter adapter;
     private String DATE_PICKER = "DATE_PICKER";
     private String[] LOCATION_PERMISSION = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     private ManageOrderViewModel manageOrderViewModel;
     private OrderResourcesResponse orderData;
+    private List<ItemInfo> listItems;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_order);
         mContext = this;
-
+        listItems = new ArrayList<>();
         manageOrderViewModel = ViewModelProviders.of(this, new LoginViewModelFactory(new ResourceProvider(getResources()))).get(ManageOrderViewModel.class);
         manageOrderViewModel.createView(this);
         manageOrderViewModel.orderResourcesResponse()
@@ -99,15 +102,20 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
 
     public void getIntentData() {
         if (getIntent().getExtras() != null
-                && Parcels.unwrap(getIntent().getParcelableExtra(AppConstant.IntentKey.DASHBOARD_DATA)) != null) {
-            setDashBoardData(Parcels.unwrap(getIntent().getParcelableExtra(AppConstant.IntentKey.DASHBOARD_DATA)));
-            setSelectedItemsAdapter();
-            manageOrderViewModel.getOrderResourcesRequest();
+                && Parcels.unwrap(getIntent().getParcelableExtra(AppConstant.IntentKey.ITEMS_LIST)) != null) {
+            listItems = Parcels.unwrap(getIntent().getParcelableExtra(AppConstant.IntentKey.ITEMS_LIST));
+            serviceHourTypeId = getIntent().getIntExtra(AppConstant.IntentKey.SERVICE_HOUR_TYPE_ID, 0);
+            manageOrderViewModel.getSaveOrderRequest().setLu_service_hour_type_id(serviceHourTypeId);
+            if (listItems.size() > 0) {
+                setSelectedItemsAdapter();
+                manageOrderViewModel.getOrderResourcesRequest();
+            } else {
+                finish();
+            }
         } else {
             finish();
         }
     }
-
 
     @Override
     public void onClick(View v) {
@@ -145,15 +153,11 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void setSelectedItemsAdapter() {
-        if (getDashBoardData() != null && getDashBoardData().getInfo() != null && getDashBoardData().getInfo().size() > 0) {
-            binding.rvSelectedItems.setVisibility(View.VISIBLE);
-            binding.rvSelectedItems.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-            binding.rvSelectedItems.setHasFixedSize(true);
-            adapter = new ServiceSelectedItemsTitleListAdapter(mContext, getDashBoardData().getInfo(), this);
-            binding.rvSelectedItems.setAdapter(adapter);
-        } else {
-            binding.rvSelectedItems.setVisibility(View.GONE);
-        }
+        binding.rvSelectedItems.setVisibility(View.VISIBLE);
+        binding.rvSelectedItems.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        binding.rvSelectedItems.setHasFixedSize(true);
+        adapter = new ServiceSelectedItemsTitleListAdapter(mContext, listItems, this);
+        binding.rvSelectedItems.setAdapter(adapter);
     }
 
     public Observer orderResourcesResponse() {
@@ -208,7 +212,10 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onSelectServiceItem(int rootPosition, int itemPosition, int quantity) {
-        getDashBoardData().getInfo().get(rootPosition).getService_item().get(itemPosition).setQuantity(quantity);
+        Log.e("test", "rootPosition:" + rootPosition);
+        Log.e("test", "itemPosition:" + itemPosition);
+        Log.e("test", "quantity:" + quantity);
+        listItems.get(rootPosition).getServiceList().get(itemPosition).setQuantity(quantity);
     }
 
     @Override
@@ -345,13 +352,18 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
         }
 
         List<ServiceItemInfo> order = new ArrayList<>();
-        for (int i = 0; i < getDashBoardData().getInfo().size(); i++) {
-            for (int j = 0; j < getDashBoardData().getInfo().get(i).getService_item().size(); j++) {
-                if (getDashBoardData().getInfo().get(i).getService_item().get(j).getQuantity() > 0) {
-                    order.add(getDashBoardData().getInfo().get(i).getService_item().get(j));
+        Log.e("test", "listItems.size():" + listItems.size());
+        for (int i = 0; i < listItems.size(); i++) {
+            for (int j = 0; j < listItems.get(i).getServiceList().size(); j++) {
+                ServiceItemInfo info = listItems.get(i).getServiceList().get(j);
+                Log.e("test", "getQuantity:" + info.getQuantity());
+                if (info.getQuantity() > 0) {
+                    ServiceItemInfo serviceItemInfo = new ServiceItemInfo(listItems.get(i).getId(), info.getId(), info.getQuantity());
+                    order.add(serviceItemInfo);
                 }
             }
         }
+        Log.e("test", "order size:" + order.size());
         manageOrderViewModel.getSaveOrderRequest().setOrder(order);
 
         if (manageOrderViewModel.getSaveOrderRequest().getOrder().size() == 0) {
@@ -361,14 +373,6 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
         }
 
         return valid;
-    }
-
-    public ClientDashBoardResponse getDashBoardData() {
-        return dashBoardData;
-    }
-
-    public void setDashBoardData(ClientDashBoardResponse dashBoardData) {
-        this.dashBoardData = dashBoardData;
     }
 
     public OrderResourcesResponse getOrderData() {

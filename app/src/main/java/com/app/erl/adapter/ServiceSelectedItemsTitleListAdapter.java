@@ -17,17 +17,19 @@ import com.app.erl.callback.SelectedServiceItemListener;
 import com.app.erl.databinding.RowServiceItemsListBinding;
 import com.app.erl.databinding.RowServiceSelectedItemsTitleListBinding;
 import com.app.erl.model.entity.info.ClientDashBoardInfo;
+import com.app.erl.model.entity.info.ItemInfo;
+import com.app.erl.model.entity.info.ServiceInfo;
 import com.app.erl.model.entity.info.ServiceItemInfo;
 
 import java.util.List;
 
 public class ServiceSelectedItemsTitleListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-    private List<ClientDashBoardInfo> list;
+    private List<ItemInfo> list;
     private SelectedServiceItemListener listener;
     private int position;
 
-    public ServiceSelectedItemsTitleListAdapter(Context context, List<ClientDashBoardInfo> list, SelectedServiceItemListener listener) {
+    public ServiceSelectedItemsTitleListAdapter(Context context, List<ItemInfo> list, SelectedServiceItemListener listener) {
         this.mContext = context;
         this.list = list;
         this.listener = listener;
@@ -43,10 +45,10 @@ public class ServiceSelectedItemsTitleListAdapter extends RecyclerView.Adapter<R
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-        ClientDashBoardInfo info = list.get(position);
+        ItemInfo info = list.get(position);
         itemViewHolder.getData(info);
-        itemViewHolder.binding.txtTitle.setText(String.format(mContext.getString(R.string.lbl_display_selected_item_title), info.getName()));
-        setSelectedItemsAdapter(itemViewHolder.binding.rvSelectedItems, info.getService_item(), position);
+        itemViewHolder.binding.txtTitle.setText(info.getName());
+        setSelectedItemsAdapter(itemViewHolder.binding.rvSelectedItems, info.getServiceList(), position);
     }
 
     @Override
@@ -57,7 +59,7 @@ public class ServiceSelectedItemsTitleListAdapter extends RecyclerView.Adapter<R
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private RowServiceSelectedItemsTitleListBinding binding;
 
-        public void getData(ClientDashBoardInfo info) {
+        public void getData(ItemInfo info) {
             binding.setInfo(info);
         }
 

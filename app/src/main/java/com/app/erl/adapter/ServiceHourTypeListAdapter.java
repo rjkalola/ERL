@@ -53,9 +53,7 @@ public class ServiceHourTypeListAdapter extends RecyclerView.Adapter<RecyclerVie
         }
 
         itemViewHolder.binding.routMainView.setOnClickListener(v -> {
-            if (listener != null) {
-                setPosition(position);
-                notifyDataSetChanged();
+            if (listener != null && getPosition() != position) {
                 listener.onSelectItem(position, AppConstant.Action.SELECT_SERVICE_HOUR_TYPE);
             }
         });
@@ -85,6 +83,7 @@ public class ServiceHourTypeListAdapter extends RecyclerView.Adapter<RecyclerVie
 
     public void setPosition(int position) {
         this.position = position;
+        notifyDataSetChanged();
     }
 
     public List<ServiceInfo> getList() {

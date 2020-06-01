@@ -97,7 +97,8 @@ public class SelectOrderItemsActivity extends BaseActivity implements View.OnCli
                             ServiceItemInfo cartServiceItemsInfo = new ServiceItemInfo(getDashBoardData().getInfo().get(i).getService_item().get(j).getId()
                                     , getDashBoardData().getInfo().get(i).getService_item().get(j).getName()
                                     , getDashBoardData().getInfo().get(i).getService_item().get(j).getPrice()
-                                    , getDashBoardData().getInfo().get(i).getService_item().get(j).getQuantity());
+                                    , getDashBoardData().getInfo().get(i).getService_item().get(j).getQuantity()
+                                    , getDashBoardData().getInfo().get(i).getService_item().get(j).getImage());
                             serviceItemsList.add(cartServiceItemsInfo);
                         }
                     }

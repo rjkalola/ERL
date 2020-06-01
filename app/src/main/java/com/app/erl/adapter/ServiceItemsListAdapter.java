@@ -85,4 +85,12 @@ public class ServiceItemsListAdapter extends RecyclerView.Adapter<RecyclerView.V
     public void setPosition(int position) {
         this.position = position;
     }
+
+    public List<ItemInfo> getList() {
+        return list;
+    }
+
+    public void setList(List<ItemInfo> list) {
+        this.list = list;
+    }
 }

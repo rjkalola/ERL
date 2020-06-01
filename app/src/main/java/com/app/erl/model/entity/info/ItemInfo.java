@@ -1,9 +1,32 @@
 
 package com.app.erl.model.entity.info;
 
+import org.parceler.Parcel;
+
+import java.util.List;
+
+@Parcel
 public class ItemInfo {
-    private int id, lu_service_hour_type_id, lu_service_category_id, dry_clean_price, iron_dry_clean_price, iron_price;
-    private String name, image;
+    int id, lu_service_hour_type_id, lu_service_category_id, dry_clean_price, iron_dry_clean_price, iron_price;
+    String name, image;
+    List<ServiceItemInfo> serviceList;
+
+    public ItemInfo() {
+
+    }
+
+    public ItemInfo(int id, int lu_service_hour_type_id,int lu_service_category_id, int dry_clean_price, int iron_dry_clean_price
+            , int iron_price,String name,String image,List<ServiceItemInfo> serviceList) {
+        this.id = id;
+        this.lu_service_hour_type_id = lu_service_hour_type_id;
+        this.lu_service_category_id = lu_service_category_id;
+        this.dry_clean_price = dry_clean_price;
+        this.iron_dry_clean_price = iron_dry_clean_price;
+        this.iron_price = iron_price;
+        this.name = name;
+        this.image = image;
+        this.serviceList = serviceList;
+    }
 
     public int getId() {
         return id;
@@ -67,6 +90,14 @@ public class ItemInfo {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<ServiceItemInfo> getServiceList() {
+        return serviceList;
+    }
+
+    public void setServiceList(List<ServiceItemInfo> serviceList) {
+        this.serviceList = serviceList;
     }
 }
 

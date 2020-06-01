@@ -24,6 +24,7 @@ public final class AppConstant {
         public static final int SELECT_TIME = 6;
         public static final int DELETE_ADDRESS = 7;
         public static final int CANCEL_ORDER = 8;
+        public static final int CLEAR_CART = 9;
     }
 
     public static final class IntentKey {
@@ -40,7 +41,8 @@ public final class AppConstant {
         public static final String CROP_RATIO_X = "crop_ratio_X";
         public static final String CROP_RATIO_Y = "crop_ratio_Y";
         public static final String FILE_EXTENSION = "file_extension";
-
+        public static final String ITEMS_LIST = "ITEMS_LIST";
+        public static final String SERVICE_HOUR_TYPE_ID = "SERVICE_HOUR_TYPE_ID";
 
         public static final int RC_LOCATION_PERM = 1;
         public static final int LOCATION_SETTING_STATUS = 2;
@@ -53,6 +55,7 @@ public final class AppConstant {
         public static final int REQUEST_CAMERA = 9;
         public static final int REQUEST_CAMERA_KITKAT = 10;
         public static final int EXTERNAL_STORAGE_PERMISSION = 11;
+        public static final int VIEW_CART = 12;
     }
 
     public static final class AppLanguage {

@@ -7,7 +7,7 @@
 
         <variable
             name="info"
-            type="com.app.erl.model.entity.info.ClientDashBoardInfo" />
+            type="com.app.erl.model.entity.info.ItemInfo" />
     </data>
 
     <LinearLayout
@@ -22,17 +22,17 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingTop="@dimen/_8sdp">
+            android:paddingTop="@dimen/_6sdp">
 
             <TextView
                 android:id="@+id/txtTitle"
                 style="@style/VerySmallFont"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_weight="7"
                 android:fontFamily="@font/montserrat_medium"
                 android:textAllCaps="true"
-                android:textColor="@color/colorPrimaryText"
+                android:textColor="@color/colorYellowDark"
                 android:textSize="@dimen/_11ssp" />
 
             <TextView
@@ -54,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2.5"
                 android:fontFamily="@font/montserrat_medium"
+                android:visibility="gone"
                 android:gravity="center"
                 android:text="@string/lbl_qty"
                 android:textAllCaps="true"
@@ -70,7 +71,8 @@
             android:id="@+id/rvSelectedItems"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
             android:nestedScrollingEnabled="false" />
 
     </LinearLayout>

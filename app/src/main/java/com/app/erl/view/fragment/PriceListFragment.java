@@ -1,6 +1,7 @@
 package com.app.erl.view.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -23,20 +25,29 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.app.erl.R;
 import com.app.erl.adapter.ServiceHourTypeListAdapter;
+import com.app.erl.adapter.ServiceItemsListAdapter;
 import com.app.erl.adapter.ViewPagerAdapter;
 import com.app.erl.callback.SelectItemListener;
 import com.app.erl.databinding.FragmentPriceListBinding;
+import com.app.erl.model.entity.info.ItemInfo;
+import com.app.erl.model.entity.info.ServiceItemInfo;
 import com.app.erl.model.entity.response.ServiceItemsResponse;
 import com.app.erl.util.AppConstant;
 import com.app.erl.util.AppUtils;
 import com.app.erl.util.LoginViewModelFactory;
 import com.app.erl.util.ResourceProvider;
+import com.app.erl.view.activity.CreateOrderActivity;
 import com.app.erl.viewModel.DashBoardViewModel;
+import com.app.utilities.callbacks.DialogButtonClickListener;
 import com.app.utilities.utils.AlertDialogHelper;
+import com.app.utilities.utils.ToastHelper;
 
 import org.parceler.Parcels;
 
-public class PriceListFragment extends BaseFragment implements View.OnClickListener, SelectItemListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class PriceListFragment extends BaseFragment implements View.OnClickListener, SelectItemListener, DialogButtonClickListener {
     private final int LAYOUT_ACTIVITY = R.layout.fragment_price_list;
     private FragmentPriceListBinding binding;
     private Context mContext;
@@ -45,7 +56,7 @@ public class PriceListFragment extends BaseFragment implements View.OnClickListe
     private ServiceItemsResponse serviceItemsData;
     private ServiceHourTypeListAdapter serviceHourTypeListAdapter;
     private ViewPagerAdapter pagerAdapter;
-    private int selectedHourTypePosition = 0;
+    private int selectedHourTypePosition = 0, totalItemCount = 0, totalPrice = 0, itemPosition = 0;
 
     public static final PriceListFragment newInstance() {
         return new PriceListFragment();
@@ -67,16 +78,16 @@ public class PriceListFragment extends BaseFragment implements View.OnClickListe
         dashBoardViewModel.serviceItemsResponse()
                 .observe(this, serviceItemsResponse());
         dashBoardViewModel.getServiceItemsRequest();
+        binding.routCartView.setOnClickListener(this);
         return binding.getRoot();
     }
 
     @Override
     public void onClick(View v) {
-        Bundle bundle = new Bundle();
         switch (v.getId()) {
-//            case R.id.txtStartWork:
-//                startStopWork();
-//                break;
+            case R.id.routCartView:
+                moveToCart();
+                break;
         }
     }
 
@@ -154,16 +165,58 @@ public class PriceListFragment extends BaseFragment implements View.OnClickListe
 
                 }
             });
+
+            setTotalItemPrice();
         } else {
             binding.routPriceView.setVisibility(View.GONE);
         }
 
     }
 
+    public void setTotalItemPrice() {
+        totalItemCount = 0;
+        totalPrice = 0;
+
+        for (int i = 0; i < pagerAdapter.getmFragmentList().size(); i++) {
+            if (pagerAdapter.getmFragmentList().get(i) instanceof OrderItemsTabFragment) {
+                ServiceItemsListAdapter adapter = ((OrderItemsTabFragment) (pagerAdapter.getmFragmentList().get(i))).getAdapter();
+                if (adapter != null) {
+                    for (int j = 0; j < adapter.getList().size(); j++) {
+                        for (int k = 0; k < adapter.getList().get(j).getServiceList().size(); k++) {
+                            if (adapter.getList().get(j).getServiceList().get(k).getQuantity() > 0) {
+                                totalItemCount = totalItemCount + 1;
+                                totalPrice = totalPrice + adapter.getList().get(j).getServiceList().get(k).getPrice() * adapter.getList().get(j).getServiceList().get(k).getQuantity();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (mMenu != null)
+            setCartCountMenu(totalItemCount);
+
+        if (totalItemCount > 0) {
+            binding.txtTotalItemCount.setText(String.valueOf(totalItemCount));
+            binding.txtTotalItemCount.setVisibility(View.VISIBLE);
+        } else {
+            binding.txtTotalItemCount.setVisibility(View.GONE);
+        }
+
+        binding.txtTotalPrice.setText(String.format(mContext.getString(R.string.lbl_display_price), String.valueOf(totalPrice)));
+    }
+
+
     @Override
     public void onSelectItem(int position, int action) {
         if (action == AppConstant.Action.SELECT_SERVICE_HOUR_TYPE) {
-            setupViewPager(position);
+            itemPosition = position;
+            if (totalItemCount > 0) {
+                AlertDialogHelper.showDialog(mContext, null, getString(R.string.msg_clear_cart), getString(R.string.yes), getString(R.string.no), true, this, AppConstant.DialogIdentifier.CLEAR_CART);
+            } else {
+                serviceHourTypeListAdapter.setPosition(itemPosition);
+                setupViewPager(serviceHourTypeListAdapter.getPosition());
+            }
         }
     }
 
@@ -177,7 +230,8 @@ public class PriceListFragment extends BaseFragment implements View.OnClickListe
         menu.findItem(R.id.actionSelectedItemCount).setVisible(true);
         menu.findItem(R.id.actionSearch).setVisible(true);
 
-        setCartCountMenu(0);
+        if (mMenu != null)
+            setCartCountMenu(totalItemCount);
     }
 
     @Override
@@ -202,6 +256,72 @@ public class PriceListFragment extends BaseFragment implements View.OnClickListe
             mBadgeCount.setText(String.valueOf(cartCount));
         } else {
             mBadgeCount.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    public void onPositiveButtonClicked(int dialogIdentifier) {
+        if (dialogIdentifier == AppConstant.DialogIdentifier.CLEAR_CART) {
+            clearCart(serviceHourTypeListAdapter.getPosition());
+            serviceHourTypeListAdapter.setPosition(itemPosition);
+            setupViewPager(serviceHourTypeListAdapter.getPosition());
+        }
+    }
+
+    public void clearCart(int position) {
+        for (int j = 0; j < getServiceItemsData().getInfo().get(position).getPriceList().size(); j++) {
+            for (int k = 0; k < getServiceItemsData().getInfo().get(position).getPriceList().get(j).getItems().size(); k++) {
+                for (int l = 0; l < getServiceItemsData().getInfo().get(position).getPriceList().get(j).getItems().get(k).getServiceList().size(); l++) {
+                    getServiceItemsData().getInfo().get(position).getPriceList().get(j).getItems().get(k).getServiceList().get(l).setQuantity(0);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onNegativeButtonClicked(int dialogIdentifier) {
+
+    }
+
+    public void moveToCart() {
+        if (totalItemCount > 0) {
+            List<ItemInfo> listItems = new ArrayList<>();
+            for (int i = 0; i < pagerAdapter.getmFragmentList().size(); i++) {
+                if (pagerAdapter.getmFragmentList().get(i) instanceof OrderItemsTabFragment) {
+                    ServiceItemsListAdapter adapter = ((OrderItemsTabFragment) (pagerAdapter.getmFragmentList().get(i))).getAdapter();
+                    if (adapter != null) {
+                        for (int j = 0; j < adapter.getList().size(); j++) {
+                            List<ServiceItemInfo> listServiceItemInfo = new ArrayList<>();
+                            for (int k = 0; k < adapter.getList().get(j).getServiceList().size(); k++) {
+                                if (adapter.getList().get(j).getServiceList().get(k).getQuantity() > 0) {
+                                    ServiceItemInfo cartServiceItemsInfo = new ServiceItemInfo(adapter.getList().get(j).getServiceList().get(k).getId()
+                                            , adapter.getList().get(j).getServiceList().get(k).getName()
+                                            , adapter.getList().get(j).getServiceList().get(k).getPrice()
+                                            , adapter.getList().get(j).getServiceList().get(k).getQuantity()
+                                            , adapter.getList().get(j).getServiceList().get(k).getImage());
+                                    listServiceItemInfo.add(cartServiceItemsInfo);
+                                }
+                            }
+                            if (listServiceItemInfo.size() > 0) {
+                                ItemInfo info = adapter.getList().get(j);
+                                ItemInfo itemInfo = new ItemInfo(info.getId(), info.getLu_service_hour_type_id()
+                                        , info.getLu_service_category_id(), info.getDry_clean_price()
+                                        , info.getIron_dry_clean_price(), info.getIron_price(), info.getName()
+                                        , info.getImage(), listServiceItemInfo);
+                                listItems.add(itemInfo);
+                            }
+                        }
+                    }
+                }
+            }
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(AppConstant.IntentKey.ITEMS_LIST, Parcels.wrap(listItems));
+            bundle.putInt(AppConstant.IntentKey.SERVICE_HOUR_TYPE_ID, getServiceItemsData().getInfo().get(selectedHourTypePosition).getId());
+            Intent intent = new Intent(mContext, CreateOrderActivity.class);
+            intent.putExtras(bundle);
+            startActivityForResult(intent, AppConstant.IntentKey.VIEW_CART);
+        } else {
+            ToastHelper.error(mContext, getString(R.string.error_select_at_least_one_item), Toast.LENGTH_SHORT, false);
         }
     }
 
