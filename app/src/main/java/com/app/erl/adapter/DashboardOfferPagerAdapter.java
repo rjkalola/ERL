@@ -11,7 +11,6 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.app.erl.R;
 import com.app.erl.databinding.RowDashboardOfferPagerItemBinding;
 import com.app.erl.model.entity.info.ClientDashBoardInfo;
-import com.app.utilities.utils.Constant;
 import com.app.utilities.utils.GlideUtil;
 import com.app.utilities.utils.StringHelper;
 
@@ -33,7 +32,7 @@ public class DashboardOfferPagerAdapter extends PagerAdapter {
         layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         RowDashboardOfferPagerItemBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.row_dashboard_offer_pager_item, container, false);
         if (!StringHelper.isEmpty(list.get(position).getImage()))
-            GlideUtil.loadImage(list.get(position).getImage(), binding.imgSlide, null, null, Constant.ImageScaleType.CENTER_CROP, null);
+            GlideUtil.loadImage(list.get(position).getImage(), binding.imgSlide, null, null, 0, null);
         container.addView(binding.getRoot());
         return binding.getRoot();
     }

@@ -28,6 +28,7 @@
     <string name="error_unknown">An unknown error occurred</string>
     <string name="msg_unauthorized">We are signing you out as we found your account access from another device</string>
     <string name="error_network">There is a problem connecting to the Server, please check your network connection, and then try again.</string>
+    <string name="error_internet_connection">Please check your internet connection</string>
 
     //Error Strings
     <string name="ERR100">Parameters Missing</string>
@@ -119,7 +120,6 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="msg_delete_address">Are you sure you want to delete this address?</string>
-    <string name="msg_order_successfully_placed">Order Successfully Placed</string>
     <string name="lbl_order_number">Order No:</string>
     <string name="lbl_date">Date:</string>
     <string name="lbl_status">Status:</string>
@@ -143,6 +143,11 @@
     <string name="error_image_format">Invalid file format. Please choose the JPG,PNG and JPEG format</string>
     <string name="lbl_crop_image">Crop Image</string>
     <string name="msg_clear_cart">Are you sure want to change service type? Once you changed service type your cart will be clear.</string>
+    <string name="lbl_thank_you">Thank You</string>
+    <string name="msg_your_order_has_been_successfully_placed">Your order has been successfully placed.</string>
+    <string name="hint_say_something">Say Something&#8230;</string>
+
+
     <!--    <string name=""></string>-->
 
     <!--Validation message-->

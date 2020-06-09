@@ -24,6 +24,7 @@ import com.app.erl.model.entity.response.ClientDashBoardResponse;
 import com.app.erl.util.AppUtils;
 import com.app.erl.util.LoginViewModelFactory;
 import com.app.erl.util.ResourceProvider;
+import com.app.erl.view.activity.ChatActivity;
 import com.app.erl.viewModel.DashBoardViewModel;
 import com.app.utilities.utils.AlertDialogHelper;
 
@@ -56,7 +57,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         dashBoardViewModel.clientDashBoardResponse()
                 .observe(this, getClientDashBoardResponse());
         dashBoardViewModel.getClientDashboardRequest();
-//        setOfferPagerAdapter();
+
+        binding.routLiveSupport.setOnClickListener(this);
+
         return binding.getRoot();
     }
 
@@ -64,9 +67,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         Bundle bundle = new Bundle();
         switch (v.getId()) {
-//            case R.id.txtStartWork:
-//                startStopWork();
-//                break;
+            case R.id.routLiveSupport:
+                moveActivity(mContext, ChatActivity.class, false, false, null);
+                break;
         }
     }
 

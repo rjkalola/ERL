@@ -15,6 +15,7 @@
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_20sdp"
             android:fillViewport="true"
             app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
@@ -28,7 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.app.erl.util.OfferImageViewByWidth
+                    <com.app.erl.util.SquareImageViewByWidth
                         android:id="@+id/imgOfferSized"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -51,12 +52,11 @@
 
                 </RelativeLayout>
 
-
                 <LinearLayout
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="@dimen/_42sdp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/_30ssp"
+                    android:layout_marginTop="@dimen/_20ssp"
                     android:background="@drawable/img_dashboard_button_background"
                     android:gravity="center_vertical">
 
@@ -103,6 +103,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/routLiveSupport"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="@dimen/_42sdp"
                     android:layout_gravity="center_horizontal"
@@ -132,6 +133,7 @@
                     android:layout_height="@dimen/_42sdp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/_16ssp"
+                    android:layout_marginBottom="@dimen/_14sdp"
                     android:background="@drawable/img_dashboard_button_background"
                     android:gravity="center_vertical">
 

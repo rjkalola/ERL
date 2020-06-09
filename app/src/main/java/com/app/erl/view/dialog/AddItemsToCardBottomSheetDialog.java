@@ -55,6 +55,9 @@ public class AddItemsToCardBottomSheetDialog extends BottomSheetDialog {
         if (!StringHelper.isEmpty(itemImage))
             GlideUtil.loadImage(itemImage, binding.imgItem, null, null, Constant.ImageScaleType.CENTER_CROP, null);
         setAdapter();
+
+        binding.imgClose.setOnClickListener(v -> dismiss());
+
         setContentView(sheetView);
     }
 

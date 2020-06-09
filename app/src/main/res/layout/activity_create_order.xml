@@ -98,10 +98,10 @@
 
                 <TextView
                     style="@style/SmallFontTextView"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:fontFamily="@font/montserrat_semi_bold"
                     android:text="@string/lbl_pick_time_slot"
                     android:textAllCaps="true"
-                    android:layout_marginTop="@dimen/_16sdp"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/_12ssp" />
 
@@ -177,25 +177,33 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <View
-                    style="@style/Divider"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:background="@color/colorPrimaryText" />
-
-                <TextView
-                    style="@style/SmallFontTextView"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:fontFamily="@font/montserrat_semi_bold"
-                    android:text="@string/lbl_order_details"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/_12ssp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvSelectedItems"
+                <LinearLayout
+                    android:id="@+id/routOrderList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false" />
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/_16sdp">
+
+                    <View
+                        style="@style/Divider"
+                        android:background="@color/colorPrimaryText" />
+
+                    <TextView
+                        style="@style/SmallFontTextView"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:fontFamily="@font/montserrat_semi_bold"
+                        android:text="@string/lbl_order_details"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvSelectedItems"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false" />
+
+                </LinearLayout>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

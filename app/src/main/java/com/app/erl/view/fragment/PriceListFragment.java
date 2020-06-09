@@ -79,6 +79,8 @@ public class PriceListFragment extends BaseFragment implements View.OnClickListe
                 .observe(this, serviceItemsResponse());
         dashBoardViewModel.getServiceItemsRequest();
         binding.routCartView.setOnClickListener(this);
+        binding.txtLazyOrder.setOnClickListener(this);
+
         return binding.getRoot();
     }
 
@@ -88,6 +90,16 @@ public class PriceListFragment extends BaseFragment implements View.OnClickListe
             case R.id.routCartView:
                 moveToCart();
                 break;
+            case R.id.txtLazyOrder:
+                Bundle bundle = new Bundle();
+                bundle.putInt(AppConstant.IntentKey.SERVICE_HOUR_TYPE_ID, getServiceItemsData().getInfo().get(selectedHourTypePosition).getId());
+                bundle.putInt(AppConstant.IntentKey.ORDER_TYPE, 1);
+                Intent intent = new Intent(mContext, CreateOrderActivity.class);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, AppConstant.IntentKey.VIEW_CART);
+                break;
+
+
         }
     }
 
@@ -236,6 +248,8 @@ public class PriceListFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.actionSelectedItemCount)
+            moveToCart();
         return super.onOptionsItemSelected(item);
     }
 
@@ -317,6 +331,7 @@ public class PriceListFragment extends BaseFragment implements View.OnClickListe
             Bundle bundle = new Bundle();
             bundle.putParcelable(AppConstant.IntentKey.ITEMS_LIST, Parcels.wrap(listItems));
             bundle.putInt(AppConstant.IntentKey.SERVICE_HOUR_TYPE_ID, getServiceItemsData().getInfo().get(selectedHourTypePosition).getId());
+            bundle.putInt(AppConstant.IntentKey.ORDER_TYPE, 0);
             Intent intent = new Intent(mContext, CreateOrderActivity.class);
             intent.putExtras(bundle);
             startActivityForResult(intent, AppConstant.IntentKey.VIEW_CART);

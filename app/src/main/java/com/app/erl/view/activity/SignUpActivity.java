@@ -3,6 +3,7 @@ package com.app.erl.view.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -17,6 +18,7 @@ import com.app.erl.util.LoginViewModelFactory;
 import com.app.erl.util.ResourceProvider;
 import com.app.erl.viewModel.UserAuthenticationViewModel;
 import com.app.utilities.utils.AlertDialogHelper;
+import com.app.utilities.utils.ToastHelper;
 import com.app.utilities.utils.ValidationUtil;
 
 public class SignUpActivity extends BaseActivity implements View.OnClickListener {
@@ -54,7 +56,10 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.txtSignUp:
                 if (isValid()) {
-                    userAuthenticationViewModel.sendSignUpRequest();
+                    if (AppUtils.isNetworkConnected(mContext))
+                        userAuthenticationViewModel.sendSignUpRequest();
+                    else
+                        ToastHelper.error(mContext, getString(R.string.error_internet_connection), Toast.LENGTH_SHORT, false);
                 }
                 break;
         }
