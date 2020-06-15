@@ -1,7 +1,6 @@
 package com.app.erl.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.erl.R;
-import com.app.erl.callback.SelectItemListener;
 import com.app.erl.callback.SelectedServiceItemListener;
-import com.app.erl.databinding.RowServiceItemsListBinding;
 import com.app.erl.databinding.RowServiceSelectedItemsTitleListBinding;
-import com.app.erl.model.entity.info.ClientDashBoardInfo;
 import com.app.erl.model.entity.info.ItemInfo;
-import com.app.erl.model.entity.info.ServiceInfo;
 import com.app.erl.model.entity.info.ServiceItemInfo;
 
 import java.util.List;

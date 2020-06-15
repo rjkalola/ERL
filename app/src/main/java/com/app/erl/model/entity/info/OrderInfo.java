@@ -10,7 +10,7 @@ import java.util.List;
 @Parcel
 public class OrderInfo {
     int id, status_id;
-    String order_no, pickup_date, pickup_time, delivery_note, total_price, ordered_at, status;
+    String order_no, pickup_date, pickup_time, delivery_note, total_price, ordered_at, status,payment_type,order_type;
     List<ServiceItemInfo> order;
     SaveAddressRequest info;
 
@@ -84,6 +84,22 @@ public class OrderInfo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getPayment_type() {
+        return payment_type;
+    }
+
+    public void setPayment_type(String payment_type) {
+        this.payment_type = payment_type;
+    }
+
+    public String getOrder_type() {
+        return order_type;
+    }
+
+    public void setOrder_type(String order_type) {
+        this.order_type = order_type;
     }
 
     public List<ServiceItemInfo> getOrder() {

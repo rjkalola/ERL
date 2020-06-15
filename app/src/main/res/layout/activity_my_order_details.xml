@@ -36,7 +36,7 @@
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/montserrat_semi_bold"
                     android:gravity="center"
-                    android:text="@string/my_order"
+                    android:text="@string/order_history"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/_16ssp" />

@@ -5,6 +5,7 @@ import com.app.erl.model.entity.request.SaveAddressRequest;
 import com.app.erl.model.entity.request.SaveOrderRequest;
 import com.app.erl.model.entity.response.AddressResourcesResponse;
 import com.app.erl.model.entity.response.BaseResponse;
+import com.app.erl.model.entity.response.OrderDetailsResponse;
 import com.app.erl.model.entity.response.OrderListResponse;
 import com.app.erl.model.entity.response.OrderResourcesResponse;
 
@@ -29,6 +30,10 @@ public interface ManageOrderInterface {
     @Multipart
     @POST("client-cancel-order")
     Observable<BaseResponse> clientCancelOrders(@Part("id") int id);
+
+    @Multipart
+    @POST("client-order-detail")
+    Observable<OrderDetailsResponse> clientOrderDetails(@Part("order_id") int order_id);
 
 
 }

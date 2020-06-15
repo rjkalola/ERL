@@ -27,7 +27,7 @@
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/montserrat_semi_bold"
                     android:gravity="center"
-                    android:text="@string/my_orders"
+                    android:text="@string/order_history"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/_16ssp" />
@@ -51,20 +51,14 @@
             android:layout_below="@+id/routHeaderView"
             android:paddingStart="@dimen/_20sdp"
             android:paddingEnd="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:visibility="visible">
-
-            <View
-                android:id="@+id/divider"
-                style="@style/Divider"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:background="@color/colorYellowDark" />
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipeRefreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/loadMore"
-                android:layout_below="@+id/divider">
+                android:layout_above="@+id/loadMore">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvOrdersList"

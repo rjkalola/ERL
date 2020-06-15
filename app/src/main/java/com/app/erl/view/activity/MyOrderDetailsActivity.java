@@ -15,6 +15,7 @@ import com.app.erl.adapter.MyOrderServiceItemsListAdapter;
 import com.app.erl.databinding.ActivityMyOrderDetailsBinding;
 import com.app.erl.model.entity.info.OrderInfo;
 import com.app.erl.model.entity.response.BaseResponse;
+import com.app.erl.model.entity.response.OrderDetailsResponse;
 import com.app.erl.util.AppConstant;
 import com.app.erl.util.LoginViewModelFactory;
 import com.app.erl.util.ResourceProvider;
@@ -41,6 +42,8 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
         manageOrderViewModel.createView(this);
         manageOrderViewModel.mBaseResponse()
                 .observe(this, cancelOrderResponse());
+        manageOrderViewModel.getmOrderDetailsResponse()
+                .observe(this, orderDetailsResponse());
 
         binding.imgBack.setOnClickListener(this);
         binding.txtCancel.setOnClickListener(this);
@@ -100,6 +103,24 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
                 if (response.isSuccess()) {
                     setResult(1);
                     finish();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+    }
+
+    public Observer orderDetailsResponse() {
+        return (Observer<OrderDetailsResponse>) response -> {
+            try {
+                if (response == null) {
+                    AlertDialogHelper.showDialog(mContext, null,
+                            mContext.getString(R.string.error_unknown), mContext.getString(R.string.ok),
+                            null, false, null, 0);
+                    return;
+                }
+                if (response.isSuccess()) {
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();

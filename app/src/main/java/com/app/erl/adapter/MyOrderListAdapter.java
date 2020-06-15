@@ -42,9 +42,8 @@ public class MyOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         OrderInfo info = list.get(position);
         itemViewHolder.getData(info);
         itemViewHolder.binding.txtPrice.setText(String.format(mContext.getString(R.string.lbl_display_price), info.getTotal_price()));
-        itemViewHolder.binding.txtNumberOfPaces.setText(String.valueOf(info.getOrder().size()));
 
-        itemViewHolder.binding.routVieMore.setOnClickListener(v -> {
+        itemViewHolder.binding.routMainView.setOnClickListener(v -> {
             if (listener != null) {
                 setPosition(position);
                 listener.onSelectItem(position, AppConstant.Action.VIEW_ORDER);

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.app.erl.ERLApp;
 import com.app.erl.model.entity.request.SaveOrderRequest;
 import com.app.erl.model.entity.response.BaseResponse;
+import com.app.erl.model.entity.response.OrderDetailsResponse;
 import com.app.erl.model.entity.response.OrderListResponse;
 import com.app.erl.model.entity.response.OrderResourcesResponse;
 import com.app.erl.model.state.ManageOrderInterface;
@@ -21,6 +22,7 @@ public class ManageOrderViewModel extends BaseViewModel {
     private MutableLiveData<OrderResourcesResponse> orderResourcesResponse;
     private MutableLiveData<BaseResponse> mBaseResponse;
     private MutableLiveData<OrderListResponse> mOrderListResponse;
+    private MutableLiveData<OrderDetailsResponse> mOrderDetailsResponse;
 
     private SaveOrderRequest saveOrderRequest;
 
@@ -125,6 +127,30 @@ public class ManageOrderViewModel extends BaseViewModel {
         }.rxSingleCall(manageOrderInterface.clientCancelOrders(id));
     }
 
+    public void clientOrderDetailsRequest(int orderId) {
+        if (view != null) {
+            view.showProgress();
+        }
+        new RXRetroManager<OrderDetailsResponse>() {
+            @Override
+            protected void onSuccess(OrderDetailsResponse response) {
+                if (view != null) {
+                    mOrderDetailsResponse.postValue(response);
+                    view.hideProgress();
+                }
+            }
+
+            @Override
+            protected void onFailure(RetrofitException retrofitException, String errorCode) {
+                super.onFailure(retrofitException, errorCode);
+                if (view != null) {
+                    view.showApiError(retrofitException, errorCode);
+                    view.hideProgress();
+                }
+            }
+        }.rxSingleCall(manageOrderInterface.clientOrderDetails(orderId));
+    }
+
     public MutableLiveData<BaseResponse> mBaseResponse() {
         if (mBaseResponse == null) {
             mBaseResponse = new MutableLiveData<>();
@@ -152,5 +178,13 @@ public class ManageOrderViewModel extends BaseViewModel {
 
     public void setSaveOrderRequest(SaveOrderRequest saveOrderRequest) {
         this.saveOrderRequest = saveOrderRequest;
+    }
+
+    public MutableLiveData<OrderDetailsResponse> getmOrderDetailsResponse() {
+        return mOrderDetailsResponse;
+    }
+
+    public void setmOrderDetailsResponse(MutableLiveData<OrderDetailsResponse> mOrderDetailsResponse) {
+        this.mOrderDetailsResponse = mOrderDetailsResponse;
     }
 }
