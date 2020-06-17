@@ -44,6 +44,8 @@ public final class AppConstant {
         public static final String ITEMS_LIST = "ITEMS_LIST";
         public static final String SERVICE_HOUR_TYPE_ID = "SERVICE_HOUR_TYPE_ID";
         public static final String ORDER_TYPE = "ORDER_TYPE";
+        public static final String ORDER_ID = "ORDER_ID";
+        public static final String FROM_PAY = "FROM_PAY";
 
         public static final int RC_LOCATION_PERM = 1;
         public static final int LOCATION_SETTING_STATUS = 2;

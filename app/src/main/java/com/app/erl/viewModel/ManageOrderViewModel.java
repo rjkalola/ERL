@@ -172,19 +172,20 @@ public class ManageOrderViewModel extends BaseViewModel {
         return mOrderListResponse;
     }
 
+    public MutableLiveData<OrderDetailsResponse> mOrderDetailsResponse() {
+        if (mOrderDetailsResponse == null) {
+            mOrderDetailsResponse = new MutableLiveData<>();
+        }
+        return mOrderDetailsResponse;
+    }
+
+
+
     public SaveOrderRequest getSaveOrderRequest() {
         return saveOrderRequest;
     }
 
     public void setSaveOrderRequest(SaveOrderRequest saveOrderRequest) {
         this.saveOrderRequest = saveOrderRequest;
-    }
-
-    public MutableLiveData<OrderDetailsResponse> getmOrderDetailsResponse() {
-        return mOrderDetailsResponse;
-    }
-
-    public void setmOrderDetailsResponse(MutableLiveData<OrderDetailsResponse> mOrderDetailsResponse) {
-        this.mOrderDetailsResponse = mOrderDetailsResponse;
     }
 }

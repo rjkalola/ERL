@@ -7,21 +7,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.erl.R;
 import com.app.erl.databinding.RowMyOrderServiceItemsListBinding;
-import com.app.erl.model.entity.info.OrderItemInfo;
+import com.app.erl.databinding.RowMyOrderServiceSubItemsListBinding;
 import com.app.erl.model.entity.info.ServiceItemInfo;
 
 import java.util.List;
 
-public class MyOrderServiceItemsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MyOrderServiceSubItemsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-    private List<OrderItemInfo> list;
+    private List<ServiceItemInfo> list;
 
-    public MyOrderServiceItemsListAdapter(Context context, List<OrderItemInfo> list) {
+    public MyOrderServiceSubItemsListAdapter(Context context, List<ServiceItemInfo> list) {
         this.mContext = context;
         this.list = list;
     }
@@ -29,16 +28,17 @@ public class MyOrderServiceItemsListAdapter extends RecyclerView.Adapter<Recycle
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_my_order_service_items_list, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_my_order_service_sub_items_list, parent, false);
         return new ItemViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-        OrderItemInfo info = list.get(position);
-        setAddressAdapter(itemViewHolder.binding.rvServiceList, info.getData());
+        ServiceItemInfo info = list.get(position);
         itemViewHolder.getData(info);
+        itemViewHolder.binding.txtPrice.setText(String.format(mContext.getString(R.string.lbl_display_price), String.valueOf(info.getPrice())));
+        itemViewHolder.binding.txtQty.setText(String.valueOf(info.getQuantity()));
     }
 
     @Override
@@ -47,26 +47,15 @@ public class MyOrderServiceItemsListAdapter extends RecyclerView.Adapter<Recycle
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        private RowMyOrderServiceItemsListBinding binding;
+        private RowMyOrderServiceSubItemsListBinding binding;
 
-        public void getData(OrderItemInfo info) {
+        public void getData(ServiceItemInfo info) {
             binding.setInfo(info);
         }
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             binding = DataBindingUtil.bind(itemView);
-        }
-    }
-
-    private void setAddressAdapter(RecyclerView recyclerView, List<ServiceItemInfo> data) {
-        if (data != null
-                && data.size() > 0) {
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-            recyclerView.setHasFixedSize(true);
-            MyOrderServiceSubItemsListAdapter adapter = new MyOrderServiceSubItemsListAdapter(mContext, data);
-            recyclerView.setAdapter(adapter);
         }
     }
 }

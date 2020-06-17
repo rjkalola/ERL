@@ -3,7 +3,7 @@ package com.app.erl.model.entity.response;
 public class BaseResponse {
     boolean IsSuccess;
     String Message;
-    boolean status;
+//    boolean status;
     int ErrorCode;
 
     public boolean isSuccess() {
@@ -22,13 +22,13 @@ public class BaseResponse {
         Message = message;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
+//    public boolean isStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(boolean status) {
+//        this.status = status;
+//    }
 
     public int getErrorCode() {
         return ErrorCode;

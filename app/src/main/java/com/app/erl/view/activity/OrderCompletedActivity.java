@@ -9,10 +9,12 @@ import androidx.databinding.DataBindingUtil;
 
 import com.app.erl.R;
 import com.app.erl.databinding.ActivityOrderCompletedBinding;
+import com.app.erl.util.AppConstant;
 
 public class OrderCompletedActivity extends BaseActivity implements View.OnClickListener {
     private ActivityOrderCompletedBinding binding;
     private Context mContext;
+    private boolean isFromPay;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,6 +22,14 @@ public class OrderCompletedActivity extends BaseActivity implements View.OnClick
         binding = DataBindingUtil.setContentView(this, R.layout.activity_order_completed);
         mContext = this;
         binding.txtHome.setOnClickListener(this);
+        getIntentData();
+    }
+
+    public void getIntentData() {
+        if (getIntent().hasExtra(AppConstant.IntentKey.FROM_PAY)) {
+            isFromPay = getIntent().getBooleanExtra(AppConstant.IntentKey.FROM_PAY, false);
+            binding.txtOrderSuccessHint.setVisibility(View.GONE);
+        }
     }
 
     @Override

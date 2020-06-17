@@ -150,7 +150,12 @@
     <string name="lbl_thank_you">Thank You</string>
     <string name="msg_your_order_has_been_successfully_placed">Your order has been successfully placed.</string>
     <string name="hint_say_something">Say Something&#8230;</string>
-
+    <string name="lbl_order_summery">Order Summary</string>
+    <string name="lbl_pay_invoice">Pay Invoice</string>
+    <string name="lbl_pay">Pay</string>
+    <string name="lbl_available_wallet">Available Wallet:</string>
+    <string name="lbl_total_payable_amount">Total payable amount is:</string>
+    <string name="lbl_total">Total</string>
 
     <!--    <string name=""></string>-->
 

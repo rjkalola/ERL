@@ -16,7 +16,9 @@ import com.app.erl.databinding.ActivityMyOrderDetailsBinding;
 import com.app.erl.model.entity.info.OrderInfo;
 import com.app.erl.model.entity.response.BaseResponse;
 import com.app.erl.model.entity.response.OrderDetailsResponse;
+import com.app.erl.model.entity.response.OrderListResponse;
 import com.app.erl.util.AppConstant;
+import com.app.erl.util.AppUtils;
 import com.app.erl.util.LoginViewModelFactory;
 import com.app.erl.util.ResourceProvider;
 import com.app.erl.viewModel.ManageOrderViewModel;
@@ -30,7 +32,8 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
     private Context mContext;
     private MyOrderServiceItemsListAdapter adapter;
     private ManageOrderViewModel manageOrderViewModel;
-    private OrderInfo orderInfo;
+    private OrderDetailsResponse orderDetails;
+    private int orderId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,28 +43,22 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
 
         manageOrderViewModel = ViewModelProviders.of(this, new LoginViewModelFactory(new ResourceProvider(getResources()))).get(ManageOrderViewModel.class);
         manageOrderViewModel.createView(this);
+        manageOrderViewModel.mOrderDetailsResponse()
+                .observe(this, orderDetailsResponse());
         manageOrderViewModel.mBaseResponse()
                 .observe(this, cancelOrderResponse());
-        manageOrderViewModel.getmOrderDetailsResponse()
-                .observe(this, orderDetailsResponse());
 
         binding.imgBack.setOnClickListener(this);
-        binding.txtCancel.setOnClickListener(this);
+        binding.txtPay.setOnClickListener(this);
 
+//        manageOrderViewModel.getClientOrders(10, 0, true);
         getIntentData();
     }
 
     public void getIntentData() {
-        if (getIntent().getExtras() != null && getIntent().hasExtra(AppConstant.IntentKey.ORDER_DATA)) {
-            setOrderInfo(Parcels.unwrap(getIntent().getParcelableExtra(AppConstant.IntentKey.ORDER_DATA)));
-            binding.setInfo(getOrderInfo());
-            binding.txtTotalPaces.setText(String.valueOf(getOrderInfo().getOrder().size()));
-            binding.txtTotalPrice.setText(String.format(mContext.getString(R.string.lbl_display_price), getOrderInfo().getTotal_price()));
-            if (getOrderInfo().getStatus_id() == 1)
-                binding.btnCancel.setVisibility(View.VISIBLE);
-            else
-                binding.btnCancel.setVisibility(View.GONE);
-            setAddressAdapter();
+        if (getIntent().getExtras() != null && getIntent().hasExtra(AppConstant.IntentKey.ORDER_ID)) {
+            orderId = getIntent().getIntExtra(AppConstant.IntentKey.ORDER_ID, 0);
+            manageOrderViewModel.clientOrderDetailsRequest(orderId);
         } else {
             finish();
         }
@@ -73,20 +70,23 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
             case R.id.imgBack:
                 finish();
                 break;
-            case R.id.txtCancel:
-                AlertDialogHelper.showDialog(mContext, null, getString(R.string.msg_cancel_order), getString(R.string.yes), getString(R.string.no), true, this, AppConstant.DialogIdentifier.CANCEL_ORDER);
+            case R.id.txtPay:
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(AppConstant.IntentKey.FROM_PAY, true);
+                moveActivity(mContext, OrderCompletedActivity.class, true, true, bundle);
+//                AlertDialogHelper.showDialog(mContext, null, getString(R.string.msg_cancel_order), getString(R.string.yes), getString(R.string.no), true, this, AppConstant.DialogIdentifier.CANCEL_ORDER);
                 break;
         }
     }
 
     private void setAddressAdapter() {
-        if (getOrderInfo() != null
-                && getOrderInfo().getOrder() != null
-                && getOrderInfo().getOrder().size() > 0) {
+        if (getOrderDetails() != null
+                && getOrderDetails().getInfo() != null
+                && getOrderDetails().getInfo().size() > 0) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             binding.rvOrderItems.setLayoutManager(linearLayoutManager);
             binding.rvOrderItems.setHasFixedSize(true);
-            adapter = new MyOrderServiceItemsListAdapter(mContext, getOrderInfo().getOrder());
+            adapter = new MyOrderServiceItemsListAdapter(mContext, getOrderDetails().getInfo());
             binding.rvOrderItems.setAdapter(adapter);
         }
     }
@@ -120,7 +120,14 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
                     return;
                 }
                 if (response.isSuccess()) {
-
+                    setOrderDetails(response);
+                    binding.routMainView.setVisibility(View.VISIBLE);
+                    binding.btnPay.setVisibility(View.VISIBLE);
+                    binding.txtTotalPrice.setText(String.format(mContext.getString(R.string.lbl_display_price), String.valueOf(getOrderDetails().getTotal_price())));
+                    binding.txtTotalPayableAmount.setText(String.format(mContext.getString(R.string.lbl_display_price), String.valueOf(getOrderDetails().getAmount_pay())));
+                    binding.txtAvailableWallet.setText(String.format(mContext.getString(R.string.lbl_display_price), String.valueOf(getOrderDetails().getWallet())));
+                    binding.txtOrderNumber.setText(getOrderDetails().getOrder_no());
+                    setAddressAdapter();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -131,7 +138,7 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
     @Override
     public void onPositiveButtonClicked(int dialogIdentifier) {
         if (dialogIdentifier == AppConstant.DialogIdentifier.CANCEL_ORDER) {
-            manageOrderViewModel.clientCancelOrders(getOrderInfo().getId());
+//            manageOrderViewModel.clientCancelOrders(getOrderInfo().getId());
         }
     }
 
@@ -140,11 +147,11 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
 
     }
 
-    public OrderInfo getOrderInfo() {
-        return orderInfo;
+    public OrderDetailsResponse getOrderDetails() {
+        return orderDetails;
     }
 
-    public void setOrderInfo(OrderInfo orderInfo) {
-        this.orderInfo = orderInfo;
+    public void setOrderDetails(OrderDetailsResponse orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }

@@ -163,7 +163,7 @@ public class MyOrderListActivity extends BaseActivity implements View.OnClickLis
         switch (action) {
             case AppConstant.Action.VIEW_ORDER:
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(AppConstant.IntentKey.ORDER_DATA, Parcels.wrap(adapter.getList().get(adapter.getPosition())));
+                bundle.putInt(AppConstant.IntentKey.ORDER_ID, adapter.getList().get(adapter.getPosition()).getId());
                 moveActivityForResult(mContext, MyOrderDetailsActivity.class, false, false, AppConstant.IntentKey.VIEW_ORDER, bundle);
                 break;
         }

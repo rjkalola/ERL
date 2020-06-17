@@ -8,7 +8,7 @@ import java.util.List;
 
 public class OrderDetailsResponse extends BaseResponse {
     private List<OrderItemInfo> info;
-    private int total_price, status, amount_pay;
+    private int total_price, amount_pay;
     private String order_no, wallet;
 
     public List<OrderItemInfo> getInfo() {
@@ -25,14 +25,6 @@ public class OrderDetailsResponse extends BaseResponse {
 
     public void setTotal_price(int total_price) {
         this.total_price = total_price;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 
     public int getAmount_pay() {
