@@ -2,7 +2,10 @@ package com.app.erl.model.state;
 
 
 import com.app.erl.model.entity.response.ClientDashBoardResponse;
+import com.app.erl.model.entity.response.OurServicesResponse;
+import com.app.erl.model.entity.response.PrivacyPolicyResponse;
 import com.app.erl.model.entity.response.ServiceItemsResponse;
+import com.app.erl.model.entity.response.StoreLocatorResponse;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -15,4 +18,16 @@ public interface DashBoardServiceInterface {
 
     @GET("get-service-items")
     Observable<ServiceItemsResponse> getServiceItems();
+
+    @GET("terms-condition")
+    Observable<PrivacyPolicyResponse> getTermsConditions();
+
+    @GET("privacy-policy")
+    Observable<PrivacyPolicyResponse> getPrivacyPolicy();
+
+    @GET("our-services")
+    Observable<OurServicesResponse> getOurServices();
+
+    @GET("store-locators")
+    Observable<StoreLocatorResponse> getStoreLocator();
 }

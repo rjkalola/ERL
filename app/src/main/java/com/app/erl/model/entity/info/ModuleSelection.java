@@ -4,7 +4,7 @@ package com.app.erl.model.entity.info;
 import java.util.List;
 
 public class ModuleSelection {
-    private int type;
+    private int type,position;
     private ModuleInfo info;
     private List<ModuleInfo> moduleList;
 
@@ -12,6 +12,14 @@ public class ModuleSelection {
         this.type = type;
         this.info = info;
         this.moduleList = moduleList;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     public int getType() {

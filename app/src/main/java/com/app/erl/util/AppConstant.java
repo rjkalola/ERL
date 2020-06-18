@@ -25,6 +25,7 @@ public final class AppConstant {
         public static final int DELETE_ADDRESS = 7;
         public static final int CANCEL_ORDER = 8;
         public static final int CLEAR_CART = 9;
+        public static final int SELECT_SHOP = 10;
     }
 
     public static final class IntentKey {
@@ -46,6 +47,8 @@ public final class AppConstant {
         public static final String ORDER_TYPE = "ORDER_TYPE";
         public static final String ORDER_ID = "ORDER_ID";
         public static final String FROM_PAY = "FROM_PAY";
+        public static final String TYPE = "TYPE";
+        public static final String OUR_SERVICE_INFO = "OUR_SERVICE_INFO";
 
         public static final int RC_LOCATION_PERM = 1;
         public static final int LOCATION_SETTING_STATUS = 2;
@@ -75,6 +78,9 @@ public final class AppConstant {
         public static final String CAMERA = "camera";
         public static final int ME = 1;
         public static final int FRIEND = 2;
+        public static final int TERMS_CONDITIONS = 1;
+        public static final int PRIVACY_POLICY = 2;
+        public static final int OUR_SERVICES = 3;
     }
 
     public static final class LocationMode {

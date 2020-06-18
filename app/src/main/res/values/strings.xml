@@ -69,7 +69,7 @@
     <string name="order_history">Order History</string>
     <string name="settings">Settings</string>
     <string name="privacy_policy">Privacy Policy</string>
-    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="terms_and_conditions">Terms &amp; Conditions</string>
     <string name="about_app">About App</string>
     <string name="share">Share</string>
     <string name="logout">Logout</string>
@@ -156,6 +156,7 @@
     <string name="lbl_available_wallet">Available Wallet:</string>
     <string name="lbl_total_payable_amount">Total payable amount is:</string>
     <string name="lbl_total">Total</string>
+    <string name="lbl_select_shop">Select Shop</string>
 
     <!--    <string name=""></string>-->
 
@@ -192,6 +193,7 @@
     <string name="lbl_24_hours">24\nHours</string>
     <string name="lbl_5_hours">5\nHours</string>
     <string name="lbl_skip_item_lazy_order">Skip Item Lazy Order</string>
+    <string name="lbl_services">Services</string>
     <!--        <string name=""></string>-->
 
     <!--    <string name=""></string>-->
@@ -199,6 +201,7 @@
     <integer-array name="navigationItemsDrawable">
         <item>@drawable/ic_nav_my_profile</item>
         <item>@drawable/ic_nav_my_order</item>
+        <item>@drawable/ic_nav_our_services</item>
         <item>@drawable/ic_nav_settings</item>
         <item>@drawable/ic_nav_privacy_policy</item>
         <item>@drawable/ic_nav_terms_and_conditions</item>
@@ -210,6 +213,7 @@
     <string-array name="navigationItems">
         <item>@string/my_profile</item>
         <item>@string/my_order</item>
+        <item>@string/lbl_services</item>
         <item>@string/settings</item>
         <item>@string/privacy_policy</item>
         <item>@string/terms_and_conditions</item>

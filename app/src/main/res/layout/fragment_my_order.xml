@@ -14,8 +14,7 @@
             android:id="@+id/routDetailsView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/routHeaderView"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_110sdp"
             android:paddingStart="@dimen/_20sdp"
             android:paddingEnd="@dimen/_20sdp"
             android:visibility="visible">

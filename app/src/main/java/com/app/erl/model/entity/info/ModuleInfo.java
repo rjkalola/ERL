@@ -2,8 +2,8 @@
 package com.app.erl.model.entity.info;
 
 public class ModuleInfo {
-    private int id, city_id;
-    private String name, zip_code;
+    private int id, city_id,tag;
+    private String name, zip_code,address,latitude,longitude;
     private boolean check;
 
     public void copyData(ModuleInfo info){
@@ -11,7 +11,11 @@ public class ModuleInfo {
         this.city_id = info.getCity_id();
         this.name = info.getName();
         this.zip_code = info.getZip_code();
+        this.address = info.getAddress();
+        this.latitude = info.getLatitude();
+        this.longitude = info.getLongitude();
         this.check = info.isCheck();
+        this.tag = info.getTag();
     }
 
     public int getId() {
@@ -52,6 +56,38 @@ public class ModuleInfo {
 
     public void setCheck(boolean check) {
         this.check = check;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public int getTag() {
+        return tag;
+    }
+
+    public void setTag(int tag) {
+        this.tag = tag;
     }
 }
 

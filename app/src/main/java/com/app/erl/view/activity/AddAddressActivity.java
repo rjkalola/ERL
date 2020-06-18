@@ -154,6 +154,9 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
             case R.id.txtAddAddress:
                 if (validate()) {
                     manageAddressViewModel.saveAddressRequest();
+                } else {
+                    if (binding.slidingLayout.getPanelState().toString().equals(AppConstant.DrawerState.COLLAPSED))
+                        binding.slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
                 }
                 break;
         }
@@ -294,7 +297,7 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
                 }
                 if (response.isSuccess()) {
                     setAddressData(response);
-                    if(manageAddressViewModel.getSaveAddressRequest().getCity_id() > 0){
+                    if (manageAddressViewModel.getSaveAddressRequest().getCity_id() > 0) {
                         listArea = new ArrayList<>();
                         for (int i = 0; i < getAddressData().getArea().size(); i++) {
                             if (getAddressData().getArea().get(i).getCity_id() == manageAddressViewModel.getSaveAddressRequest().getCity_id()) {

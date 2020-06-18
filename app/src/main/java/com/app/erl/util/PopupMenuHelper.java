@@ -23,6 +23,7 @@ public class PopupMenuHelper {
         popupMenu.setOnMenuItemClickListener(menuItem -> {
             int position = menuItem.getItemId();
             ModuleSelection moduleSelection = new ModuleSelection(dialogIdentifier, list.get(position), list);
+            moduleSelection.setPosition(position);
             EventBus.getDefault().post(moduleSelection);
             return false;
         });

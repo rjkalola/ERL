@@ -25,6 +25,7 @@ import com.app.erl.util.AppUtils;
 import com.app.erl.util.LoginViewModelFactory;
 import com.app.erl.util.ResourceProvider;
 import com.app.erl.view.activity.ChatActivity;
+import com.app.erl.view.activity.StoreLocatorActivity;
 import com.app.erl.viewModel.DashBoardViewModel;
 import com.app.utilities.utils.AlertDialogHelper;
 
@@ -59,6 +60,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         dashBoardViewModel.getClientDashboardRequest();
 
         binding.routLiveSupport.setOnClickListener(this);
+        binding.routStoreLocator.setOnClickListener(this);
 
         return binding.getRoot();
     }
@@ -69,6 +71,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.routLiveSupport:
                 moveActivity(mContext, ChatActivity.class, false, false, null);
+                break;
+            case R.id.routStoreLocator:
+                moveActivity(mContext, StoreLocatorActivity.class, false, false, null);
                 break;
         }
     }

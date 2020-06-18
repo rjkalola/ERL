@@ -117,10 +117,19 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onSelectItem(int position, String item) {
+        Bundle bundle = new Bundle();
         if (item.equals(getString(R.string.my_profile))) {
             moveActivityForResult(mContext, MyProfileActivity.class, false, false, AppConstant.IntentKey.VIEW_PROFILE, null);
         } else if (item.equals(getString(R.string.my_order))) {
             moveActivity(mContext, MyOrderListActivity.class, false, false, null);
+        }else if (item.equals(getString(R.string.lbl_services))) {
+            moveActivity(mContext, OurServicesActivity.class, false, false, null);
+        } else if (item.equals(getString(R.string.terms_and_conditions))) {
+            bundle.putInt(AppConstant.IntentKey.TYPE, AppConstant.Type.TERMS_CONDITIONS);
+            moveActivity(mContext, PrivacyPolicyActivity.class, false, false, bundle);
+        } else if (item.equals(getString(R.string.privacy_policy))) {
+            bundle.putInt(AppConstant.IntentKey.TYPE, AppConstant.Type.PRIVACY_POLICY);
+            moveActivity(mContext, PrivacyPolicyActivity.class, false, false, bundle);
         } else if (item.equals(getString(R.string.logout))) {
             AlertDialogHelper.showDialog(mContext, "", getString(R.string.logout_msg), getString(R.string.yes), getString(R.string.no), false, this, AppConstant.DialogIdentifier.LOGOUT);
         }

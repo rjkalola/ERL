@@ -104,9 +104,25 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name="com.app.erl.view.activity.StoreLocatorActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".view.activity.ChatActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name="com.app.erl.view.activity.PrivacyPolicyActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.app.erl.view.activity.OurServicesActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.app.erl.view.activity.OurServiceDetailsActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
