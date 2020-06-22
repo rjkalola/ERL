@@ -7,8 +7,7 @@
     </string-array>
 
     <string name="app_name" translatable="false">ERL</string>
-    <string name="ok">Ok</string>
-
+    <string name="CHANNEL_ID" translatable="false">ERL</string>
     <!--    <string name="font_family_regular" translatable="false">sans-serif</string>-->
     <!--    <string name="font_family_medium" translatable="false">sans-serif-medium</string>-->
 
@@ -76,6 +75,7 @@
     <string name="logout_msg">Are you sure you want to logout?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="ok">Ok</string>
     <string name="hint_new_password">New Password</string>
     <string name="hint_confirm_new_password">Confirm New Password</string>
     <string name="lbl_select_item">Select Item</string>

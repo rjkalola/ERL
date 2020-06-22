@@ -11,6 +11,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.erl.ERLApp;
@@ -21,27 +23,28 @@ import com.app.erl.callback.SelectINavigationItemListener;
 import com.app.erl.callback.SelectItemListener;
 import com.app.erl.databinding.ActivityDashboardBinding;
 import com.app.erl.databinding.NavHeaderDashboardBinding;
-import com.app.erl.model.entity.info.ServiceItemInfo;
+import com.app.erl.model.entity.response.BaseResponse;
 import com.app.erl.model.entity.response.User;
 import com.app.erl.util.AppConstant;
 import com.app.erl.util.AppUtils;
+import com.app.erl.util.LoginViewModelFactory;
+import com.app.erl.util.ResourceProvider;
 import com.app.erl.util.ViewPagerDisableSwipe;
 import com.app.erl.view.fragment.HomeFragment;
 import com.app.erl.view.fragment.MyOrderFragment;
 import com.app.erl.view.fragment.PriceListFragment;
-import com.app.erl.viewModel.DashBoardViewModel;
+import com.app.erl.viewModel.UserAuthenticationViewModel;
 import com.app.utilities.callbacks.DialogButtonClickListener;
 import com.app.utilities.utils.AlertDialogHelper;
 import com.app.utilities.utils.Constant;
 import com.app.utilities.utils.GlideUtil;
 import com.app.utilities.utils.StringHelper;
-
-import org.parceler.Parcels;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class DashBoardActivity extends BaseActivity implements View.OnClickListener, SelectINavigationItemListener, DialogButtonClickListener, SelectItemListener {
     private ActivityDashboardBinding binding;
     private NavHeaderDashboardBinding bindingNavHeader;
-    private DashBoardViewModel dashBoardViewModel;
+    private UserAuthenticationViewModel userAuthenticationViewModel;
     private Context mContext;
 
     private ActionBarDrawerToggle toggle;
@@ -54,7 +57,10 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
 //        bindingNavHeader = DataBindingUtil.bind(binding.navView.getHeaderView(0));
         mContext = this;
-
+        userAuthenticationViewModel = ViewModelProviders.of(this, new LoginViewModelFactory(new ResourceProvider(getResources()))).get(UserAuthenticationViewModel.class);
+        userAuthenticationViewModel.createView(this);
+        userAuthenticationViewModel.mBaseResponse()
+                .observe(this, getBaseResponse());
 
         setSupportActionBar(binding.appBarLayout.toolbar);
         setupToolbar(getString(R.string.lbl_dashboard), false);
@@ -74,6 +80,7 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
 
         setupViewPager(binding.appBarLayout.viewPager);
 
+        getFcmToken();
     }
 
     @Override
@@ -122,7 +129,7 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
             moveActivityForResult(mContext, MyProfileActivity.class, false, false, AppConstant.IntentKey.VIEW_PROFILE, null);
         } else if (item.equals(getString(R.string.my_order))) {
             moveActivity(mContext, MyOrderListActivity.class, false, false, null);
-        }else if (item.equals(getString(R.string.lbl_services))) {
+        } else if (item.equals(getString(R.string.lbl_services))) {
             moveActivity(mContext, OurServicesActivity.class, false, false, null);
         } else if (item.equals(getString(R.string.terms_and_conditions))) {
             bundle.putInt(AppConstant.IntentKey.TYPE, AppConstant.Type.TERMS_CONDITIONS);
@@ -252,6 +259,39 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
             else if (isClearTitle)
                 txtTitle.setText("");
         }
+    }
+
+    public Observer getBaseResponse() {
+        return (Observer<BaseResponse>) response -> {
+            try {
+                if (response == null) {
+                    AlertDialogHelper.showDialog(mContext, null,
+                            mContext.getString(R.string.error_unknown), mContext.getString(R.string.ok),
+                            null, false, null, 0);
+                    return;
+                }
+                if (response.isSuccess()) {
+
+                } else {
+                    AppUtils.handleUnauthorized(mContext, response);
+                }
+            } catch (Exception e) {
+            }
+        };
+    }
+
+    public void getFcmToken() {
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        return;
+                    }
+//                    User user = AppUtils.getUserPrefrence(mContext);
+                    String fcmToken = task.getResult().getToken();
+                    if (!StringHelper.isEmpty(fcmToken)) {
+                        userAuthenticationViewModel.registerFcmRequest(fcmToken);
+                    }
+                });
     }
 
 }

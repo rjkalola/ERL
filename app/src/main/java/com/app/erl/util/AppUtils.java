@@ -17,6 +17,7 @@ import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 
 import androidx.core.app.ActivityCompat;
@@ -35,6 +36,7 @@ import android.widget.Toast;
 
 import com.app.erl.ERLApp;
 import com.app.erl.R;
+import com.app.erl.model.entity.info.FcmData;
 import com.app.erl.model.entity.response.BaseResponse;
 import com.app.erl.model.entity.response.User;
 import com.app.erl.network.RetrofitException;
@@ -648,5 +650,27 @@ public final class AppUtils {
     public static boolean isNetworkConnected(Context mContext) {
         ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+
+    public static Intent getFcmIntent(FcmData data) {
+        Intent intent = null;
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstant.IntentKey.NOTIFICATION_TYPE, data.getType());
+        Log.e("test","5");
+        switch (data.getType()) {
+            case "5000":
+                Log.e("test","6");
+                intent = new Intent("com.app.erl.view.activity.ChatActivity");
+                break;
+            default:
+                Log.e("test","7");
+                intent = new Intent("com.app.erl.view.activity.DashboardActivity");
+        }
+
+        if (intent != null) {
+            intent.putExtras(bundle);
+        }
+
+        return intent;
     }
 }

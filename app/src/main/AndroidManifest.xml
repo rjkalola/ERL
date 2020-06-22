@@ -39,7 +39,14 @@
         <activity
             android:name="com.app.erl.view.activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan">
+
+            <intent-filter>
+                <action android:name="com.app.erl.view.activity.LoginActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
 
         <activity
             android:name="com.app.erl.view.activity.SignUpActivity"
@@ -64,7 +71,14 @@
         <activity
             android:name="com.app.erl.view.activity.DashBoardActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize">
+
+            <intent-filter>
+                <action android:name="com.app.erl.view.activity.DashboardActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
 
         <activity
             android:name="com.app.erl.view.activity.SelectOrderItemsActivity"
@@ -110,7 +124,14 @@
         <activity
             android:name=".view.activity.ChatActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize">
+
+            <intent-filter>
+                <action android:name="com.app.erl.view.activity.ChatActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
 
         <activity
             android:name="com.app.erl.view.activity.PrivacyPolicyActivity"
@@ -144,6 +165,33 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_key_api" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/CHANNEL_ID" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_app_white_120" />
+
+        <service
+            android:name=".FCMInstanceIDService"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
     </application>
 

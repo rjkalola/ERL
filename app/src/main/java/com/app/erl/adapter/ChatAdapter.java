@@ -13,25 +13,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.erl.R;
-import com.app.erl.model.entity.info.ModuleInfo;
+import com.app.erl.model.entity.info.MessageInfo;
 import com.app.erl.util.AppConstant;
 import com.app.erl.util.AppUtils;
 import com.app.utilities.utils.Constant;
 import com.app.utilities.utils.GlideUtil;
 import com.app.utilities.utils.StringHelper;
 
-import java.util.HashMap;
+import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-    //    private List<MessageItem> messageList;
-    private String currentUser = "";
-    ;
-    private HashMap<String, ModuleInfo> usersList;
+    private List<MessageInfo> messageList;
+    private int currentUserId = 0;
 
-    public ChatAdapter(Context context) {
+    public ChatAdapter(Context context, List<MessageInfo> list) {
         this.mContext = context;
-        currentUser = AppUtils.getUserPrefrence(mContext).getEmail();
+        currentUserId = AppUtils.getUserPrefrence(mContext).getId();
+        this.messageList = list;
     }
 
     @NonNull
@@ -50,6 +49,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+        MessageInfo info = messageList.get(position);
+        itemViewHolder.txtMsg.setText(info.getMessage());
+        itemViewHolder.txtTime.setText(info.getCreated_date());
+        setImage(itemViewHolder.imgUserPic,info.getUser_image());
 
         itemViewHolder.parentView.setOnClickListener(v -> {
 
@@ -58,12 +61,12 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 10;
+        return messageList.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position % 2 == 0) {
+        if (messageList.get(position).getFrom_user_id() == currentUserId) {
             return AppConstant.Type.ME;
         } else {
             return AppConstant.Type.FRIEND;
@@ -92,12 +95,21 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    public HashMap<String, ModuleInfo> getUsersList() {
-        return usersList;
+    public void addMessage(MessageInfo info) {
+        messageList.add(info);
+        notifyDataSetChanged();
     }
 
-    public void setUsersList(HashMap<String, ModuleInfo> usersList) {
-        this.usersList = usersList;
+    public void addMessages(List<MessageInfo> list) {
+        messageList.addAll(list);
+        notifyDataSetChanged();
     }
 
+    public List<MessageInfo> getMessageList() {
+        return messageList;
+    }
+
+    public void setMessageList(List<MessageInfo> messageList) {
+        this.messageList = messageList;
+    }
 }

@@ -5,8 +5,10 @@ import com.app.erl.model.entity.request.LoginRequest;
 import com.app.erl.model.entity.request.SignUpRequest;
 import com.app.erl.model.entity.response.BaseResponse;
 import com.app.erl.model.entity.response.ForgotPasswordResponse;
+import com.app.erl.model.entity.response.GetMessagesResponse;
 import com.app.erl.model.entity.response.OrderResourcesResponse;
 import com.app.erl.model.entity.response.ProfileResponse;
+import com.app.erl.model.entity.response.SendMessageResponse;
 import com.app.erl.model.entity.response.UserResponse;
 
 import io.reactivex.Observable;
@@ -47,4 +49,18 @@ public interface UserAuthenticationServiceInterface {
     @Multipart
     @POST("save-profile")
     Observable<ProfileResponse> saveProfile(@Part("name") RequestBody name, @Part("email") RequestBody email, @Part("phone") RequestBody phone,@Part MultipartBody.Part image);
+
+    @Multipart
+    @POST("send-message")
+    Observable<SendMessageResponse> sendMessage(@Part("message") RequestBody message,@Part MultipartBody.Part image);
+
+    @Multipart
+    @POST("messages")
+    Observable<GetMessagesResponse> getMessages(@Part("last_message_id") int last_message_id);
+
+    @Multipart
+    @POST("kkm-token")
+    Observable<BaseResponse> registerToken(@Part("token") RequestBody token, @Part("device_type") RequestBody device_type);
+
+
 }

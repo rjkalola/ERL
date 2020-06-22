@@ -7,12 +7,13 @@ public final class AppConstant {
     public static final int MAX_ALBUM_LENGTH = 8;
     public static final int UNAUTHORIZED = 401;
     public static final String ERROR_UNKNOWN = "ERR0001";
-
+    public static final String EXTRA_CHANNEL_SID = "ERL";
 
     public static boolean IS_NOT_WANT_TOAST_ICON = false;
     public static final int MAX_IMAGE_WIDTH = 1280;
     public static final int MAX_IMAGE_HEIGHT = 1280;
     public static final int IMAGE_QUALITY = 80;
+    public static boolean isOpenChatScreen = false;
 
 
     public static final class DialogIdentifier {
@@ -49,6 +50,9 @@ public final class AppConstant {
         public static final String FROM_PAY = "FROM_PAY";
         public static final String TYPE = "TYPE";
         public static final String OUR_SERVICE_INFO = "OUR_SERVICE_INFO";
+        public static final String NOTIFICATION_TYPE = "NOTIFICATION_TYPE";
+        public static final String IS_FROM_NOTIFICATION = "IS_FROM_NOTIFICATION";
+        public static final String LAST_MESSAGE_ID = "LAST_MESSAGE_ID";
 
         public static final int RC_LOCATION_PERM = 1;
         public static final int LOCATION_SETTING_STATUS = 2;
@@ -98,6 +102,7 @@ public final class AppConstant {
         public static final int SELECT_ALBUM = 5;
         public static final int SELECT_PHOTO = 6;
         public static final int SELECT_SERVICE_HOUR_TYPE = 7;
+        public static final String UPDATE_CHAT_DATA = "updatechatdata";
     }
 
 

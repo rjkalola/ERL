@@ -7,12 +7,14 @@ import com.app.erl.model.entity.request.LoginRequest;
 import com.app.erl.model.entity.request.SignUpRequest;
 import com.app.erl.model.entity.response.BaseResponse;
 import com.app.erl.model.entity.response.ForgotPasswordResponse;
-import com.app.erl.model.entity.response.OrderResourcesResponse;
+import com.app.erl.model.entity.response.GetMessagesResponse;
 import com.app.erl.model.entity.response.ProfileResponse;
+import com.app.erl.model.entity.response.SendMessageResponse;
 import com.app.erl.model.entity.response.UserResponse;
 import com.app.erl.model.state.UserAuthenticationServiceInterface;
 import com.app.erl.network.RXRetroManager;
 import com.app.erl.network.RetrofitException;
+import com.app.erl.util.AppConstant;
 import com.app.erl.util.ResourceProvider;
 import com.app.utilities.utils.StringHelper;
 
@@ -36,6 +38,8 @@ public class UserAuthenticationViewModel extends BaseViewModel {
     private MutableLiveData<BaseResponse> mBaseResponse;
     private MutableLiveData<ProfileResponse> mProfileResponse;
     private MutableLiveData<ProfileResponse> mSaveProfileResponse;
+    private MutableLiveData<SendMessageResponse> mSendMessageResponse;
+    private MutableLiveData<GetMessagesResponse> getMessagesResponse;
 
     public UserAuthenticationViewModel(ResourceProvider resourceProvider) {
         ERLApp.getServiceComponent().inject(this);
@@ -254,6 +258,91 @@ public class UserAuthenticationViewModel extends BaseViewModel {
         }.rxSingleCall(userAuthenticationServiceInterface.saveProfile(nameBody, emailBody, phoneBody, imageFileBody));
     }
 
+    public void sendMessage(String message, String imagePath,boolean isProgress) {
+        RequestBody messageBody = RequestBody.create(MediaType.parse("text/plain"), message);
+
+        MultipartBody.Part imageFileBody = null;
+        if (!StringHelper.isEmpty(imagePath)) {
+            File file = new File(imagePath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            imageFileBody = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
+        }
+
+        if (view != null && isProgress) {
+            view.showProgress();
+        }
+        new RXRetroManager<SendMessageResponse>() {
+            @Override
+            protected void onSuccess(SendMessageResponse response) {
+                if (view != null) {
+                    mSendMessageResponse.postValue(response);
+                    view.hideProgress();
+                }
+            }
+
+            @Override
+            protected void onFailure(RetrofitException retrofitException, String errorCode) {
+                super.onFailure(retrofitException, errorCode);
+                if (view != null) {
+                    view.showApiError(retrofitException, errorCode);
+                    view.hideProgress();
+                }
+            }
+        }.rxSingleCall(userAuthenticationServiceInterface.sendMessage(messageBody,imageFileBody));
+    }
+
+    public void getMessages(int lastMessageId, boolean isProgress) {
+        if (view != null && isProgress) {
+            view.showProgress();
+        }
+        new RXRetroManager<GetMessagesResponse>() {
+            @Override
+            protected void onSuccess(GetMessagesResponse response) {
+                if (view != null) {
+                    getMessagesResponse.postValue(response);
+                    view.hideProgress();
+                }
+            }
+
+            @Override
+            protected void onFailure(RetrofitException retrofitException, String errorCode) {
+                super.onFailure(retrofitException, errorCode);
+                if (view != null) {
+                    view.showApiError(retrofitException, errorCode);
+                    view.hideProgress();
+                }
+            }
+        }.rxSingleCall(userAuthenticationServiceInterface.getMessages(lastMessageId));
+    }
+
+    public void registerFcmRequest(String token) {
+        RequestBody tokenBody = RequestBody.create(MediaType.parse("text/plain"), token);
+        RequestBody deviceTypeBody = RequestBody.create(MediaType.parse("text/plain"), AppConstant.DEVICE_TYPE);
+
+//        if (view != null) {
+//            view.showProgress();
+//        }
+        new RXRetroManager<BaseResponse>() {
+            @Override
+            protected void onSuccess(BaseResponse response) {
+                if (view != null) {
+                    mBaseResponse.postValue(response);
+//                    view.hideProgress();
+                }
+            }
+
+            @Override
+            protected void onFailure(RetrofitException retrofitException, String errorCode) {
+                super.onFailure(retrofitException, errorCode);
+                if (view != null) {
+                    view.showApiError(retrofitException, errorCode);
+//                    view.hideProgress();
+                }
+            }
+        }.rxSingleCall(userAuthenticationServiceInterface.registerToken(tokenBody, deviceTypeBody));
+
+    }
+
     public MutableLiveData<BaseResponse> mBaseResponse() {
         if (mBaseResponse == null) {
             mBaseResponse = new MutableLiveData<>();
@@ -287,6 +376,20 @@ public class UserAuthenticationViewModel extends BaseViewModel {
             mSaveProfileResponse = new MutableLiveData<>();
         }
         return mSaveProfileResponse;
+    }
+
+    public MutableLiveData<SendMessageResponse> mSendMessageResponse() {
+        if (mSendMessageResponse == null) {
+            mSendMessageResponse = new MutableLiveData<>();
+        }
+        return mSendMessageResponse;
+    }
+
+    public MutableLiveData<GetMessagesResponse> getMessagesResponse() {
+        if (getMessagesResponse == null) {
+            getMessagesResponse = new MutableLiveData<>();
+        }
+        return getMessagesResponse;
     }
 
     public LoginRequest getLoginRequest() {

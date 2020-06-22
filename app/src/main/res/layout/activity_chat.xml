@@ -27,7 +27,7 @@
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/montserrat_semi_bold"
                     android:gravity="center"
-                    android:text="John Doe"
+                    android:text="@string/lbl_live_support"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/_16ssp" />
@@ -78,6 +78,7 @@
                 android:src="@drawable/ic_camera_chat" />
 
             <EditText
+                android:id="@+id/edtMessageBox"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_32sdp"
                 android:layout_centerVertical="true"

@@ -18,6 +18,8 @@ import com.app.erl.util.AppConstant;
 import com.app.erl.util.LocaleManager;
 import com.app.erl.util.VariantConfig;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class ERLApp extends Application {
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -32,8 +34,8 @@ public class ERLApp extends Application {
 
     @Override
     protected void attachBaseContext(Context base) {
-//        super.attachBaseContext(LocaleManager.setNewLocale(base, "en"));
-        super.attachBaseContext(LocaleManager.setLocale(base));
+        super.attachBaseContext(LocaleManager.setNewLocale(base, "en"));
+        CalligraphyContextWrapper.wrap(base);
 
     }
 
