@@ -5,11 +5,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.erl.R;
 import com.app.erl.adapter.ChatAdapter;
+import com.app.erl.callback.SelectItemListener;
 import com.app.erl.databinding.ActivityChatBinding;
 import com.app.erl.model.entity.info.MessageInfo;
 import com.app.erl.model.entity.response.GetMessagesResponse;
@@ -32,18 +33,21 @@ import com.app.erl.util.ImagePickerUtility;
 import com.app.erl.util.LoginViewModelFactory;
 import com.app.erl.util.ResourceProvider;
 import com.app.erl.viewModel.UserAuthenticationViewModel;
+import com.app.imagepicker.Model.FileWithPath;
 import com.app.utilities.utils.AlertDialogHelper;
 import com.app.utilities.utils.FileUtils;
+import com.app.utilities.utils.GlideUtil;
 import com.app.utilities.utils.StringHelper;
 import com.app.utilities.utils.ToastHelper;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class ChatActivity extends BaseActivity implements View.OnClickListener, EasyPermissions.PermissionCallbacks {
+public class ChatActivity extends BaseActivity implements View.OnClickListener, EasyPermissions.PermissionCallbacks, SelectItemListener {
     private ActivityChatBinding binding;
     private Context mContext;
     private ChatAdapter adapter;
@@ -74,7 +78,8 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
 
         binding.imgSend.setOnClickListener(this);
         binding.imgBack.setOnClickListener(this);
-//        binding.imgSelectImage.setOnClickListener(this);
+        binding.imgSelectImage.setOnClickListener(this);
+        binding.routPreview.routRootView.setOnClickListener(v -> binding.routPreview.routRootView.setVisibility(View.GONE));
     }
 
     public void getIntentData() {
@@ -88,8 +93,8 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
         userAuthenticationViewModel.getMessages(lastMessageId, isProgress);
     }
 
-    public void sendMessage(String message, boolean isProgress) {
-        userAuthenticationViewModel.sendMessage(message,"" ,isProgress);
+    public void sendMessage(String message, String imagePath, boolean isProgress) {
+        userAuthenticationViewModel.sendMessage(message, imagePath, isProgress);
     }
 
     @Override
@@ -99,7 +104,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
                 String message = binding.edtMessageBox.getText().toString().trim();
                 if (!StringHelper.isEmpty(message)) {
                     binding.edtMessageBox.setText("");
-                    sendMessage(message, false);
+                    sendMessage(message, "", false);
                 }
                 break;
             case R.id.imgBack:
@@ -115,7 +120,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         binding.recyclerViewChat.setLayoutManager(linearLayoutManager);
         binding.recyclerViewChat.setHasFixedSize(true);
-        adapter = new ChatAdapter(mContext, list);
+        adapter = new ChatAdapter(mContext, list, this);
         binding.recyclerViewChat.setAdapter(adapter);
         scrollToBottom();
     }
@@ -217,7 +222,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
                     imageUri = data.getData();
                     if (imageUri != null) {
                         String[] imageExt = getResources().getStringArray(R.array.imageExtension);
-                        String realPath = FileUtils.getPath(mContext, Uri.parse(data.getStringExtra(AppConstant.IntentKey.IMAGE_URI)));
+                        String realPath = FileUtils.getPath(mContext, imageUri);
                         if (!StringHelper.isEmpty(realPath)) {
                             if (!Arrays.asList(imageExt).contains(AppUtils.getFileExt(realPath).toLowerCase())) {
                                 ToastHelper.error(mContext, getString(R.string.error_image_format), Toast.LENGTH_LONG, false);
@@ -228,7 +233,16 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
                         }
 
                         if (!StringHelper.isEmpty(realPath)) {
-
+                            try {
+                                FileWithPath fileWithPath = AppUtils.compressImage(realPath, new File(realPath));
+                                if (fileWithPath != null && fileWithPath.getUri() != null) {
+                                    sendMessage("", fileWithPath.getFile().getAbsolutePath(), false);
+                                } else {
+                                    sendMessage("", realPath, false);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }
@@ -290,10 +304,27 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onBackPressed() {
-        if (isFromNotification)
-            moveActivity(mContext, DashBoardActivity.class, true, true, null);
-        else
-            finish();
+        if (binding.routPreview.routRootView.getVisibility() == View.VISIBLE) {
+            binding.routPreview.routRootView.setVisibility(View.GONE);
+        } else {
+            if (isFromNotification)
+                moveActivity(mContext, DashBoardActivity.class, true, true, null);
+            else
+                finish();
+        }
     }
 
+    @Override
+    public void onSelectItem(int position, int action) {
+        if (action == AppConstant.Action.PREVIEW_IMAGE) {
+            binding.routPreview.routRootView.setVisibility(View.VISIBLE);
+            setImage(binding.routPreview.imgPreviewImage, adapter.getMessageList().get(position).getImage());
+        }
+    }
+
+    private void setImage(ImageView imageView, String url) {
+        if (!StringHelper.isEmpty(url)) {
+            GlideUtil.loadImage(url, imageView, null, null, 0, null);
+        }
+    }
 }

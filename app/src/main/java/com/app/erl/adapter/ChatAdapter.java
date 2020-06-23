@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.erl.R;
+import com.app.erl.callback.SelectItemListener;
 import com.app.erl.model.entity.info.MessageInfo;
 import com.app.erl.util.AppConstant;
 import com.app.erl.util.AppUtils;
@@ -26,11 +26,13 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<MessageInfo> messageList;
     private int currentUserId = 0;
+    private SelectItemListener listener;
 
-    public ChatAdapter(Context context, List<MessageInfo> list) {
+    public ChatAdapter(Context context, List<MessageInfo> list, SelectItemListener listener) {
         this.mContext = context;
         currentUserId = AppUtils.getUserPrefrence(mContext).getId();
         this.messageList = list;
+        this.listener = listener;
     }
 
     @NonNull
@@ -50,12 +52,23 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
         MessageInfo info = messageList.get(position);
-        itemViewHolder.txtMsg.setText(info.getMessage());
+
         itemViewHolder.txtTime.setText(info.getCreated_date());
-        setImage(itemViewHolder.imgUserPic,info.getUser_image());
+        setUserImage(itemViewHolder.imgUserPic, info.getUser_image());
+
+        if (!StringHelper.isEmpty(info.getImage())) {
+            itemViewHolder.txtMsg.setVisibility(View.GONE);
+            itemViewHolder.imgChat.setVisibility(View.VISIBLE);
+            setImage(itemViewHolder.imgChat, info.getImage());
+        } else {
+            itemViewHolder.txtMsg.setVisibility(View.VISIBLE);
+            itemViewHolder.imgChat.setVisibility(View.GONE);
+            itemViewHolder.txtMsg.setText(info.getMessage());
+        }
 
         itemViewHolder.parentView.setOnClickListener(v -> {
-
+            if (listener != null)
+                listener.onSelectItem(position, AppConstant.Action.PREVIEW_IMAGE);
         });
     }
 
@@ -74,24 +87,29 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtMsg, txtTime, txtUserName;
-        private RelativeLayout parentView, routOverLayer;
-        private LinearLayout routUserDetails, rlMessageView;
-        private ImageView imgUserPic;
+        private TextView txtMsg, txtTime;
+        private RelativeLayout parentView;
+        private ImageView imgUserPic, imgChat;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             txtMsg = itemView.findViewById(R.id.txtMsg);
             txtTime = itemView.findViewById(R.id.txtTime);
-            txtUserName = itemView.findViewById(R.id.txtUserName);
             imgUserPic = itemView.findViewById(R.id.imgUserImage);
+            imgChat = itemView.findViewById(R.id.imgChat);
             parentView = itemView.findViewById(R.id.parentView);
+        }
+    }
+
+    private void setUserImage(ImageView imageView, String url) {
+        if (!StringHelper.isEmpty(url)) {
+            GlideUtil.loadImageUsingGlideTransformation(url, imageView, Constant.TransformationType.CIRCLECROP_TRANSFORM, null, null, Constant.ImageScaleType.CENTER_CROP, 0, 0, "", 0, null);
         }
     }
 
     private void setImage(ImageView imageView, String url) {
         if (!StringHelper.isEmpty(url)) {
-            GlideUtil.loadImageUsingGlideTransformation(url, imageView, Constant.TransformationType.CIRCLECROP_TRANSFORM, null, null, Constant.ImageScaleType.CENTER_CROP, 0, 0, "", 0, null);
+            GlideUtil.loadImage(url, imageView, null, null, 0, null);
         }
     }
 

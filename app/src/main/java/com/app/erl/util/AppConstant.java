@@ -102,6 +102,7 @@ public final class AppConstant {
         public static final int SELECT_ALBUM = 5;
         public static final int SELECT_PHOTO = 6;
         public static final int SELECT_SERVICE_HOUR_TYPE = 7;
+        public static final int PREVIEW_IMAGE = 8;
         public static final String UPDATE_CHAT_DATA = "updatechatdata";
     }
 

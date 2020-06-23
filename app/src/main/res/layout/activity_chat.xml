@@ -108,6 +108,10 @@
 
         </RelativeLayout>
 
+        <include
+            android:id="@+id/routPreview"
+            layout="@layout/layout_preview_photo" />
+
     </RelativeLayout>
 
 </layout>
