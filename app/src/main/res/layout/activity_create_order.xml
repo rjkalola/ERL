@@ -224,11 +224,11 @@
                 android:id="@+id/txtNext"
                 style="@style/SmallFont"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="55dp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/montserrat_medium"
                 android:gravity="center"
-                android:text="@string/next"
+                android:text="@string/lbl_confirm_order"
                 android:textAllCaps="true"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_14ssp" />

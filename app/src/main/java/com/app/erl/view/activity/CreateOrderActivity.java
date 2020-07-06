@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
@@ -37,6 +36,7 @@ import com.app.erl.util.PopupMenuHelper;
 import com.app.erl.util.ResourceProvider;
 import com.app.erl.view.dialog.SelectTimeDialog;
 import com.app.erl.viewModel.ManageOrderViewModel;
+import com.app.utilities.callbacks.DialogButtonClickListener;
 import com.app.utilities.callbacks.OnDateSetListener;
 import com.app.utilities.utils.AlertDialogHelper;
 import com.app.utilities.utils.DateFormatsConstants;
@@ -61,7 +61,7 @@ import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class CreateOrderActivity extends BaseActivity implements View.OnClickListener
-        , SelectedServiceItemListener, OnDateSetListener
+        , SelectedServiceItemListener, OnDateSetListener, DialogButtonClickListener
         , SelectTimeListener, EasyPermissions.PermissionCallbacks {
     private ActivityCreateOrderBinding binding;
     private Context mContext;
@@ -119,7 +119,7 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.txtNext:
                 if (validate()) {
-                    manageOrderViewModel.saveAddressRequest();
+                    AlertDialogHelper.showDialog(mContext, null, getString(R.string.msg_place_order), getString(R.string.yes), getString(R.string.no), true, this, AppConstant.DialogIdentifier.PLACE_ORDER);
                 }
                 break;
             case R.id.imgBack:
@@ -368,6 +368,18 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
         }
 
         return valid;
+    }
+
+    @Override
+    public void onPositiveButtonClicked(int dialogIdentifier) {
+        if (dialogIdentifier == AppConstant.DialogIdentifier.PLACE_ORDER) {
+            manageOrderViewModel.saveAddressRequest();
+        }
+    }
+
+    @Override
+    public void onNegativeButtonClicked(int dialogIdentifier) {
+
     }
 
     public OrderResourcesResponse getOrderData() {

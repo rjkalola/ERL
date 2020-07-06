@@ -36,6 +36,15 @@
     <string name="ERR103">You have entered an invalid email address.</string>
     <string name="ERR104">You have entered an invalid password.</string>
     <string name="ERR105">You have entered invalid access code</string>
+    <string name="ERR106">You have added an incorrect current password.</string>
+    <string name="ERR107">You can\'t use the old password.</string>
+    <string name="ERR108">Order not found</string>
+    <string name="ERR109">You can\'t cancel your order. Your order is under process please ask admin to cancel it.</string>
+    <string name="ERR110">Order is not confirm yet</string>
+    <string name="ERR111">Order is not ready yet</string>
+    <string name="ERR112">Address not found</string>
+    <string name="ERR113">Email already registered</string>
+    <string name="ERR114">Phone number already registered</string>
 
     <string name="dash_sign">-</string>
     <string name="login">Login</string>
@@ -48,6 +57,7 @@
     <string name="lbl_register_here">Register here</string>
     <string name="hint_email">Email</string>
     <string name="hint_phone">Phone</string>
+    <string name="hint_email_or_phone">Email or Phone</string>
     <string name="hint_confirm_password">Confirm Password</string>
     <string name="lbl_already_have_an_account">Already have an account?</string>
     <string name="reset_password">Reset Password</string>
@@ -165,6 +175,7 @@
     <string name="error_empty_email">Please enter email</string>
     <string name="error_invalid_email">Please enter valid email</string>
     <string name="error_empty_phone">Please enter phone number</string>
+    <string name="error_empty_email_or_password">Please enter email or password</string>
     <string name="error_empty_password">Please enter password</string>
     <string name="error_empty_confirm_password">Please enter confirm password</string>
     <string name="error_not_match_password">Password does not match</string>
@@ -194,7 +205,8 @@
     <string name="lbl_5_hours">5\nHours</string>
     <string name="lbl_skip_item_lazy_order">Skip Item Lazy Order</string>
     <string name="lbl_services">Services</string>
-    <!--        <string name=""></string>-->
+    <string name="lbl_confirm_order">Confirm Order</string>
+    <string name="msg_place_order">Are you sure want to place order?</string>
 
     <!--    <string name=""></string>-->
 

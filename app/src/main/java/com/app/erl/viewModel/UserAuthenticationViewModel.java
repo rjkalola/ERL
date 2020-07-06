@@ -40,6 +40,7 @@ public class UserAuthenticationViewModel extends BaseViewModel {
     private MutableLiveData<ProfileResponse> mSaveProfileResponse;
     private MutableLiveData<SendMessageResponse> mSendMessageResponse;
     private MutableLiveData<GetMessagesResponse> getMessagesResponse;
+    private MutableLiveData<BaseResponse> mResendCodeResponse;
 
     public UserAuthenticationViewModel(ResourceProvider resourceProvider) {
         ERLApp.getServiceComponent().inject(this);
@@ -121,7 +122,7 @@ public class UserAuthenticationViewModel extends BaseViewModel {
         }.rxSingleCall(userAuthenticationServiceInterface.forgotPassword(emailBody));
     }
 
-    public void resendCode(int userId) {
+    public void resendCode(int userId, int type) {
         if (view != null) {
             view.showProgress();
         }
@@ -129,7 +130,7 @@ public class UserAuthenticationViewModel extends BaseViewModel {
             @Override
             protected void onSuccess(BaseResponse response) {
                 if (view != null) {
-                    mBaseResponse.postValue(response);
+                    mResendCodeResponse.postValue(response);
                     view.hideProgress();
                 }
             }
@@ -142,21 +143,49 @@ public class UserAuthenticationViewModel extends BaseViewModel {
                     view.hideProgress();
                 }
             }
-        }.rxSingleCall(userAuthenticationServiceInterface.resendCode(userId));
+        }.rxSingleCall(userAuthenticationServiceInterface.resendCode(userId, type));
     }
 
-    public void verifyCode(int userId, String code) {
+    public void verifyCode(int userId, String code,int type) {
+        RequestBody userIdBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(userId));
+        RequestBody codeBody = RequestBody.create(MediaType.parse("text/plain"), code);
+        RequestBody typeBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(type));
+
+        if (view != null) {
+            view.showProgress();
+        }
+        new RXRetroManager<UserResponse>() {
+            @Override
+            protected void onSuccess(UserResponse response) {
+                if (view != null) {
+                    mUserResponse.postValue(response);
+                    view.hideProgress();
+                }
+            }
+
+            @Override
+            protected void onFailure(RetrofitException retrofitException, String errorCode) {
+                super.onFailure(retrofitException, errorCode);
+                if (view != null) {
+                    view.showApiError(retrofitException, errorCode);
+                    view.hideProgress();
+                }
+            }
+        }.rxSingleCall(userAuthenticationServiceInterface.verifyCode(userIdBody, codeBody,typeBody));
+    }
+
+    public void verifyMobile(int userId, String code) {
         RequestBody userIdBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(userId));
         RequestBody codeBody = RequestBody.create(MediaType.parse("text/plain"), code);
 
         if (view != null) {
             view.showProgress();
         }
-        new RXRetroManager<BaseResponse>() {
+        new RXRetroManager<UserResponse>() {
             @Override
-            protected void onSuccess(BaseResponse response) {
+            protected void onSuccess(UserResponse response) {
                 if (view != null) {
-                    mBaseResponse.postValue(response);
+                    mUserResponse.postValue(response);
                     view.hideProgress();
                 }
             }
@@ -169,7 +198,7 @@ public class UserAuthenticationViewModel extends BaseViewModel {
                     view.hideProgress();
                 }
             }
-        }.rxSingleCall(userAuthenticationServiceInterface.verifyCode(userIdBody, codeBody));
+        }.rxSingleCall(userAuthenticationServiceInterface.verifyMobile(userIdBody, codeBody));
     }
 
     public void resetPassword(int userId, String password) {
@@ -258,7 +287,7 @@ public class UserAuthenticationViewModel extends BaseViewModel {
         }.rxSingleCall(userAuthenticationServiceInterface.saveProfile(nameBody, emailBody, phoneBody, imageFileBody));
     }
 
-    public void sendMessage(String message, String imagePath,boolean isProgress) {
+    public void sendMessage(String message, String imagePath, boolean isProgress) {
         RequestBody messageBody = RequestBody.create(MediaType.parse("text/plain"), message);
 
         MultipartBody.Part imageFileBody = null;
@@ -288,7 +317,7 @@ public class UserAuthenticationViewModel extends BaseViewModel {
                     view.hideProgress();
                 }
             }
-        }.rxSingleCall(userAuthenticationServiceInterface.sendMessage(messageBody,imageFileBody));
+        }.rxSingleCall(userAuthenticationServiceInterface.sendMessage(messageBody, imageFileBody));
     }
 
     public void getMessages(int lastMessageId, boolean isProgress) {
@@ -390,6 +419,13 @@ public class UserAuthenticationViewModel extends BaseViewModel {
             getMessagesResponse = new MutableLiveData<>();
         }
         return getMessagesResponse;
+    }
+
+    public MutableLiveData<BaseResponse> resendCodeResponse() {
+        if (mResendCodeResponse == null) {
+            mResendCodeResponse = new MutableLiveData<>();
+        }
+        return mResendCodeResponse;
     }
 
     public LoginRequest getLoginRequest() {

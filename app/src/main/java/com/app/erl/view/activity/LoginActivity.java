@@ -95,14 +95,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
 
         if (!ValidationUtil.isEmptyEditText(userAuthenticationViewModel.getLoginRequest().getEmail())) {
-            if (ValidationUtil.isValidEmail(binding.edtEmail.getText().toString())) {
+//            if (ValidationUtil.isValidEmail(binding.edtEmail.getText().toString())) {
                 binding.edtEmail.setError(null);
-            } else {
-                ValidationUtil.setErrorIntoEditext(binding.edtEmail, mContext.getString(R.string.error_invalid_email));
-                isValid = false;
-            }
+//            } else {
+//                ValidationUtil.setErrorIntoEditext(binding.edtEmail, mContext.getString(R.string.error_invalid_email));
+//                isValid = false;
+//            }
         } else {
-            ValidationUtil.setErrorIntoEditext(binding.edtEmail, mContext.getString(R.string.error_empty_email));
+            ValidationUtil.setErrorIntoEditext(binding.edtEmail, mContext.getString(R.string.error_empty_email_or_password));
             isValid = false;
         }
         return isValid;

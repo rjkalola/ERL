@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.app.erl.R;
 import com.app.erl.databinding.ActivityVerificationBinding;
 import com.app.erl.model.entity.response.BaseResponse;
+import com.app.erl.model.entity.response.UserResponse;
 import com.app.erl.util.AppConstant;
 import com.app.erl.util.AppUtils;
 import com.app.erl.util.LoginViewModelFactory;
@@ -29,7 +30,7 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
     private ActivityVerificationBinding binding;
     private Context mContext;
     private String email, code;
-    private int userId;
+    private int userId, otpType;
     private UserAuthenticationViewModel userAuthenticationViewModel;
 
     @Override
@@ -40,10 +41,10 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
         mContext = this;
         userAuthenticationViewModel = ViewModelProviders.of(this, new LoginViewModelFactory(new ResourceProvider(getResources()))).get(UserAuthenticationViewModel.class);
         userAuthenticationViewModel.createView(this);
-        userAuthenticationViewModel.mBaseResponse()
-                .observe(this, mBaseResponse());
-        userAuthenticationViewModel.mForgotPasswordResponse()
-                .observe(this, mForgotPasswordResponse());
+        userAuthenticationViewModel.mUserResponse()
+                .observe(this, getUserResponse());
+        userAuthenticationViewModel.resendCodeResponse()
+                .observe(this, resendCodeResponse());
 
         binding.txtVerify.setOnClickListener(this);
         binding.txtResend.setOnClickListener(this);
@@ -62,10 +63,12 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
     }
 
     public void getIntentData() {
-        if (getIntent().getExtras() != null && getIntent().hasExtra(AppConstant.IntentKey.VERIFICATION_CODE)) {
+        if (getIntent().getExtras() != null
+                && getIntent().hasExtra(AppConstant.IntentKey.USER_ID)) {
             email = getIntent().getStringExtra(AppConstant.IntentKey.EMAIL);
             userId = getIntent().getIntExtra(AppConstant.IntentKey.USER_ID, 0);
             binding.txtVerificationCodeHint.setText(String.format(getString(R.string.lbl_display_verification_code_hint), email));
+            otpType = getIntent().getIntExtra(AppConstant.IntentKey.OTP_TYPE, 0);
         }
     }
 
@@ -73,16 +76,58 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtVerify:
-                if (validateCode())
-                    userAuthenticationViewModel.verifyCode(userId, code);
+                if (validateCode()) {
+
+                    int type = 0;
+                    if (otpType == AppConstant.Type.SIGN_UP)
+                        type = 1;
+                    else
+                        type = 2;
+
+                    if (otpType == AppConstant.Type.SIGN_UP)
+                        userAuthenticationViewModel.verifyCode(userId, code, type);
+                    else
+                        userAuthenticationViewModel.verifyCode(userId, code, type);
+                }
                 break;
             case R.id.txtResend:
-                userAuthenticationViewModel.resendCode(userId);
+                int type = 0;
+                if (otpType == AppConstant.Type.SIGN_UP)
+                    type = 1;
+                else
+                    type = 2;
+                userAuthenticationViewModel.resendCode(userId, type);
                 break;
         }
     }
 
-    public Observer mBaseResponse() {
+//    public Observer forgotPassword() {
+//        return (Observer<BaseResponse>) response -> {
+//            try {
+//                if (response == null) {
+//                    AlertDialogHelper.showDialog(mContext, null,
+//                            mContext.getString(R.string.error_unknown), mContext.getString(R.string.ok),
+//                            null, false, null, 0);
+//                    return;
+//                }
+//                if (response.isSuccess()) {
+//                    if (otpType == AppConstant.Type.SIGN_UP) {
+//
+//                    } else {
+//                        Bundle bundle = new Bundle();
+//                        bundle.putInt(AppConstant.IntentKey.USER_ID, userId);
+//                        moveActivity(mContext, CreateNewPasswordActivity.class, false, false, bundle);
+//                    }
+//                } else {
+//                    AppUtils.handleUnauthorized(mContext, response);
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        };
+//    }
+
+    public Observer resendCodeResponse() {
         return (Observer<BaseResponse>) response -> {
             try {
                 if (response == null) {
@@ -92,9 +137,7 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                     return;
                 }
                 if (response.isSuccess()) {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(AppConstant.IntentKey.USER_ID,userId);
-                    moveActivity(mContext, CreateNewPasswordActivity.class, false, false, bundle);
+
                 } else {
                     AppUtils.handleUnauthorized(mContext, response);
                 }
@@ -104,8 +147,8 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
         };
     }
 
-    public Observer mForgotPasswordResponse() {
-        return (Observer<BaseResponse>) response -> {
+    public Observer getUserResponse() {
+        return (Observer<UserResponse>) response -> {
             try {
                 if (response == null) {
                     AlertDialogHelper.showDialog(mContext, null,
@@ -114,7 +157,14 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                     return;
                 }
                 if (response.isSuccess()) {
-
+                    if (otpType == AppConstant.Type.SIGN_UP) {
+                        AppUtils.setUserPrefrence(mContext, response.getInfo());
+                        moveActivity(mContext, DashBoardActivity.class, true, true, null);
+                    } else {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt(AppConstant.IntentKey.USER_ID, userId);
+                        moveActivity(mContext, CreateNewPasswordActivity.class, false, false, bundle);
+                    }
                 } else {
                     AppUtils.handleUnauthorized(mContext, response);
                 }

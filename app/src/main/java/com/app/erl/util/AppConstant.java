@@ -27,6 +27,7 @@ public final class AppConstant {
         public static final int CANCEL_ORDER = 8;
         public static final int CLEAR_CART = 9;
         public static final int SELECT_SHOP = 10;
+        public static final int PLACE_ORDER = 11;
     }
 
     public static final class IntentKey {
@@ -53,6 +54,7 @@ public final class AppConstant {
         public static final String NOTIFICATION_TYPE = "NOTIFICATION_TYPE";
         public static final String IS_FROM_NOTIFICATION = "IS_FROM_NOTIFICATION";
         public static final String LAST_MESSAGE_ID = "LAST_MESSAGE_ID";
+        public static final String OTP_TYPE = "OTP_TYPE";
 
         public static final int RC_LOCATION_PERM = 1;
         public static final int LOCATION_SETTING_STATUS = 2;
@@ -85,6 +87,7 @@ public final class AppConstant {
         public static final int TERMS_CONDITIONS = 1;
         public static final int PRIVACY_POLICY = 2;
         public static final int OUR_SERVICES = 3;
+        public static final int SIGN_UP = 4;
     }
 
     public static final class LocationMode {

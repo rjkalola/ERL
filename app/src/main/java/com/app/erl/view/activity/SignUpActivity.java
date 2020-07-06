@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.app.erl.R;
 import com.app.erl.databinding.ActivitySignUpBinding;
 import com.app.erl.model.entity.response.UserResponse;
+import com.app.erl.util.AppConstant;
 import com.app.erl.util.AppUtils;
 import com.app.erl.util.LoginViewModelFactory;
 import com.app.erl.util.ResourceProvider;
@@ -75,8 +76,15 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                     return;
                 }
                 if (response.isSuccess()) {
-                    AppUtils.setUserPrefrence(mContext, response.getInfo());
-                    moveActivity(mContext, DashBoardActivity.class, true, true, null);
+//                    AppUtils.setUserPrefrence(mContext, response.getInfo());
+//                    moveActivity(mContext, DashBoardActivity.class, true, true, null);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(AppConstant.IntentKey.USER_ID, response.getInfo().getId());
+                    bundle.putInt(AppConstant.IntentKey.OTP_TYPE, AppConstant.Type.SIGN_UP);
+//                    bundle.putString(AppConstant.IntentKey.VERIFICATION_CODE, response.getAccess_code());
+                    bundle.putString(AppConstant.IntentKey.EMAIL, binding.edtEmail.getText().toString().trim());
+                    moveActivity(mContext, VerificationActivity.class, false, false, bundle);
                 } else {
                     AppUtils.handleUnauthorized(mContext, response);
                 }

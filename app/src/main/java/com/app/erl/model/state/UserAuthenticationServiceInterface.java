@@ -6,7 +6,6 @@ import com.app.erl.model.entity.request.SignUpRequest;
 import com.app.erl.model.entity.response.BaseResponse;
 import com.app.erl.model.entity.response.ForgotPasswordResponse;
 import com.app.erl.model.entity.response.GetMessagesResponse;
-import com.app.erl.model.entity.response.OrderResourcesResponse;
 import com.app.erl.model.entity.response.ProfileResponse;
 import com.app.erl.model.entity.response.SendMessageResponse;
 import com.app.erl.model.entity.response.UserResponse;
@@ -33,11 +32,15 @@ public interface UserAuthenticationServiceInterface {
 
     @Multipart
     @POST("resend-code")
-    Observable<BaseResponse> resendCode(@Part("user_id") int user_id);
+    Observable<BaseResponse> resendCode(@Part("user_id") int user_id, @Part("type") int type);
 
     @Multipart
     @POST("verify-code")
-    Observable<BaseResponse> verifyCode(@Part("user_id") RequestBody user_id, @Part("code") RequestBody code);
+    Observable<UserResponse> verifyCode(@Part("user_id") RequestBody user_id, @Part("code") RequestBody code, @Part("type") RequestBody type);
+
+    @Multipart
+    @POST("verify-mobile")
+    Observable<UserResponse> verifyMobile(@Part("user_id") RequestBody user_id, @Part("code") RequestBody code);
 
     @Multipart
     @POST("reset-password")
@@ -48,11 +51,11 @@ public interface UserAuthenticationServiceInterface {
 
     @Multipart
     @POST("save-profile")
-    Observable<ProfileResponse> saveProfile(@Part("name") RequestBody name, @Part("email") RequestBody email, @Part("phone") RequestBody phone,@Part MultipartBody.Part image);
+    Observable<ProfileResponse> saveProfile(@Part("name") RequestBody name, @Part("email") RequestBody email, @Part("phone") RequestBody phone, @Part MultipartBody.Part image);
 
     @Multipart
     @POST("send-message")
-    Observable<SendMessageResponse> sendMessage(@Part("message") RequestBody message,@Part MultipartBody.Part image);
+    Observable<SendMessageResponse> sendMessage(@Part("message") RequestBody message, @Part MultipartBody.Part image);
 
     @Multipart
     @POST("messages")
