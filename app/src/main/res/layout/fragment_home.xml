@@ -53,6 +53,7 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/routPlaceOrder"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="@dimen/_42sdp"
                     android:layout_gravity="center_horizontal"

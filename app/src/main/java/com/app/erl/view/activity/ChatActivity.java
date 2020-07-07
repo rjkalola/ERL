@@ -79,7 +79,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
         binding.imgSend.setOnClickListener(this);
         binding.imgBack.setOnClickListener(this);
         binding.imgSelectImage.setOnClickListener(this);
-        binding.routPreview.routRootView.setOnClickListener(v -> binding.routPreview.routRootView.setVisibility(View.GONE));
+//        binding.routPreview.routRootView.setOnClickListener(v -> binding.routPreview.routRootView.setVisibility(View.GONE));
     }
 
     public void getIntentData() {
