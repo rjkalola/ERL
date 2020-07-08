@@ -70,6 +70,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
         binding.imgBack.setOnClickListener(this);
         binding.txtSave.setOnClickListener(this);
         binding.routSelectImageView.setOnClickListener(this);
+        binding.txtChangePassword.setOnClickListener(this);
 
         userAuthenticationViewModel.getProfileRequest();
 
@@ -88,6 +89,9 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.routSelectImageView:
                 checkPermission();
+                break;
+            case R.id.txtChangePassword:
+                moveActivity(mContext, ChangePasswordActivity.class, false, false, null);
                 break;
         }
     }

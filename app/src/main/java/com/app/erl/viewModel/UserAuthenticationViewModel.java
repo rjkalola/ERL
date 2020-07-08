@@ -146,7 +146,7 @@ public class UserAuthenticationViewModel extends BaseViewModel {
         }.rxSingleCall(userAuthenticationServiceInterface.resendCode(userId, type));
     }
 
-    public void verifyCode(int userId, String code,int type) {
+    public void verifyCode(int userId, String code, int type) {
         RequestBody userIdBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(userId));
         RequestBody codeBody = RequestBody.create(MediaType.parse("text/plain"), code);
         RequestBody typeBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(type));
@@ -171,7 +171,7 @@ public class UserAuthenticationViewModel extends BaseViewModel {
                     view.hideProgress();
                 }
             }
-        }.rxSingleCall(userAuthenticationServiceInterface.verifyCode(userIdBody, codeBody,typeBody));
+        }.rxSingleCall(userAuthenticationServiceInterface.verifyCode(userIdBody, codeBody, typeBody));
     }
 
     public void verifyMobile(int userId, String code) {
@@ -226,6 +226,33 @@ public class UserAuthenticationViewModel extends BaseViewModel {
                 }
             }
         }.rxSingleCall(userAuthenticationServiceInterface.resetPassword(userIdBody, passwordBody));
+    }
+
+    public void changePassword(String currentPassword, String password) {
+        RequestBody currentPasswordBody = RequestBody.create(MediaType.parse("text/plain"), currentPassword);
+        RequestBody passwordBody = RequestBody.create(MediaType.parse("text/plain"), password);
+
+        if (view != null) {
+            view.showProgress();
+        }
+        new RXRetroManager<BaseResponse>() {
+            @Override
+            protected void onSuccess(BaseResponse response) {
+                if (view != null) {
+                    mBaseResponse.postValue(response);
+                    view.hideProgress();
+                }
+            }
+
+            @Override
+            protected void onFailure(RetrofitException retrofitException, String errorCode) {
+                super.onFailure(retrofitException, errorCode);
+                if (view != null) {
+                    view.showApiError(retrofitException, errorCode);
+                    view.hideProgress();
+                }
+            }
+        }.rxSingleCall(userAuthenticationServiceInterface.changePassword(currentPasswordBody, passwordBody));
     }
 
     public void getProfileRequest() {

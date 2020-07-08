@@ -373,6 +373,7 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onPositiveButtonClicked(int dialogIdentifier) {
         if (dialogIdentifier == AppConstant.DialogIdentifier.PLACE_ORDER) {
+            manageOrderViewModel.getSaveOrderRequest().setDelivery_note(binding.edtNote.getText().toString().trim());
             manageOrderViewModel.saveAddressRequest();
         }
     }

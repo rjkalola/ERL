@@ -44,7 +44,11 @@ public interface UserAuthenticationServiceInterface {
 
     @Multipart
     @POST("reset-password")
-    Observable<BaseResponse> resetPassword(@Part("user_id") RequestBody user_id, @Part("password") RequestBody code);
+    Observable<BaseResponse> resetPassword(@Part("user_id") RequestBody user_id, @Part("password") RequestBody password);
+
+    @Multipart
+    @POST("change-password")
+    Observable<BaseResponse> changePassword(@Part("cur_password") RequestBody cur_password,@Part("password") RequestBody password);
 
     @GET("get-profile")
     Observable<ProfileResponse> getProfile();

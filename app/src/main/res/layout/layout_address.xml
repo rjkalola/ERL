@@ -103,6 +103,23 @@
         </LinearLayout>
 
         <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edtAddressType"
+            style="@style/VerySmallFontTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:drawableEnd="@drawable/ic_arrow_drop_down"
+            android:focusable="false"
+            android:hint="@string/hint_address_type"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:text="@={manageAddressViewModel.saveAddressRequest.city_name}"
+            app:met_errorColor="@color/colorErrorColor"
+            app:met_floatingLabel="normal"
+            app:met_singleLineEllipsis="false"
+            app:met_textColor="@color/colorPrimaryText" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edtHouseNumber"
             style="@style/VerySmallFontTextView"
             android:layout_width="match_parent"
@@ -161,8 +178,8 @@
                 android:focusable="false"
                 android:hint="@string/hint_city"
                 android:imeOptions="actionNext"
-                android:text="@={manageAddressViewModel.saveAddressRequest.city_name}"
                 android:inputType="text"
+                android:text="@={manageAddressViewModel.saveAddressRequest.city_name}"
                 app:met_errorColor="@color/colorErrorColor"
                 app:met_floatingLabel="normal"
                 app:met_singleLineEllipsis="false"
@@ -178,9 +195,9 @@
                 android:drawableEnd="@drawable/ic_arrow_drop_down"
                 android:focusable="false"
                 android:hint="@string/hint_area"
-                android:text="@={manageAddressViewModel.saveAddressRequest.area_name}"
                 android:imeOptions="actionNext"
                 android:inputType="text"
+                android:text="@={manageAddressViewModel.saveAddressRequest.area_name}"
                 app:met_errorColor="@color/colorErrorColor"
                 app:met_floatingLabel="normal"
                 app:met_singleLineEllipsis="false"

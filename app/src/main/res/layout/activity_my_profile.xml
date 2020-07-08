@@ -197,6 +197,35 @@
                     android:layout_marginBottom="@dimen/_14sdp"
                     android:background="@color/colorYellowDark" />
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:gravity="center"
+                        android:text="@string/lbl_click_here_to"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_10ssp" />
+
+                    <TextView
+                        android:id="@+id/txtChangePassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:gravity="center"
+                        android:text="@string/change_password"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorYellowDark"
+                        android:textSize="@dimen/_12ssp" />
+                </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

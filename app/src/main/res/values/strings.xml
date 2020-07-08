@@ -52,6 +52,8 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="hint_name">Name</string>
     <string name="hint_password">Password</string>
+    <string name="hint_current_password">Current Password</string>
+
     <string name="hint_forgot_password">Forgot Password?</string>
     <string name="lbl_dont_have_an_account">Don\'t have an Account?</string>
     <string name="lbl_register_here">Register here</string>
@@ -121,6 +123,7 @@
     <string name="hint_street">Street</string>
     <string name="hint_landmark">Landmark</string>
     <string name="hint_city">City</string>
+    <string name="hint_address_type">Address Type</string>
     <string name="hint_area">Area</string>
     <string name="change_address">Change Address</string>
     <string name="search">search</string>
@@ -176,6 +179,7 @@
     <string name="error_invalid_email">Please enter valid email</string>
     <string name="error_empty_phone">Please enter phone number</string>
     <string name="error_empty_email_or_password">Please enter email or password</string>
+    <string name="error_empty_current_password">Please enter current password</string>
     <string name="error_empty_password">Please enter password</string>
     <string name="error_empty_confirm_password">Please enter confirm password</string>
     <string name="error_not_match_password">Password does not match</string>
@@ -207,6 +211,10 @@
     <string name="lbl_services">Services</string>
     <string name="lbl_confirm_order">Confirm Order</string>
     <string name="msg_place_order">Are you sure want to place order?</string>
+    <string name="lbl_order_note">Order Note</string>
+    <string name="hint_enter_order_note">Enter Order notes:</string>
+    <string name="msg_password_changed_successfully">Password changed successfully</string>
+    <string name="lbl_click_here_to">Click here to</string>
 
     <!--    <string name=""></string>-->
 
@@ -232,6 +240,18 @@
         <item>@string/about_app</item>
         <item>@string/share</item>
         <item>@string/logout</item>
+    </string-array>
+
+    <string-array name="addressType">
+        <item>Apartment</item>
+        <item>Office</item>
+        <item>Villa</item>
+    </string-array>
+
+    <string-array name="addressTypeId">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
 
 </resources>

@@ -29,6 +29,7 @@ import com.app.erl.util.AppConstant;
 import com.app.erl.util.AppUtils;
 import com.app.erl.util.LocationHelper;
 import com.app.erl.util.LoginViewModelFactory;
+import com.app.erl.util.PopupMenuHelper;
 import com.app.erl.util.ResourceProvider;
 import com.app.erl.view.dialog.DropdownDialog;
 import com.app.erl.viewModel.ManageAddressViewModel;
@@ -51,6 +52,7 @@ import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -105,6 +107,7 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
         binding.routAddressView.edtCity.setOnClickListener(this);
         binding.routAddressView.edtArea.setOnClickListener(this);
         binding.txtAddAddress.setOnClickListener(this);
+        binding.routAddressView.edtAddressType.setOnClickListener(this);
 
         getIntentData();
     }
@@ -119,6 +122,10 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
             if (user != null) {
                 manageAddressViewModel.getSaveAddressRequest().setName(!StringHelper.isEmpty(user.getName()) ? user.getName() : "");
                 manageAddressViewModel.getSaveAddressRequest().setPhone(!StringHelper.isEmpty(user.getPhone()) ? user.getPhone() : "");
+                ArrayList<String> listAddressTypeId = new ArrayList<>(Arrays.asList(mContext.getResources().getStringArray(R.array.addressTypeId)));
+                ArrayList<String> listAddressType = new ArrayList<>(Arrays.asList(mContext.getResources().getStringArray(R.array.addressType)));
+                manageAddressViewModel.getSaveAddressRequest().setAddress_type(Integer.parseInt(listAddressTypeId.get(0)));
+                binding.routAddressView.edtAddressType.setText(listAddressType.get(0));
                 binding.routAddressView.setManageAddressViewModel(manageAddressViewModel);
             } else {
                 finish();
@@ -126,6 +133,7 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
             }
         }
         manageAddressViewModel.getAddressResourcesRequest();
+
         mLocationHelper.setLocationUpdateListener(this);
         mLocationHelper.isGPSEnabled();
         startLocationUpdate();
@@ -158,6 +166,9 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
                     if (binding.slidingLayout.getPanelState().toString().equals(AppConstant.DrawerState.COLLAPSED))
                         binding.slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
                 }
+                break;
+            case R.id.edtAddressType:
+                showSelectAddressTypeDialog(AppConstant.DialogIdentifier.SELECT_ADDRESS_TYPE, v);
                 break;
         }
     }
@@ -215,11 +226,11 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
                     binding.routAddressView.txtShortAddress.setText("");
                 }
 
-                Log.e("test", "address:" + address);
-                Log.e("test", "getAdminArea:" + addresses.get(0).getAdminArea());
-                Log.e("test", "getSubAdminArea:" + addresses.get(0).getSubAdminArea());
-                Log.e("test", "getLocality:" + addresses.get(0).getLocality());
-                Log.e("test", "getSubLocality:" + addresses.get(0).getSubLocality());
+//                Log.e("test", "address:" + address);
+//                Log.e("test", "getAdminArea:" + addresses.get(0).getAdminArea());
+//                Log.e("test", "getSubAdminArea:" + addresses.get(0).getSubAdminArea());
+//                Log.e("test", "getLocality:" + addresses.get(0).getLocality());
+//                Log.e("test", "getSubLocality:" + addresses.get(0).getSubLocality());
             }
         } catch (IOException ignored) {
         }
@@ -369,6 +380,10 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
             } else if (moduleInfo.getType() == AppConstant.DialogIdentifier.SELECT_AREA) {
                 binding.routAddressView.edtArea.setText(moduleInfo.getInfo().getName());
                 manageAddressViewModel.getSaveAddressRequest().setArea_id(moduleInfo.getInfo().getId());
+            } else if (moduleInfo.getType() == AppConstant.DialogIdentifier.SELECT_ADDRESS_TYPE) {
+                ArrayList<String> listAddressTypeId = new ArrayList<>(Arrays.asList(mContext.getResources().getStringArray(R.array.addressTypeId)));
+                binding.routAddressView.edtAddressType.setText(moduleInfo.getInfo().getName());
+                manageAddressViewModel.getSaveAddressRequest().setAddress_type(Integer.parseInt(listAddressTypeId.get(moduleInfo.getInfo().getId())));
             }
         }
     }
@@ -412,6 +427,19 @@ public class AddAddressActivity extends BaseActivity implements OnMapReadyCallba
         }
 
         return valid;
+    }
+
+    public void showSelectAddressTypeDialog(int dialogIdentifier, View v) {
+        List<ModuleInfo> list = new ArrayList<>();
+        ModuleInfo moduleInfo = null;
+        ArrayList<String> listAddressType = new ArrayList<>(Arrays.asList(mContext.getResources().getStringArray(R.array.addressType)));
+        for (int i = 0; i < listAddressType.size(); i++) {
+            moduleInfo = new ModuleInfo();
+            moduleInfo.setId(i);
+            moduleInfo.setName(listAddressType.get(i));
+            list.add(moduleInfo);
+        }
+        PopupMenuHelper.showPopupMenu(mContext, v, list, dialogIdentifier);
     }
 
     @Override

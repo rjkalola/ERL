@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SaveOrderRequest {
     private int pickup_hour_id, address_id,lu_service_hour_type_id,type;
-    private String pickup_date;
+    private String pickup_date,delivery_note;
     private List<ServiceItemInfo> order = new ArrayList<>();
 
     public int getPickup_hour_id() {
@@ -56,5 +56,13 @@ public class SaveOrderRequest {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getDelivery_note() {
+        return delivery_note;
+    }
+
+    public void setDelivery_note(String delivery_note) {
+        this.delivery_note = delivery_note;
     }
 }
