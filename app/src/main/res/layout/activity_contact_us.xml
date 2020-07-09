@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/routHeaderView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/img_order_items_header_bg"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_18sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:gravity="center"
+                    android:text="@string/lbl_contact_us"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/_16ssp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgBack"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_4sdp"
+                    app:srcCompat="@drawable/ic_arrow_back" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/routCall"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_marginTop="@dimen/_55sdp"
+            android:background="@drawable/img_dashboard_button_background">
+
+            <ImageView
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_22sdp"
+                android:padding="@dimen/_2sdp"
+                android:src="@drawable/ic_contact_call" />
+
+            <TextView
+                style="@style/SmallFontTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:text="@string/lbl_call"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/_11ssp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/routWhatsApp"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:background="@drawable/img_dashboard_button_background">
+
+            <ImageView
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_22sdp"
+                android:padding="@dimen/_2sdp"
+                android:src="@drawable/ic_contact_whatsapp" />
+
+            <TextView
+                style="@style/SmallFontTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:text="@string/lbl_whatsapp"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/_11ssp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/routEmail"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:background="@drawable/img_dashboard_button_background">
+
+            <ImageView
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_22sdp"
+                android:padding="@dimen/_2sdp"
+                android:src="@drawable/ic_contact_email" />
+
+            <TextView
+                style="@style/SmallFontTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:text="@string/hint_email"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/_11ssp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

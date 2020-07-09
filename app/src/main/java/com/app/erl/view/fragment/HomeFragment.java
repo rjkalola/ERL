@@ -21,14 +21,17 @@ import com.app.erl.adapter.DashboardOfferPagerAdapter;
 import com.app.erl.adapter.DashboardOfferPagerDotsAdapter;
 import com.app.erl.databinding.FragmentHomeBinding;
 import com.app.erl.model.entity.response.ClientDashBoardResponse;
+import com.app.erl.util.AppConstant;
 import com.app.erl.util.AppUtils;
 import com.app.erl.util.LoginViewModelFactory;
 import com.app.erl.util.ResourceProvider;
 import com.app.erl.view.activity.ChatActivity;
+import com.app.erl.view.activity.ContactUsActivity;
 import com.app.erl.view.activity.DashBoardActivity;
 import com.app.erl.view.activity.StoreLocatorActivity;
 import com.app.erl.viewModel.DashBoardViewModel;
 import com.app.utilities.utils.AlertDialogHelper;
+import com.app.utilities.utils.StringHelper;
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private final int LAYOUT_ACTIVITY = R.layout.fragment_home;
@@ -63,6 +66,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         binding.routLiveSupport.setOnClickListener(this);
         binding.routStoreLocator.setOnClickListener(this);
         binding.routPlaceOrder.setOnClickListener(this);
+        binding.routContactUs.setOnClickListener(this);
 
         return binding.getRoot();
     }
@@ -83,6 +87,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
+                break;
+            case R.id.routContactUs:
+                if (getDashBoardData() != null) {
+                    bundle.putString(AppConstant.IntentKey.EMAIL, !StringHelper.isEmpty(getDashBoardData().getContact_email()) ? getDashBoardData().getContact_email() : "");
+                    bundle.putString(AppConstant.IntentKey.PHONE, !StringHelper.isEmpty(getDashBoardData().getContact_number()) ? getDashBoardData().getContact_number() : "");
+                }
+
+                moveActivity(mContext, ContactUsActivity.class, false, false, bundle);
                 break;
         }
     }

@@ -215,6 +215,10 @@
     <string name="hint_enter_order_note">Enter Order notes:</string>
     <string name="msg_password_changed_successfully">Password changed successfully</string>
     <string name="lbl_click_here_to">Click here to</string>
+    <string name="lbl_call">Call</string>
+    <string name="lbl_whatsapp">Whatsapp</string>
+
+    <!--    <string name/=""></string>-->
 
     <!--    <string name=""></string>-->
 

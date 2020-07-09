@@ -5,7 +5,7 @@ import org.parceler.Parcel;
 @Parcel
 public class SaveAddressRequest {
     int id, area_id, city_id, is_default,address_type;
-    String name, phone, address, street, landmark, area_name, city_name,latitude,longitude;
+    String name, phone, address, street, landmark, area_name, city_name,latitude,longitude,address_type_name;
 
     public int getId() {
         return id;
@@ -117,5 +117,13 @@ public class SaveAddressRequest {
 
     public void setAddress_type(int address_type) {
         this.address_type = address_type;
+    }
+
+    public String getAddress_type_name() {
+        return address_type_name;
+    }
+
+    public void setAddress_type_name(String address_type_name) {
+        this.address_type_name = address_type_name;
     }
 }

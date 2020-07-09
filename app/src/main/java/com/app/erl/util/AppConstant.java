@@ -35,6 +35,7 @@ public final class AppConstant {
         public static final String USER_ID = "USER_ID";
         public static final String VERIFICATION_CODE = "VERIFICATION_CODE";
         public static final String EMAIL = "EMAIL";
+        public static final String PHONE = "PHONE";
         public static final String POSITION = "POSITION";
         public static final String DASHBOARD_DATA = "DASHBOARD_DATA";
         public static final String SERVICE_ITEMS_DATA = "SERVICE_ITEMS_DATA";
