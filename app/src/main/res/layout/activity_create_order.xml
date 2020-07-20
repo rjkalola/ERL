@@ -98,9 +98,9 @@
 
                 <TextView
                     style="@style/SmallFontTextView"
-                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
                     android:fontFamily="@font/montserrat_semi_bold"
-                    android:text="@string/lbl_pick_time_slot"
+                    android:text="@string/lbl_pick_up_time_slot"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/_12ssp" />
@@ -123,7 +123,8 @@
                             android:fontFamily="@font/montserrat_medium"
                             android:text="@string/lbl_select_date"
                             android:textAllCaps="true"
-                            android:textColor="@color/colorPrimaryText" />
+                            android:textColor="@color/colorPrimaryText"
+                            android:visibility="gone" />
 
                         <EditText
                             android:id="@+id/edtSelectDate"
@@ -134,12 +135,13 @@
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
                             android:focusable="false"
                             android:fontFamily="@font/montserrat_medium"
-                            android:hint="@string/dash_sign"
+                            android:hint="@string/lbl_select_date"
                             android:paddingStart="@dimen/_10sdp"
                             android:paddingTop="@dimen/_4sdp"
                             android:paddingEnd="@dimen/_3sdp"
                             android:paddingBottom="@dimen/_4sdp"
-                            android:textColor="@color/colorPrimaryText" />
+                            android:textColor="@color/colorPrimaryText"
+                            android:textColorHint="@color/colorHint" />
 
                     </LinearLayout>
 
@@ -156,7 +158,8 @@
                             android:fontFamily="@font/montserrat_medium"
                             android:text="@string/lbl_select_time"
                             android:textAllCaps="true"
-                            android:textColor="@color/colorPrimaryText" />
+                            android:textColor="@color/colorPrimaryText"
+                            android:visibility="gone" />
 
                         <EditText
                             android:id="@+id/edtSelectTime"
@@ -167,19 +170,105 @@
                             android:drawableEnd="@drawable/ic_arrow_drop_down"
                             android:focusable="false"
                             android:fontFamily="@font/montserrat_medium"
-                            android:hint="@string/dash_sign"
+                            android:hint="@string/lbl_select_time"
                             android:paddingStart="@dimen/_10sdp"
                             android:paddingTop="@dimen/_4sdp"
                             android:paddingEnd="@dimen/_3sdp"
                             android:paddingBottom="@dimen/_4sdp"
-                            android:textColor="@color/colorPrimaryText" />
+                            android:textColor="@color/colorPrimaryText"
+                            android:textColorHint="@color/colorHint" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    style="@style/SmallFontTextView"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:text="@string/lbl_deliver_time_slot"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/_12ssp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_4sdp"
+                        android:layout_weight="0.7"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/VerySmallFontTextView"
+                            android:layout_marginBottom="@dimen/_4sdp"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="@string/lbl_select_date"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryText"
+                            android:visibility="gone" />
+
+                        <EditText
+                            android:id="@+id/edtSelectDeliverDate"
+                            style="@style/VerySmallFont"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/img_dropdown_bg"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down"
+                            android:focusable="false"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:hint="@string/lbl_select_date"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingTop="@dimen/_4sdp"
+                            android:paddingEnd="@dimen/_3sdp"
+                            android:paddingBottom="@dimen/_4sdp"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textColorHint="@color/colorHint" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/VerySmallFontTextView"
+                            android:layout_marginBottom="@dimen/_4sdp"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="@string/lbl_select_time"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryText"
+                            android:visibility="gone" />
+
+                        <EditText
+                            android:id="@+id/edtSelectDeliverTime"
+                            style="@style/VerySmallFont"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/img_dropdown_bg"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down"
+                            android:focusable="false"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:hint="@string/lbl_select_time"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingTop="@dimen/_4sdp"
+                            android:paddingEnd="@dimen/_3sdp"
+                            android:paddingBottom="@dimen/_4sdp"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textColorHint="@color/colorHint" />
 
                     </LinearLayout>
                 </LinearLayout>
 
                 <View
                     style="@style/Divider"
-                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
                     android:background="@color/colorPrimaryText" />
 
                 <TextView

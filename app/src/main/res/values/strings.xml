@@ -96,7 +96,8 @@
     <string name="add">Add</string>
     <string name="add_item">Add Item</string>
     <string name="lbl_continue">Continue</string>
-    <string name="lbl_pick_time_slot">Pick a time slot</string>
+    <string name="lbl_pick_up_time_slot">Pickup time slot</string>
+    <string name="lbl_deliver_time_slot">Deliver time slot</string>
     <string name="lbl_select_date">Select Date:</string>
     <string name="lbl_select_time">Select Time:</string>
     <string name="lbl_address">Address:</string>
@@ -170,7 +171,13 @@
     <string name="lbl_total_payable_amount">Total payable amount is:</string>
     <string name="lbl_total">Total</string>
     <string name="lbl_select_shop">Select Shop</string>
-
+    <string name="lbl_final_amount">Final Amount:</string>
+    <string name="lbl_tax">Tax(5%)</string>
+    <string name="lbl_promo_code">Promo Code:</string>
+    <string name="lbl_wallet_balance">Wallet Balance:</string>
+    <string name="lbl_apply_now">Apply Now</string>
+    <string name="lbl_display_wallet_balance">Wallet Balance: %s</string>
+    <string name="lbl_total_amount">Total:</string>
     <!--    <string name=""></string>-->
 
     <!--Validation message-->

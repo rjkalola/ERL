@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SaveOrderRequest {
-    private int pickup_hour_id, address_id,lu_service_hour_type_id,type;
-    private String pickup_date,delivery_note;
+    private int pickup_hour_id,deliver_hour_id, address_id,lu_service_hour_type_id,type;
+    private String pickup_date,deliver_date,delivery_note;
+    private boolean deduct_wallet;
     private List<ServiceItemInfo> order = new ArrayList<>();
 
     public int getPickup_hour_id() {
@@ -18,28 +19,20 @@ public class SaveOrderRequest {
         this.pickup_hour_id = pickup_hour_id;
     }
 
+    public int getDeliver_hour_id() {
+        return deliver_hour_id;
+    }
+
+    public void setDeliver_hour_id(int deliver_hour_id) {
+        this.deliver_hour_id = deliver_hour_id;
+    }
+
     public int getAddress_id() {
         return address_id;
     }
 
     public void setAddress_id(int address_id) {
         this.address_id = address_id;
-    }
-
-    public String getPickup_date() {
-        return pickup_date;
-    }
-
-    public void setPickup_date(String pickup_date) {
-        this.pickup_date = pickup_date;
-    }
-
-    public List<ServiceItemInfo> getOrder() {
-        return order;
-    }
-
-    public void setOrder(List<ServiceItemInfo> order) {
-        this.order = order;
     }
 
     public int getLu_service_hour_type_id() {
@@ -58,11 +51,43 @@ public class SaveOrderRequest {
         this.type = type;
     }
 
+    public String getPickup_date() {
+        return pickup_date;
+    }
+
+    public void setPickup_date(String pickup_date) {
+        this.pickup_date = pickup_date;
+    }
+
+    public String getDeliver_date() {
+        return deliver_date;
+    }
+
+    public void setDeliver_date(String deliver_date) {
+        this.deliver_date = deliver_date;
+    }
+
     public String getDelivery_note() {
         return delivery_note;
     }
 
     public void setDelivery_note(String delivery_note) {
         this.delivery_note = delivery_note;
+    }
+
+    public boolean isDeduct_wallet() {
+        return deduct_wallet;
+    }
+
+    public void setDeduct_wallet(boolean deduct_wallet) {
+        this.deduct_wallet = deduct_wallet;
+    }
+
+    public List<ServiceItemInfo> getOrder() {
+        return order;
+    }
+
+    public void setOrder(List<ServiceItemInfo> order) {
+        this.order = order;
     }
 }

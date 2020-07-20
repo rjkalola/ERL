@@ -54,6 +54,7 @@ import org.parceler.Parcels;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -68,7 +69,7 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
     private String fromTime, toTime;
     private int serviceHourTypeId = 0, orderType = 0;
     private ServiceSelectedItemsTitleListAdapter adapter;
-    private String DATE_PICKER = "DATE_PICKER";
+    private String DATE_PICKER = "DATE_PICKER", DELIVER_DATE_PICKER = "DELIVER_DATE_PICKER";
     private String[] LOCATION_PERMISSION = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     private ManageOrderViewModel manageOrderViewModel;
     private OrderResourcesResponse orderData;
@@ -91,6 +92,8 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
         binding.imgBack.setOnClickListener(this);
         binding.edtSelectDate.setOnClickListener(this);
         binding.edtSelectTime.setOnClickListener(this);
+        binding.edtSelectDeliverDate.setOnClickListener(this);
+        binding.edtSelectDeliverTime.setOnClickListener(this);
         binding.txtChangeAddress.setOnClickListener(this);
 
         getIntentData();
@@ -116,6 +119,7 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        Calendar c = Calendar.getInstance();
         switch (v.getId()) {
             case R.id.txtNext:
                 if (validate()) {
@@ -126,7 +130,6 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.edtSelectDate:
-                Calendar c = Calendar.getInstance();
                 if (!StringHelper.isEmpty(binding.edtSelectDate.getText().toString())) {
                     String date = DateHelper.changeDateFormat(binding.edtSelectDate.getText().toString(), DateFormatsConstants.DD_MMM_YYYY_SPACE, DateFormatsConstants.DD_MM_YYYY_DASH);
                     showDatePicker(c.getTime().getTime(), 0, DATE_PICKER, date);
@@ -139,6 +142,38 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
                         && getOrderData().getPickup_hours() != null
                         && getOrderData().getPickup_hours().size() > 0) {
                     showSelectTimeDialog(AppConstant.DialogIdentifier.SELECT_TIME, v);
+                } else {
+                    ToastHelper.error(mContext, getString(R.string.msg_currently_no_service_available), Toast.LENGTH_SHORT, false);
+                }
+                break;
+            case R.id.edtSelectDeliverDate:
+                int day = 0;
+                switch (serviceHourTypeId) {
+                    case 1:
+                        day = 3;
+                        break;
+                    case 2:
+                        day = 2;
+                        break;
+                    case 3:
+                        day = 0;
+                        break;
+                }
+                c.add(Calendar.DAY_OF_WEEK, day);
+                Date newDate = c.getTime();
+
+                if (!StringHelper.isEmpty(binding.edtSelectDate.getText().toString())) {
+                    String date = DateHelper.changeDateFormat(binding.edtSelectDate.getText().toString(), DateFormatsConstants.DD_MMM_YYYY_SPACE, DateFormatsConstants.DD_MM_YYYY_DASH);
+                    showDatePicker(newDate.getTime(), 0, DELIVER_DATE_PICKER, date);
+                } else {
+                    showDatePicker(newDate.getTime(), 0, DELIVER_DATE_PICKER, null);
+                }
+                break;
+            case R.id.edtSelectDeliverTime:
+                if (getOrderData() != null
+                        && getOrderData().getPickup_hours() != null
+                        && getOrderData().getPickup_hours().size() > 0) {
+                    showSelectTimeDialog(AppConstant.DialogIdentifier.SELECT_DELIVER_TIME, v);
                 } else {
                     ToastHelper.error(mContext, getString(R.string.msg_currently_no_service_available), Toast.LENGTH_SHORT, false);
                 }
@@ -224,6 +259,13 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
             binding.edtSelectDate.setText(dateFormat.format(dobDate.getTime()));
             SimpleDateFormat dateFormat1 = new SimpleDateFormat(DateFormatsConstants.YYYY_MM_DD_DASH, Locale.US);
             manageOrderViewModel.getSaveOrderRequest().setPickup_date(dateFormat1.format(dobDate.getTime()));
+        } else if (view.getTag().toString().equals(DELIVER_DATE_PICKER)) {
+            Calendar dobDate = Calendar.getInstance();
+            dobDate.set(year, month, day);
+            SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormatsConstants.DD_MMMM_YYYY_SPACE, Locale.US);
+            binding.edtSelectDeliverDate.setText(dateFormat.format(dobDate.getTime()));
+            SimpleDateFormat dateFormat1 = new SimpleDateFormat(DateFormatsConstants.YYYY_MM_DD_DASH, Locale.US);
+            manageOrderViewModel.getSaveOrderRequest().setDeliver_date(dateFormat1.format(dobDate.getTime()));
         }
     }
 
@@ -325,6 +367,9 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
             if (moduleInfo.getType() == AppConstant.DialogIdentifier.SELECT_TIME) {
                 binding.edtSelectTime.setText(moduleInfo.getInfo().getName());
                 manageOrderViewModel.getSaveOrderRequest().setPickup_hour_id(moduleInfo.getInfo().getId());
+            } else if (moduleInfo.getType() == AppConstant.DialogIdentifier.SELECT_DELIVER_TIME) {
+                binding.edtSelectDeliverTime.setText(moduleInfo.getInfo().getName());
+                manageOrderViewModel.getSaveOrderRequest().setDeliver_hour_id(moduleInfo.getInfo().getId());
             }
         }
     }

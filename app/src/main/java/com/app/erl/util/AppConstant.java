@@ -29,6 +29,7 @@ public final class AppConstant {
         public static final int SELECT_SHOP = 10;
         public static final int PLACE_ORDER = 11;
         public static final int SELECT_ADDRESS_TYPE = 12;
+        public static final int SELECT_DELIVER_TIME = 13;
     }
 
     public static final class IntentKey {
