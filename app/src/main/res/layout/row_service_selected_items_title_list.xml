@@ -30,10 +30,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
-                android:fontFamily="@font/montserrat_medium"
+                android:fontFamily="@font/montserrat_bold"
                 android:textAllCaps="true"
-                android:textColor="@color/colorYellowDark"
-                android:textSize="@dimen/_11ssp" />
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/_10ssp" />
 
             <TextView
                 style="@style/VerySmallFont"

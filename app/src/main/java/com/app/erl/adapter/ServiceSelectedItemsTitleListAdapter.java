@@ -23,11 +23,13 @@ public class ServiceSelectedItemsTitleListAdapter extends RecyclerView.Adapter<R
     private List<ItemInfo> list;
     private SelectedServiceItemListener listener;
     private int position;
+    private boolean isConfirmOrder = false;
 
-    public ServiceSelectedItemsTitleListAdapter(Context context, List<ItemInfo> list, SelectedServiceItemListener listener) {
+    public ServiceSelectedItemsTitleListAdapter(Context context, List<ItemInfo> list, SelectedServiceItemListener listener, boolean isConfirmOrder) {
         this.mContext = context;
         this.list = list;
         this.listener = listener;
+        this.isConfirmOrder = isConfirmOrder;
     }
 
     @NonNull
@@ -43,7 +45,7 @@ public class ServiceSelectedItemsTitleListAdapter extends RecyclerView.Adapter<R
         ItemInfo info = list.get(position);
         itemViewHolder.getData(info);
         itemViewHolder.binding.txtTitle.setText(info.getName());
-        setSelectedItemsAdapter(itemViewHolder.binding.rvSelectedItems, info.getServiceList(), position);
+        setSelectedItemsAdapter(itemViewHolder.binding.rvSelectedItems, info.getServiceList(), position, isConfirmOrder);
     }
 
     @Override
@@ -64,11 +66,11 @@ public class ServiceSelectedItemsTitleListAdapter extends RecyclerView.Adapter<R
         }
     }
 
-    private void setSelectedItemsAdapter(RecyclerView recyclerView, List<ServiceItemInfo> service_item, int position) {
+    private void setSelectedItemsAdapter(RecyclerView recyclerView, List<ServiceItemInfo> service_item, int position, boolean isConfirmOrder) {
         if (service_item != null && service_item.size() > 0) {
             recyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
             recyclerView.setHasFixedSize(true);
-            ServiceSelectedItemsListAdapter adapter = new ServiceSelectedItemsListAdapter(mContext, service_item, position, listener);
+            ServiceSelectedItemsListAdapter adapter = new ServiceSelectedItemsListAdapter(mContext, service_item, position, listener, isConfirmOrder);
             recyclerView.setAdapter(adapter);
         }
     }

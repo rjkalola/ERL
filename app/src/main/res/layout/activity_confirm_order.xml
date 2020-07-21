@@ -104,81 +104,15 @@
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/_10ssp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_4sdp"
-                        android:layout_weight="0.7"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/VerySmallFontTextView"
-                            android:layout_marginBottom="@dimen/_4sdp"
-                            android:fontFamily="@font/montserrat_medium"
-                            android:text="@string/lbl_select_date"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorPrimaryText"
-                            android:visibility="gone" />
-
-                        <EditText
-                            android:id="@+id/edtSelectDate"
-                            style="@style/VerySmallFont"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/img_dropdown_bg"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:focusable="false"
-                            android:fontFamily="@font/montserrat_medium"
-                            android:hint="@string/lbl_select_date"
-                            android:paddingStart="@dimen/_10sdp"
-                            android:paddingTop="@dimen/_4sdp"
-                            android:paddingEnd="@dimen/_3sdp"
-                            android:paddingBottom="@dimen/_4sdp"
-                            android:textColor="@color/colorPrimaryText"
-                            android:textColorHint="@color/colorHint" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/VerySmallFontTextView"
-                            android:layout_marginBottom="@dimen/_4sdp"
-                            android:fontFamily="@font/montserrat_medium"
-                            android:text="@string/lbl_select_time"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorPrimaryText"
-                            android:visibility="gone" />
-
-                        <EditText
-                            android:id="@+id/edtSelectTime"
-                            style="@style/VerySmallFont"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/img_dropdown_bg"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:focusable="false"
-                            android:fontFamily="@font/montserrat_medium"
-                            android:hint="@string/lbl_select_time"
-                            android:paddingStart="@dimen/_10sdp"
-                            android:paddingTop="@dimen/_4sdp"
-                            android:paddingEnd="@dimen/_3sdp"
-                            android:paddingBottom="@dimen/_4sdp"
-                            android:textColor="@color/colorPrimaryText"
-                            android:textColorHint="@color/colorHint" />
-
-                    </LinearLayout>
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/txtPickUpTime"
+                    style="@style/SmallFontTextView"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textAllCaps="true"
+                    android:text="20 JULY 2020, 11:00 AM TO 01:00 PM"
+                    android:textColor="@color/colorSecondaryText"
+                    android:textSize="@dimen/_10ssp" />
 
                 <TextView
                     style="@style/SmallFontTextView"
@@ -189,81 +123,15 @@
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/_10ssp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_4sdp"
-                        android:layout_weight="0.7"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/VerySmallFontTextView"
-                            android:layout_marginBottom="@dimen/_4sdp"
-                            android:fontFamily="@font/montserrat_medium"
-                            android:text="@string/lbl_select_date"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorPrimaryText"
-                            android:visibility="gone" />
-
-                        <EditText
-                            android:id="@+id/edtSelectDeliverDate"
-                            style="@style/VerySmallFont"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/img_dropdown_bg"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:focusable="false"
-                            android:fontFamily="@font/montserrat_medium"
-                            android:hint="@string/lbl_select_date"
-                            android:paddingStart="@dimen/_10sdp"
-                            android:paddingTop="@dimen/_4sdp"
-                            android:paddingEnd="@dimen/_3sdp"
-                            android:paddingBottom="@dimen/_4sdp"
-                            android:textColor="@color/colorPrimaryText"
-                            android:textColorHint="@color/colorHint" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/VerySmallFontTextView"
-                            android:layout_marginBottom="@dimen/_4sdp"
-                            android:fontFamily="@font/montserrat_medium"
-                            android:text="@string/lbl_select_time"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorPrimaryText"
-                            android:visibility="gone" />
-
-                        <EditText
-                            android:id="@+id/edtSelectDeliverTime"
-                            style="@style/VerySmallFont"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/img_dropdown_bg"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:focusable="false"
-                            android:fontFamily="@font/montserrat_medium"
-                            android:hint="@string/lbl_select_time"
-                            android:paddingStart="@dimen/_10sdp"
-                            android:paddingTop="@dimen/_4sdp"
-                            android:paddingEnd="@dimen/_3sdp"
-                            android:paddingBottom="@dimen/_4sdp"
-                            android:textColor="@color/colorPrimaryText"
-                            android:textColorHint="@color/colorHint" />
-
-                    </LinearLayout>
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/txtDeliverTime"
+                    style="@style/SmallFontTextView"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:text="23 JULY 2020, 11:00 AM TO 01:00 PM"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorSecondaryText"
+                    android:textSize="@dimen/_10ssp" />
 
                 <LinearLayout
                     android:id="@+id/routOrderList"
@@ -333,6 +201,7 @@
                         android:id="@+id/routFinalAmountTemp"
                         android:layout_width="@dimen/_62sdp"
                         android:layout_height="wrap_content"
+                        android:visibility="invisible"
                         android:layout_alignParentEnd="true">
 
                     </RelativeLayout>
@@ -373,6 +242,7 @@
                         android:id="@+id/routTaxTemp"
                         android:layout_width="@dimen/_62sdp"
                         android:layout_height="wrap_content"
+                        android:visibility="invisible"
                         android:layout_alignParentEnd="true">
 
                     </RelativeLayout>
@@ -413,6 +283,7 @@
                         android:id="@+id/routPromoCodeTemp"
                         android:layout_width="@dimen/_62sdp"
                         android:layout_height="wrap_content"
+                        android:visibility="invisible"
                         android:layout_alignParentEnd="true">
 
                     </RelativeLayout>
@@ -453,6 +324,7 @@
                         android:id="@+id/routWalletBalanceTemp"
                         android:layout_width="@dimen/_62sdp"
                         android:layout_height="wrap_content"
+                        android:visibility="invisible"
                         android:layout_alignParentEnd="true">
 
                     </RelativeLayout>
@@ -498,6 +370,7 @@
                         android:id="@+id/routTotalAmountTemp"
                         android:layout_width="@dimen/_62sdp"
                         android:layout_height="wrap_content"
+                        android:visibility="invisible"
                         android:layout_alignParentEnd="true">
 
                     </RelativeLayout>
@@ -562,6 +435,7 @@
                     android:fontFamily="@font/montserrat_medium"
                     android:text="@string/lbl_display_wallet_balance"
                     android:textAllCaps="true"
+                    android:checked="true"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/_9ssp" />
 
@@ -585,9 +459,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:background="@drawable/img_edit_text_bg"
+                    android:focusable="false"
                     android:fontFamily="@font/montserrat_regular"
                     android:gravity="top"
                     android:hint="@string/hint_enter_order_note"
+                    android:text="this is test note"
                     android:lines="3"
                     android:paddingStart="@dimen/_12sdp"
                     android:paddingTop="@dimen/_12sdp"

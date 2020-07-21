@@ -94,6 +94,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name="com.app.erl.view.activity.ConfirmOrderActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="com.app.erl.view.activity.AddAddressActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />

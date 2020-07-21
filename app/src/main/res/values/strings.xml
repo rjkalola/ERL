@@ -176,7 +176,7 @@
     <string name="lbl_promo_code">Promo Code:</string>
     <string name="lbl_wallet_balance">Wallet Balance:</string>
     <string name="lbl_apply_now">Apply Now</string>
-    <string name="lbl_display_wallet_balance">Wallet Balance: %s</string>
+    <string name="lbl_display_wallet_balance">Wallet Balance: AED 20</string>
     <string name="lbl_total_amount">Total:</string>
     <!--    <string name=""></string>-->
 

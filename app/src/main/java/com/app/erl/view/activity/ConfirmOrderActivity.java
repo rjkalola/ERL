@@ -21,6 +21,7 @@ import com.app.erl.R;
 import com.app.erl.adapter.ServiceSelectedItemsTitleListAdapter;
 import com.app.erl.callback.SelectTimeListener;
 import com.app.erl.callback.SelectedServiceItemListener;
+import com.app.erl.databinding.ActivityConfirmOrderBinding;
 import com.app.erl.databinding.ActivityCreateOrderBinding;
 import com.app.erl.model.entity.info.ItemInfo;
 import com.app.erl.model.entity.info.ModuleInfo;
@@ -61,10 +62,10 @@ import java.util.Locale;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class CreateOrderActivity extends BaseActivity implements View.OnClickListener
-        , SelectedServiceItemListener, OnDateSetListener, DialogButtonClickListener
-        , SelectTimeListener, EasyPermissions.PermissionCallbacks {
-    private ActivityCreateOrderBinding binding;
+public class ConfirmOrderActivity extends BaseActivity implements View.OnClickListener
+        , SelectedServiceItemListener, DialogButtonClickListener
+        , EasyPermissions.PermissionCallbacks {
+    private ActivityConfirmOrderBinding binding;
     private Context mContext;
     private String fromTime, toTime;
     private int serviceHourTypeId = 0, orderType = 0;
@@ -78,7 +79,7 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_create_order);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_confirm_order);
         mContext = this;
         listItems = new ArrayList<>();
         manageOrderViewModel = ViewModelProviders.of(this, new LoginViewModelFactory(new ResourceProvider(getResources()))).get(ManageOrderViewModel.class);
@@ -90,10 +91,6 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
 
         binding.txtNext.setOnClickListener(this);
         binding.imgBack.setOnClickListener(this);
-        binding.edtSelectDate.setOnClickListener(this);
-        binding.edtSelectTime.setOnClickListener(this);
-        binding.edtSelectDeliverDate.setOnClickListener(this);
-        binding.edtSelectDeliverTime.setOnClickListener(this);
         binding.txtChangeAddress.setOnClickListener(this);
 
         getIntentData();
@@ -124,66 +121,10 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
             case R.id.txtNext:
                 if (validate()) {
 //                    AlertDialogHelper.showDialog(mContext, null, getString(R.string.msg_place_order), getString(R.string.yes), getString(R.string.no), true, this, AppConstant.DialogIdentifier.PLACE_ORDER);
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable(AppConstant.IntentKey.ITEMS_LIST, Parcels.wrap(listItems));
-                    bundle.putInt(AppConstant.IntentKey.SERVICE_HOUR_TYPE_ID, 1);
-                    bundle.putInt(AppConstant.IntentKey.ORDER_TYPE, 0);
-                    Intent intent = new Intent(mContext, ConfirmOrderActivity.class);
-                    intent.putExtras(bundle);
-                    startActivityForResult(intent, AppConstant.IntentKey.VIEW_CART);
                 }
                 break;
             case R.id.imgBack:
                 finish();
-                break;
-            case R.id.edtSelectDate:
-                if (!StringHelper.isEmpty(binding.edtSelectDate.getText().toString())) {
-                    String date = DateHelper.changeDateFormat(binding.edtSelectDate.getText().toString(), DateFormatsConstants.DD_MMM_YYYY_SPACE, DateFormatsConstants.DD_MM_YYYY_DASH);
-                    showDatePicker(c.getTime().getTime(), 0, DATE_PICKER, date);
-                } else {
-                    showDatePicker(c.getTime().getTime(), 0, DATE_PICKER, null);
-                }
-                break;
-            case R.id.edtSelectTime:
-                if (getOrderData() != null
-                        && getOrderData().getPickup_hours() != null
-                        && getOrderData().getPickup_hours().size() > 0) {
-                    showSelectTimeDialog(AppConstant.DialogIdentifier.SELECT_TIME, v);
-                } else {
-                    ToastHelper.error(mContext, getString(R.string.msg_currently_no_service_available), Toast.LENGTH_SHORT, false);
-                }
-                break;
-            case R.id.edtSelectDeliverDate:
-                int day = 0;
-                switch (serviceHourTypeId) {
-                    case 1:
-                        day = 3;
-                        break;
-                    case 2:
-                        day = 2;
-                        break;
-                    case 3:
-                        day = 0;
-                        break;
-                }
-                c.add(Calendar.DAY_OF_WEEK, day);
-                Date newDate = c.getTime();
-
-                if (!StringHelper.isEmpty(binding.edtSelectDate.getText().toString())) {
-                    String date = DateHelper.changeDateFormat(binding.edtSelectDate.getText().toString(), DateFormatsConstants.DD_MMM_YYYY_SPACE, DateFormatsConstants.DD_MM_YYYY_DASH);
-                    showDatePicker(newDate.getTime(), 0, DELIVER_DATE_PICKER, date);
-                } else {
-                    showDatePicker(newDate.getTime(), 0, DELIVER_DATE_PICKER, null);
-                }
-                break;
-            case R.id.edtSelectDeliverTime:
-                if (getOrderData() != null
-                        && getOrderData().getPickup_hours() != null
-                        && getOrderData().getPickup_hours().size() > 0) {
-                    showSelectTimeDialog(AppConstant.DialogIdentifier.SELECT_DELIVER_TIME, v);
-                } else {
-                    ToastHelper.error(mContext, getString(R.string.msg_currently_no_service_available), Toast.LENGTH_SHORT, false);
-                }
                 break;
             case R.id.txtChangeAddress:
                 checkPermission();
@@ -196,7 +137,7 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
             binding.routOrderList.setVisibility(View.VISIBLE);
             binding.rvSelectedItems.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             binding.rvSelectedItems.setHasFixedSize(true);
-            adapter = new ServiceSelectedItemsTitleListAdapter(mContext, listItems, this, false);
+            adapter = new ServiceSelectedItemsTitleListAdapter(mContext, listItems, this, true);
             binding.rvSelectedItems.setAdapter(adapter);
         } else {
             binding.routOrderList.setVisibility(View.GONE);
@@ -214,7 +155,6 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
                 }
                 if (response.isSuccess()) {
                     setOrderData(response);
-                    binding.edtSelectTime.setText("");
                     manageOrderViewModel.getSaveOrderRequest().setPickup_hour_id(0);
                     if (getOrderData().getPickup_hours() != null && getOrderData().getInfo().getId() != 0) {
                         binding.txtAddress.setText(getOrderData().getInfo().getAddress());
@@ -255,56 +195,6 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onSelectServiceItem(int rootPosition, int itemPosition, int quantity) {
         listItems.get(rootPosition).getServiceList().get(itemPosition).setQuantity(quantity);
-    }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int day) {
-        if (view.getTag().toString().equals(DATE_PICKER)) {
-            Calendar dobDate = Calendar.getInstance();
-            dobDate.set(year, month, day);
-            SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormatsConstants.DD_MMMM_YYYY_SPACE, Locale.US);
-            binding.edtSelectDate.setText(dateFormat.format(dobDate.getTime()));
-            SimpleDateFormat dateFormat1 = new SimpleDateFormat(DateFormatsConstants.YYYY_MM_DD_DASH, Locale.US);
-            manageOrderViewModel.getSaveOrderRequest().setPickup_date(dateFormat1.format(dobDate.getTime()));
-        } else if (view.getTag().toString().equals(DELIVER_DATE_PICKER)) {
-            Calendar dobDate = Calendar.getInstance();
-            dobDate.set(year, month, day);
-            SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormatsConstants.DD_MMMM_YYYY_SPACE, Locale.US);
-            binding.edtSelectDeliverDate.setText(dateFormat.format(dobDate.getTime()));
-            SimpleDateFormat dateFormat1 = new SimpleDateFormat(DateFormatsConstants.YYYY_MM_DD_DASH, Locale.US);
-            manageOrderViewModel.getSaveOrderRequest().setDeliver_date(dateFormat1.format(dobDate.getTime()));
-        }
-    }
-
-    @Override
-    public void onSelectTime(String fromTime, String toTime, int identifier) {
-        this.fromTime = fromTime;
-        this.toTime = toTime;
-        binding.edtSelectTime.setText(String.format(getString(R.string.lbl_display_time), fromTime, toTime));
-    }
-
-    public void showDatePicker(long minDate, long maxDate, String tag, String selDate) {
-        DialogFragment newFragment = DatePickerFragment.newInstance(minDate, maxDate, selDate, DateFormatsConstants.DD_MM_YYYY_DASH, tag);
-        newFragment.show(getSupportFragmentManager(), tag);
-    }
-
-    public void selectTimeDialog() {
-        FragmentManager fm = ((BaseActivity) mContext).getSupportFragmentManager();
-        SelectTimeDialog selectTimeDialog = SelectTimeDialog.newInstance(mContext, fromTime
-                , toTime, this);
-        selectTimeDialog.show(fm, "selectTimeDialog");
-    }
-
-    public void showSelectTimeDialog(int dialogIdentifier, View v) {
-        List<ModuleInfo> list = new ArrayList<>();
-        ModuleInfo moduleInfo = null;
-        for (PickUpTimeInfo info : getOrderData().getPickup_hours()) {
-            moduleInfo = new ModuleInfo();
-            moduleInfo.setId(info.getId());
-            moduleInfo.setName(String.format(getString(R.string.lbl_display_time), info.getStart_time(), info.getEnd_time()));
-            list.add(moduleInfo);
-        }
-        PopupMenuHelper.showPopupMenu(mContext, v, list, dialogIdentifier);
     }
 
     private boolean hasPermission() {
@@ -353,31 +243,6 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
                 break;
             default:
                 break;
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(ModuleSelection moduleInfo) {
-        if (moduleInfo != null) {
-            if (moduleInfo.getType() == AppConstant.DialogIdentifier.SELECT_TIME) {
-                binding.edtSelectTime.setText(moduleInfo.getInfo().getName());
-                manageOrderViewModel.getSaveOrderRequest().setPickup_hour_id(moduleInfo.getInfo().getId());
-            } else if (moduleInfo.getType() == AppConstant.DialogIdentifier.SELECT_DELIVER_TIME) {
-                binding.edtSelectDeliverTime.setText(moduleInfo.getInfo().getName());
-                manageOrderViewModel.getSaveOrderRequest().setDeliver_hour_id(moduleInfo.getInfo().getId());
-            }
         }
     }
 

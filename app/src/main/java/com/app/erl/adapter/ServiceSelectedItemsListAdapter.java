@@ -25,12 +25,14 @@ public class ServiceSelectedItemsListAdapter extends RecyclerView.Adapter<Recycl
     private List<ServiceItemInfo> list;
     private SelectedServiceItemListener listener;
     private int rootPosition;
+    private boolean isConfirmOrder;
 
-    public ServiceSelectedItemsListAdapter(Context context, List<ServiceItemInfo> list, int rootPosition, SelectedServiceItemListener listener) {
+    public ServiceSelectedItemsListAdapter(Context context, List<ServiceItemInfo> list, int rootPosition, SelectedServiceItemListener listener, boolean isConfirmOrder) {
         this.mContext = context;
         this.list = list;
         this.listener = listener;
         this.rootPosition = rootPosition;
+        this.isConfirmOrder = isConfirmOrder;
     }
 
     @NonNull
@@ -51,7 +53,10 @@ public class ServiceSelectedItemsListAdapter extends RecyclerView.Adapter<Recycl
 
         itemViewHolder.binding.txtPrice.setText(String.format(mContext.getString(R.string.lbl_display_price), String.valueOf(info.getPrice())));
 
-        setSelectedItemCont(info, itemViewHolder.binding);
+        if (!isConfirmOrder)
+            setSelectedItemCont(info, itemViewHolder.binding);
+        else
+            itemViewHolder.binding.routButtonsView.setVisibility(View.INVISIBLE);
 
         itemViewHolder.binding.txtAdd.setOnClickListener(v -> {
             if (listener != null) {
