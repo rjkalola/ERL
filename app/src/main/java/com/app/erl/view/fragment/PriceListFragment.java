@@ -98,8 +98,6 @@ public class PriceListFragment extends BaseFragment implements View.OnClickListe
                 intent.putExtras(bundle);
                 startActivityForResult(intent, AppConstant.IntentKey.VIEW_CART);
                 break;
-
-
         }
     }
 

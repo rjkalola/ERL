@@ -2,14 +2,17 @@ package com.app.erl.model.entity.request;
 
 import com.app.erl.model.entity.info.ServiceItemInfo;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Parcel
 public class SaveOrderRequest {
-    private int pickup_hour_id,deliver_hour_id, address_id,lu_service_hour_type_id,type;
-    private String pickup_date,deliver_date,delivery_note;
-    private boolean deduct_wallet;
-    private List<ServiceItemInfo> order = new ArrayList<>();
+    int pickup_hour_id, deliver_hour_id, address_id, lu_service_hour_type_id, type, promo_amount, wallet_balance;
+    String pickup_date, deliver_date,pickup_hour,deliver_hour, delivery_note, promo_code, address;
+    boolean deduct_wallet;
+    List<ServiceItemInfo> order = new ArrayList<>();
 
     public int getPickup_hour_id() {
         return pickup_hour_id;
@@ -89,5 +92,53 @@ public class SaveOrderRequest {
 
     public void setOrder(List<ServiceItemInfo> order) {
         this.order = order;
+    }
+
+    public String getPromo_code() {
+        return promo_code;
+    }
+
+    public void setPromo_code(String promo_code) {
+        this.promo_code = promo_code;
+    }
+
+    public int getPromo_amount() {
+        return promo_amount;
+    }
+
+    public void setPromo_amount(int promo_amount) {
+        this.promo_amount = promo_amount;
+    }
+
+    public int getWallet_balance() {
+        return wallet_balance;
+    }
+
+    public void setWallet_balance(int wallet_balance) {
+        this.wallet_balance = wallet_balance;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPickup_hour() {
+        return pickup_hour;
+    }
+
+    public void setPickup_hour(String pickup_hour) {
+        this.pickup_hour = pickup_hour;
+    }
+
+    public String getDeliver_hour() {
+        return deliver_hour;
+    }
+
+    public void setDeliver_hour(String deliver_hour) {
+        this.deliver_hour = deliver_hour;
     }
 }

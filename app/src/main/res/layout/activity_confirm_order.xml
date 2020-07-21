@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="saveOrderRequest"
+            type="com.app.erl.model.entity.request.SaveOrderRequest" />
+
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -75,7 +83,7 @@
                     android:layout_weight="0.5"
                     android:fontFamily="@font/montserrat_regular"
                     android:hint="@string/dash_sign"
-                    android:text=""
+                    android:text="@{saveOrderRequest.address}"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/_11ssp" />
 
@@ -88,7 +96,8 @@
                     android:paddingBottom="@dimen/_3sdp"
                     android:text="@string/lbl_change_add_Address"
                     android:textColor="@color/colorYellowDark"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="@dimen/_13ssp"
+                    android:visibility="gone" />
 
                 <View
                     style="@style/Divider"
@@ -110,7 +119,6 @@
                     android:layout_marginTop="@dimen/_4sdp"
                     android:fontFamily="@font/montserrat_medium"
                     android:textAllCaps="true"
-                    android:text="20 JULY 2020, 11:00 AM TO 01:00 PM"
                     android:textColor="@color/colorSecondaryText"
                     android:textSize="@dimen/_10ssp" />
 
@@ -127,7 +135,7 @@
                     android:id="@+id/txtDeliverTime"
                     style="@style/SmallFontTextView"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:text="23 JULY 2020, 11:00 AM TO 01:00 PM"
+                    android:layout_marginBottom="@dimen/_16sdp"
                     android:fontFamily="@font/montserrat_medium"
                     android:textAllCaps="true"
                     android:textColor="@color/colorSecondaryText"
@@ -137,7 +145,6 @@
                     android:id="@+id/routOrderList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_16sdp"
                     android:orientation="vertical">
 
                     <View
@@ -161,323 +168,407 @@
 
                 </LinearLayout>
 
-                <View
-                    style="@style/Divider"
-                    android:background="@color/colorYellowDark" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:paddingTop="@dimen/_6sdp"
-                    android:paddingBottom="@dimen/_6sdp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toStartOf="@+id/txtFinalAmount"
-                        android:fontFamily="@font/montserrat_semi_bold"
-                        android:text="@string/lbl_final_amount"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/_9sdp" />
-
-                    <TextView
-                        android:id="@+id/txtFinalAmount"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_toStartOf="@+id/routFinalAmountTemp"
-                        android:fontFamily="@font/montserrat_semi_bold"
-                        android:gravity="center_vertical"
-                        android:text="AED 35"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/_9sdp" />
-
-                    <RelativeLayout
-                        android:id="@+id/routFinalAmountTemp"
-                        android:layout_width="@dimen/_62sdp"
-                        android:layout_height="wrap_content"
-                        android:visibility="invisible"
-                        android:layout_alignParentEnd="true">
-
-                    </RelativeLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/_6sdp"
-                    android:paddingBottom="@dimen/_6sdp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toStartOf="@+id/txtTotalTax"
-                        android:fontFamily="@font/montserrat_semi_bold"
-                        android:text="@string/lbl_tax"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/_9sdp" />
-
-                    <TextView
-                        android:id="@+id/txtTotalTax"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_toStartOf="@+id/routTaxTemp"
-                        android:fontFamily="@font/montserrat_semi_bold"
-                        android:gravity="center_vertical"
-                        android:text="AED 7"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/_9sdp" />
-
-                    <RelativeLayout
-                        android:id="@+id/routTaxTemp"
-                        android:layout_width="@dimen/_62sdp"
-                        android:layout_height="wrap_content"
-                        android:visibility="invisible"
-                        android:layout_alignParentEnd="true">
-
-                    </RelativeLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/_6sdp"
-                    android:paddingBottom="@dimen/_6sdp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toStartOf="@+id/txtPromoCode"
-                        android:fontFamily="@font/montserrat_semi_bold"
-                        android:text="@string/lbl_promo_code"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/_9sdp" />
-
-                    <TextView
-                        android:id="@+id/txtPromoCode"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_toStartOf="@+id/routPromoCodeTemp"
-                        android:fontFamily="@font/montserrat_semi_bold"
-                        android:gravity="center_vertical"
-                        android:text="AED 2"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/_9sdp" />
-
-                    <RelativeLayout
-                        android:id="@+id/routPromoCodeTemp"
-                        android:layout_width="@dimen/_62sdp"
-                        android:layout_height="wrap_content"
-                        android:visibility="invisible"
-                        android:layout_alignParentEnd="true">
-
-                    </RelativeLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/_6sdp"
-                    android:paddingBottom="@dimen/_6sdp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toStartOf="@+id/txtWalletBalance"
-                        android:fontFamily="@font/montserrat_semi_bold"
-                        android:text="@string/lbl_wallet_balance"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/_9sdp" />
-
-                    <TextView
-                        android:id="@+id/txtWalletBalance"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_toStartOf="@+id/routWalletBalanceTemp"
-                        android:fontFamily="@font/montserrat_semi_bold"
-                        android:gravity="center_vertical"
-                        android:text="AED 20"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/_9sdp" />
-
-                    <RelativeLayout
-                        android:id="@+id/routWalletBalanceTemp"
-                        android:layout_width="@dimen/_62sdp"
-                        android:layout_height="wrap_content"
-                        android:visibility="invisible"
-                        android:layout_alignParentEnd="true">
-
-                    </RelativeLayout>
-                </RelativeLayout>
-
-                <View
-                    style="@style/Divider"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@color/colorPrimaryText" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/_6sdp"
-                    android:paddingBottom="@dimen/_6sdp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toStartOf="@+id/txtTotalAmount"
-                        android:fontFamily="@font/montserrat_semi_bold"
-                        android:text="@string/lbl_total_amount"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/_9sdp" />
-
-                    <TextView
-                        android:id="@+id/txtTotalAmount"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_toStartOf="@+id/routTotalAmountTemp"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:gravity="center_vertical"
-                        android:text="AED 18"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/_13sdp" />
-
-                    <RelativeLayout
-                        android:id="@+id/routTotalAmountTemp"
-                        android:layout_width="@dimen/_62sdp"
-                        android:layout_height="wrap_content"
-                        android:visibility="invisible"
-                        android:layout_alignParentEnd="true">
-
-                    </RelativeLayout>
-                </RelativeLayout>
-
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/routManageAmount"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_18sdp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <TextView
+                    <View
+                        style="@style/Divider"
+                        android:background="@color/colorYellowDark" />
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_semi_bold"
-                        android:text="@string/lbl_promo_code"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/_9sdp" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:background="@drawable/img_dotted_line_rectangle">
-
-                        <EditText
-                            android:layout_width="@dimen/_100sdp"
-                            android:layout_height="wrap_content"
-                            android:background="@color/transparent"
-                            android:fontFamily="@font/montserrat_medium"
-                            android:gravity="center_vertical"
-                            android:paddingStart="@dimen/_12sdp"
-                            android:paddingEnd="@dimen/_12sdp"
-                            android:singleLine="true"
-                            android:textColor="@color/colorPrimaryText"
-                            android:textSize="@dimen/_9ssp" />
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:paddingTop="@dimen/_6sdp"
+                        android:paddingBottom="@dimen/_6sdp">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/img_apply_now_bg"
-                            android:fontFamily="@font/montserrat_medium"
-                            android:gravity="center"
-                            android:paddingStart="@dimen/_14sdp"
-                            android:paddingEnd="@dimen/_14sdp"
-                            android:text="@string/lbl_apply_now"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@+id/txtFinalAmount"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:text="@string/lbl_final_amount"
                             android:textAllCaps="true"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/_9ssp" />
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <TextView
+                            android:id="@+id/txtFinalAmount"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_toStartOf="@+id/routFinalAmountTemp"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:gravity="center_vertical"
+                            android:text="AED 35"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <RelativeLayout
+                            android:id="@+id/routFinalAmountTemp"
+                            android:layout_width="@dimen/_62sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true">
+
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/_6sdp"
+                        android:paddingBottom="@dimen/_6sdp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@+id/txtTotalTax"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:text="@string/lbl_tax"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <TextView
+                            android:id="@+id/txtTotalTax"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_toStartOf="@+id/routTaxTemp"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:gravity="center_vertical"
+                            android:text="AED 7"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <RelativeLayout
+                            android:id="@+id/routTaxTemp"
+                            android:layout_width="@dimen/_62sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true">
+
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/_6sdp"
+                        android:paddingBottom="@dimen/_6sdp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@+id/txtTotalAmount"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:text="@string/lbl_total_amount"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <TextView
+                            android:id="@+id/txtTotalAmount"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_toStartOf="@+id/routTotalAmountTemp"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:gravity="center_vertical"
+                            android:text="AED 7"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <RelativeLayout
+                            android:id="@+id/routTotalAmountTemp"
+                            android:layout_width="@dimen/_62sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true">
+
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/routPromoWalletAmountView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <View
+                            style="@style/Divider"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:layout_marginBottom="@dimen/_6sdp"
+                            android:background="@color/colorYellowDark" />
+
+                        <RelativeLayout
+                            android:id="@+id/routPromoCode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/_6sdp"
+                            android:paddingBottom="@dimen/_6sdp"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toStartOf="@+id/txtPromoCode"
+                                android:fontFamily="@font/montserrat_semi_bold"
+                                android:text="@string/lbl_promo_code"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorPrimaryText"
+                                android:textSize="@dimen/_9sdp" />
+
+                            <TextView
+                                android:id="@+id/txtPromoCode"
+                                android:layout_width="@dimen/_60sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:layout_toStartOf="@+id/routPromoCodeTemp"
+                                android:fontFamily="@font/montserrat_semi_bold"
+                                android:gravity="center_vertical"
+                                android:text="AED 2"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorPrimaryText"
+                                android:textSize="@dimen/_9sdp" />
+
+                            <RelativeLayout
+                                android:id="@+id/routPromoCodeTemp"
+                                android:layout_width="@dimen/_62sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true">
+
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/routWalletBalance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/_6sdp"
+                            android:paddingBottom="@dimen/_6sdp"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toStartOf="@+id/txtWalletBalance"
+                                android:fontFamily="@font/montserrat_semi_bold"
+                                android:text="@string/lbl_wallet_balance"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorPrimaryText"
+                                android:textSize="@dimen/_9sdp" />
+
+                            <TextView
+                                android:id="@+id/txtWalletBalance"
+                                android:layout_width="@dimen/_60sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:layout_toStartOf="@+id/routWalletBalanceTemp"
+                                android:fontFamily="@font/montserrat_semi_bold"
+                                android:gravity="center_vertical"
+                                android:text="AED 20"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorPrimaryText"
+                                android:textSize="@dimen/_9sdp" />
+
+                            <RelativeLayout
+                                android:id="@+id/routWalletBalanceTemp"
+                                android:layout_width="@dimen/_62sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true">
+
+                            </RelativeLayout>
+                        </RelativeLayout>
 
                     </LinearLayout>
 
+                    <View
+                        style="@style/Divider"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="@color/colorYellowDark" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:paddingTop="@dimen/_6sdp"
+                        android:paddingBottom="@dimen/_6sdp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@+id/txtTotalPayableAmount"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:text="@string/lbl_total_amount"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="@dimen/_9sdp"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:id="@+id/txtTotalPayableAmount"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_toStartOf="@+id/routTotalPayableAmountTemp"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:gravity="center_vertical"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="@dimen/_13sdp" />
+
+                        <RelativeLayout
+                            android:id="@+id/routTotalPayableAmountTemp"
+                            android:layout_width="@dimen/_62sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true">
+
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_18sdp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/txtPromoCodeTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:text="@string/lbl_promo_code"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <LinearLayout
+                            android:id="@+id/routPromoCodeView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_24sdp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_toEndOf="@+id/txtPromoCodeTitle"
+                            android:background="@drawable/img_dotted_line_rectangle">
+
+                            <EditText
+                                android:id="@+id/edtPromoCode"
+                                android:layout_width="@dimen/_100sdp"
+                                android:layout_height="wrap_content"
+                                android:background="@color/transparent"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:gravity="center_vertical"
+                                android:inputType="textCapCharacters"
+                                android:paddingStart="@dimen/_12sdp"
+                                android:paddingEnd="@dimen/_12sdp"
+                                android:singleLine="true"
+                                android:textColor="@color/colorPrimaryText"
+                                android:textSize="@dimen/_9ssp" />
+
+                            <TextView
+                                android:id="@+id/txtApplyNow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/img_apply_now_bg"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:gravity="center"
+                                android:paddingStart="@dimen/_14sdp"
+                                android:paddingEnd="@dimen/_14sdp"
+                                android:text="@string/lbl_apply_now"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/_9ssp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txtPromoCodeApplied"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/routPromoCodeView"
+                            android:layout_alignStart="@+id/routPromoCodeView"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="@string/lbl_promo_code_applied"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorGreen"
+                            android:textSize="@dimen/_7sdp"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <CheckBox
+                        android:id="@+id/cbWalletBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_18sdp"
+                        android:layout_marginBottom="@dimen/_14sdp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="@string/lbl_display_wallet_balance"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_9ssp"
+                        android:visibility="gone" />
+
                 </LinearLayout>
 
-                <CheckBox
-                    android:id="@+id/cbWalletBalance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_18sdp"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:text="@string/lbl_display_wallet_balance"
-                    android:textAllCaps="true"
-                    android:checked="true"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/_9ssp" />
-
-                <View
-                    style="@style/Divider"
-                    android:layout_marginTop="@dimen/_14sdp"
-                    android:background="@color/colorPrimaryText" />
-
-                <TextView
-                    style="@style/SmallFontTextView"
-                    android:layout_marginTop="@dimen/_14sdp"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="@string/lbl_order_note"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/_10ssp" />
-
-                <EditText
-                    android:id="@+id/edtNote"
+                <LinearLayout
+                    android:id="@+id/routOrderNote"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@drawable/img_edit_text_bg"
-                    android:focusable="false"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:gravity="top"
-                    android:hint="@string/hint_enter_order_note"
-                    android:text="this is test note"
-                    android:lines="3"
-                    android:paddingStart="@dimen/_12sdp"
-                    android:paddingTop="@dimen/_12sdp"
-                    android:paddingEnd="@dimen/_16sdp"
-                    android:paddingBottom="@dimen/_12sdp"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/_11ssp" />
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:orientation="vertical">
+
+                    <View
+                        style="@style/Divider"
+                        android:background="@color/colorPrimaryText" />
+
+                    <TextView
+                        style="@style/SmallFontTextView"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:text="@string/lbl_order_note"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_10ssp" />
+
+                    <TextView
+                        android:id="@+id/edtNote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="@{saveOrderRequest.delivery_note}"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_11ssp" />
+                </LinearLayout>
 
                 <com.balysv.materialripple.MaterialRippleLayout
                     android:id="@+id/btnNext"
                     android:layout_width="@dimen/_140sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/_24sdp"
+                    android:layout_marginTop="@dimen/_26sdp"
                     android:layout_marginBottom="@dimen/_6sdp"
                     android:background="@color/colorPrimaryText"
                     app:mrl_rippleColor="#2C7A7A7A"

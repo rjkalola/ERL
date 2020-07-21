@@ -80,7 +80,7 @@ public class OrderItemsTabFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onSelectItem(int position, int action) {
-        showAddItemsToCardBottomSheetDialog(position, adapter.getList().get(position).getServiceList(), adapter.getList().get(position).getImage());
+        showAddItemsToCardBottomSheetDialog(position, adapter.getList().get(position).getName(), adapter.getList().get(position).getServiceList(), adapter.getList().get(position).getImage());
     }
 
     @Override
@@ -95,8 +95,8 @@ public class OrderItemsTabFragment extends BaseFragment implements View.OnClickL
         Log.e("test", "itemPosition:" + itemPosition);
     }
 
-    public void showAddItemsToCardBottomSheetDialog(int rootPosition, List<ServiceItemInfo> listItems, String itemImage) {
-        AddItemsToCardBottomSheetDialog addItemsToCardBottomSheetDialog = AddItemsToCardBottomSheetDialog.newInstance(mContext, rootPosition, listItems, itemImage, this);
+    public void showAddItemsToCardBottomSheetDialog(int rootPosition, String serviceName, List<ServiceItemInfo> listItems, String itemImage) {
+        AddItemsToCardBottomSheetDialog addItemsToCardBottomSheetDialog = AddItemsToCardBottomSheetDialog.newInstance(mContext, rootPosition, serviceName, listItems, itemImage, this);
         addItemsToCardBottomSheetDialog.show();
     }
 

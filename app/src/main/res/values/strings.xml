@@ -174,10 +174,13 @@
     <string name="lbl_final_amount">Final Amount:</string>
     <string name="lbl_tax">Tax(5%)</string>
     <string name="lbl_promo_code">Promo Code:</string>
+    <string name="lbl_promo_code_applied">Promo Code Applied</string>
     <string name="lbl_wallet_balance">Wallet Balance:</string>
     <string name="lbl_apply_now">Apply Now</string>
-    <string name="lbl_display_wallet_balance">Wallet Balance: AED 20</string>
+    <string name="lbl_display_wallet_balance">Wallet Balance: AED %s</string>
     <string name="lbl_total_amount">Total:</string>
+    <string name="lbl_remove">Remove</string>
+
     <!--    <string name=""></string>-->
 
     <!--Validation message-->
@@ -197,8 +200,10 @@
     <string name="error_empty_area">Please select area</string>
     <string name="placeholder_empty_address">No Address Found</string>
     <string name="placeholder_empty_order">No Order Found</string>
-    <string name="error_empty_order_date">Please select date</string>
-    <string name="error_empty_order_time">Please select time</string>
+    <string name="error_empty_order_date">Please select pickup date</string>
+    <string name="error_empty_order_time">Please select pickup time</string>
+    <string name="error_empty_delivery_date">Please select deliver date</string>
+    <string name="error_empty_delivery_time">Please select deliver time</string>
     <string name="error_empty_address">Please select address</string>
     <string name="loading_more">Loading more&#8230;</string>
     <string name="lbl_home">Home</string>
@@ -224,6 +229,7 @@
     <string name="lbl_click_here_to">Click here to</string>
     <string name="lbl_call">Call</string>
     <string name="lbl_whatsapp">Whatsapp</string>
+    <string name="error_empty_promo_code">Please enter promo code</string>
 
     <!--    <string name/=""></string>-->
 

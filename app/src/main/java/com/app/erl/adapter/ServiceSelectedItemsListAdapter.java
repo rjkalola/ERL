@@ -53,10 +53,15 @@ public class ServiceSelectedItemsListAdapter extends RecyclerView.Adapter<Recycl
 
         itemViewHolder.binding.txtPrice.setText(String.format(mContext.getString(R.string.lbl_display_price), String.valueOf(info.getPrice())));
 
-        if (!isConfirmOrder)
+        if (!isConfirmOrder) {
             setSelectedItemCont(info, itemViewHolder.binding);
-        else
-            itemViewHolder.binding.routButtonsView.setVisibility(View.INVISIBLE);
+        } else {
+            itemViewHolder.binding.txtAdd.setVisibility(View.GONE);
+            itemViewHolder.binding.routAddRemoveView.setVisibility(View.VISIBLE);
+            itemViewHolder.binding.imgRemove.setVisibility(View.INVISIBLE);
+            itemViewHolder.binding.imgAdd.setVisibility(View.INVISIBLE);
+            itemViewHolder.binding.txtQuantity.setText(String.valueOf(info.getQuantity()));
+        }
 
         itemViewHolder.binding.txtAdd.setOnClickListener(v -> {
             if (listener != null) {

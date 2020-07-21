@@ -4,60 +4,42 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.erl.R;
 import com.app.erl.adapter.ServiceSelectedItemsTitleListAdapter;
-import com.app.erl.callback.SelectTimeListener;
 import com.app.erl.callback.SelectedServiceItemListener;
 import com.app.erl.databinding.ActivityConfirmOrderBinding;
-import com.app.erl.databinding.ActivityCreateOrderBinding;
 import com.app.erl.model.entity.info.ItemInfo;
-import com.app.erl.model.entity.info.ModuleInfo;
-import com.app.erl.model.entity.info.ModuleSelection;
-import com.app.erl.model.entity.info.PickUpTimeInfo;
 import com.app.erl.model.entity.info.ServiceItemInfo;
 import com.app.erl.model.entity.response.BaseResponse;
 import com.app.erl.model.entity.response.OrderResourcesResponse;
 import com.app.erl.util.AppConstant;
 import com.app.erl.util.AppUtils;
 import com.app.erl.util.LoginViewModelFactory;
-import com.app.erl.util.PopupMenuHelper;
 import com.app.erl.util.ResourceProvider;
-import com.app.erl.view.dialog.SelectTimeDialog;
 import com.app.erl.viewModel.ManageOrderViewModel;
 import com.app.utilities.callbacks.DialogButtonClickListener;
-import com.app.utilities.callbacks.OnDateSetListener;
 import com.app.utilities.utils.AlertDialogHelper;
-import com.app.utilities.utils.DateFormatsConstants;
-import com.app.utilities.utils.DateHelper;
 import com.app.utilities.utils.StringHelper;
 import com.app.utilities.utils.ToastHelper;
 import com.app.utilities.utils.ValidationUtil;
-import com.app.utilities.view.fragments.DatePickerFragment;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -67,14 +49,12 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         , EasyPermissions.PermissionCallbacks {
     private ActivityConfirmOrderBinding binding;
     private Context mContext;
-    private String fromTime, toTime;
-    private int serviceHourTypeId = 0, orderType = 0;
     private ServiceSelectedItemsTitleListAdapter adapter;
-    private String DATE_PICKER = "DATE_PICKER", DELIVER_DATE_PICKER = "DELIVER_DATE_PICKER";
     private String[] LOCATION_PERMISSION = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     private ManageOrderViewModel manageOrderViewModel;
-    private OrderResourcesResponse orderData;
+
     private List<ItemInfo> listItems;
+    private int totalAmount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,8 +64,6 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         listItems = new ArrayList<>();
         manageOrderViewModel = ViewModelProviders.of(this, new LoginViewModelFactory(new ResourceProvider(getResources()))).get(ManageOrderViewModel.class);
         manageOrderViewModel.createView(this);
-        manageOrderViewModel.orderResourcesResponse()
-                .observe(this, orderResourcesResponse());
         manageOrderViewModel.mBaseResponse()
                 .observe(this, saveOrderResponse());
 
@@ -101,14 +79,30 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
             if (Parcels.unwrap(getIntent().getParcelableExtra(AppConstant.IntentKey.ITEMS_LIST)) != null)
                 listItems = Parcels.unwrap(getIntent().getParcelableExtra(AppConstant.IntentKey.ITEMS_LIST));
 
-            serviceHourTypeId = getIntent().getIntExtra(AppConstant.IntentKey.SERVICE_HOUR_TYPE_ID, 0);
-            orderType = getIntent().getIntExtra(AppConstant.IntentKey.ORDER_TYPE, 0);
-            manageOrderViewModel.getSaveOrderRequest().setLu_service_hour_type_id(serviceHourTypeId);
-            manageOrderViewModel.getSaveOrderRequest().setType(orderType);
+            if (Parcels.unwrap(getIntent().getParcelableExtra(AppConstant.IntentKey.ORDER_DATA)) != null)
+                manageOrderViewModel.setSaveOrderRequest(Parcels.unwrap(getIntent().getParcelableExtra(AppConstant.IntentKey.ORDER_DATA)));
 
-            setSelectedItemsAdapter();
+            if (manageOrderViewModel.getSaveOrderRequest() != null) {
+                Log.e("test", "isDeduct_wallet:" + manageOrderViewModel.getSaveOrderRequest().isDeduct_wallet());
+                binding.setSaveOrderRequest(manageOrderViewModel.getSaveOrderRequest());
+                binding.txtPickUpTime.setText(manageOrderViewModel.getSaveOrderRequest().getPickup_date() + ", " + manageOrderViewModel.getSaveOrderRequest().getPickup_hour());
+                binding.txtDeliverTime.setText(manageOrderViewModel.getSaveOrderRequest().getDeliver_date() + ", " + manageOrderViewModel.getSaveOrderRequest().getDeliver_hour());
 
-            manageOrderViewModel.getOrderResourcesRequest();
+                if (!StringHelper.isEmpty(manageOrderViewModel.getSaveOrderRequest().getDelivery_note()))
+                    binding.routOrderNote.setVisibility(View.VISIBLE);
+                else
+                    binding.routOrderNote.setVisibility(View.GONE);
+
+                if (manageOrderViewModel.getSaveOrderRequest().getType() == 0) {
+                    binding.routOrderList.setVisibility(View.VISIBLE);
+                    binding.routManageAmount.setVisibility(View.VISIBLE);
+                    calculateTotalAmount();
+                    setSelectedItemsAdapter();
+                }else {
+                    binding.routOrderList.setVisibility(View.GONE);
+                    binding.routManageAmount.setVisibility(View.GONE);
+                }
+            }
         } else {
             finish();
         }
@@ -119,9 +113,9 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         Calendar c = Calendar.getInstance();
         switch (v.getId()) {
             case R.id.txtNext:
-                if (validate()) {
-//                    AlertDialogHelper.showDialog(mContext, null, getString(R.string.msg_place_order), getString(R.string.yes), getString(R.string.no), true, this, AppConstant.DialogIdentifier.PLACE_ORDER);
-                }
+//                if (validate()) {
+                AlertDialogHelper.showDialog(mContext, null, getString(R.string.msg_place_order), getString(R.string.yes), getString(R.string.no), true, this, AppConstant.DialogIdentifier.PLACE_ORDER);
+//                }
                 break;
             case R.id.imgBack:
                 finish();
@@ -142,34 +136,6 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         } else {
             binding.routOrderList.setVisibility(View.GONE);
         }
-    }
-
-    public Observer orderResourcesResponse() {
-        return (Observer<OrderResourcesResponse>) response -> {
-            try {
-                if (response == null) {
-                    AlertDialogHelper.showDialog(mContext, null,
-                            mContext.getString(R.string.error_unknown), mContext.getString(R.string.ok),
-                            null, false, null, 0);
-                    return;
-                }
-                if (response.isSuccess()) {
-                    setOrderData(response);
-                    manageOrderViewModel.getSaveOrderRequest().setPickup_hour_id(0);
-                    if (getOrderData().getPickup_hours() != null && getOrderData().getInfo().getId() != 0) {
-                        binding.txtAddress.setText(getOrderData().getInfo().getAddress());
-                        manageOrderViewModel.getSaveOrderRequest().setAddress_id(getOrderData().getInfo().getId());
-                    } else {
-                        binding.txtAddress.setText("");
-                        manageOrderViewModel.getSaveOrderRequest().setAddress_id(0);
-                    }
-                } else {
-                    AppUtils.handleUnauthorized(mContext, response);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        };
     }
 
     public Observer saveOrderResponse() {
@@ -264,7 +230,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
             return valid;
         }
 
-        if (orderType == 0) {
+        if (manageOrderViewModel.getSaveOrderRequest().getType() == 0) {
             List<ServiceItemInfo> order = new ArrayList<>();
             for (int i = 0; i < listItems.size(); i++) {
                 for (int j = 0; j < listItems.get(i).getServiceList().size(); j++) {
@@ -287,10 +253,72 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         return valid;
     }
 
+    public void calculateTotalAmount() {
+        boolean isValid = false;
+        totalAmount = 0;
+        for (int i = 0; i < listItems.size(); i++) {
+            for (int j = 0; j < listItems.get(i).getServiceList().size(); j++) {
+                ServiceItemInfo info = listItems.get(i).getServiceList().get(j);
+                if (info.getQuantity() > 0) {
+                    isValid = true;
+                    totalAmount = totalAmount + info.getPrice() * info.getQuantity();
+                }
+            }
+        }
+
+        if (isValid) {
+            setPrice(binding.txtFinalAmount, String.valueOf(totalAmount));
+
+            int tax = Math.round((float) totalAmount * 5 / 100);
+            setPrice(binding.txtTotalTax, String.valueOf(tax));
+            totalAmount = totalAmount + tax;
+
+            setPrice(binding.txtTotalAmount, String.valueOf(totalAmount));
+
+            if (manageOrderViewModel.getSaveOrderRequest().getPromo_amount() != 0) {
+                binding.routPromoCode.setVisibility(View.VISIBLE);
+                int promoDiscount = totalAmount * manageOrderViewModel.getSaveOrderRequest().getPromo_amount() / 100;
+                setPrice(binding.txtPromoCode, String.valueOf(promoDiscount));
+                totalAmount = totalAmount - promoDiscount;
+            } else {
+                binding.routPromoCode.setVisibility(View.GONE);
+            }
+
+            if (manageOrderViewModel.getSaveOrderRequest().isDeduct_wallet()) {
+                binding.routWalletBalance.setVisibility(View.VISIBLE);
+                if (totalAmount >= manageOrderViewModel.getSaveOrderRequest().getWallet_balance()) {
+                    totalAmount = totalAmount - manageOrderViewModel.getSaveOrderRequest().getWallet_balance();
+                    setPrice(binding.txtWalletBalance, String.valueOf(manageOrderViewModel.getSaveOrderRequest().getWallet_balance()));
+                } else {
+                    setPrice(binding.txtWalletBalance, String.valueOf(totalAmount));
+                    totalAmount = 0;
+                }
+            } else {
+                binding.routWalletBalance.setVisibility(View.GONE);
+            }
+
+            if (manageOrderViewModel.getSaveOrderRequest().getPromo_amount() != 0 || manageOrderViewModel.getSaveOrderRequest().isDeduct_wallet())
+                binding.routPromoWalletAmountView.setVisibility(View.VISIBLE);
+            else
+                binding.routPromoWalletAmountView.setVisibility(View.GONE);
+
+            setPrice(binding.txtTotalPayableAmount, String.valueOf(totalAmount));
+        } else {
+            setPrice(binding.txtTotalAmount, String.valueOf(0));
+            setPrice(binding.txtFinalAmount, String.valueOf(0));
+            setPrice(binding.txtTotalTax, String.valueOf(0));
+            setPrice(binding.txtTotalPayableAmount, String.valueOf(0));
+            binding.routPromoWalletAmountView.setVisibility(View.GONE);
+        }
+    }
+
+    public void setPrice(TextView textView, String price) {
+        textView.setText(String.format(mContext.getString(R.string.lbl_display_price), price));
+    }
+
     @Override
     public void onPositiveButtonClicked(int dialogIdentifier) {
         if (dialogIdentifier == AppConstant.DialogIdentifier.PLACE_ORDER) {
-            manageOrderViewModel.getSaveOrderRequest().setDelivery_note(binding.edtNote.getText().toString().trim());
             manageOrderViewModel.saveAddressRequest();
         }
     }
@@ -300,11 +328,5 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
 
     }
 
-    public OrderResourcesResponse getOrderData() {
-        return orderData;
-    }
 
-    public void setOrderData(OrderResourcesResponse orderData) {
-        this.orderData = orderData;
-    }
 }

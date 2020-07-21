@@ -8,12 +8,16 @@ import com.app.erl.model.entity.response.BaseResponse;
 import com.app.erl.model.entity.response.OrderDetailsResponse;
 import com.app.erl.model.entity.response.OrderListResponse;
 import com.app.erl.model.entity.response.OrderResourcesResponse;
+import com.app.erl.model.entity.response.PromoCodeResponse;
 import com.app.erl.model.state.ManageOrderInterface;
 import com.app.erl.network.RXRetroManager;
 import com.app.erl.network.RetrofitException;
 import com.app.erl.util.ResourceProvider;
 
 import javax.inject.Inject;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 public class ManageOrderViewModel extends BaseViewModel {
     @Inject
@@ -23,6 +27,8 @@ public class ManageOrderViewModel extends BaseViewModel {
     private MutableLiveData<BaseResponse> mBaseResponse;
     private MutableLiveData<OrderListResponse> mOrderListResponse;
     private MutableLiveData<OrderDetailsResponse> mOrderDetailsResponse;
+    private MutableLiveData<PromoCodeResponse> mPromoCodeResponse;
+
 
     private SaveOrderRequest saveOrderRequest;
 
@@ -151,6 +157,32 @@ public class ManageOrderViewModel extends BaseViewModel {
         }.rxSingleCall(manageOrderInterface.clientOrderDetails(orderId));
     }
 
+    public void checkPromoCodeRequest(String promoCode) {
+        RequestBody promoCodeBody = RequestBody.create(MediaType.parse("text/plain"), promoCode);
+
+        if (view != null) {
+            view.showProgress();
+        }
+        new RXRetroManager<PromoCodeResponse>() {
+            @Override
+            protected void onSuccess(PromoCodeResponse response) {
+                if (view != null) {
+                    mPromoCodeResponse.postValue(response);
+                    view.hideProgress();
+                }
+            }
+
+            @Override
+            protected void onFailure(RetrofitException retrofitException, String errorCode) {
+                super.onFailure(retrofitException, errorCode);
+                if (view != null) {
+                    view.showApiError(retrofitException, errorCode);
+                    view.hideProgress();
+                }
+            }
+        }.rxSingleCall(manageOrderInterface.checkPromoCode(promoCodeBody));
+    }
+
     public MutableLiveData<BaseResponse> mBaseResponse() {
         if (mBaseResponse == null) {
             mBaseResponse = new MutableLiveData<>();
@@ -179,7 +211,12 @@ public class ManageOrderViewModel extends BaseViewModel {
         return mOrderDetailsResponse;
     }
 
-
+    public MutableLiveData<PromoCodeResponse> mPromoCodeResponse() {
+        if (mPromoCodeResponse == null) {
+            mPromoCodeResponse = new MutableLiveData<>();
+        }
+        return mPromoCodeResponse;
+    }
 
     public SaveOrderRequest getSaveOrderRequest() {
         return saveOrderRequest;

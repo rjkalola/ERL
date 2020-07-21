@@ -5,11 +5,14 @@ import com.app.erl.model.entity.request.SaveAddressRequest;
 import com.app.erl.model.entity.request.SaveOrderRequest;
 import com.app.erl.model.entity.response.AddressResourcesResponse;
 import com.app.erl.model.entity.response.BaseResponse;
+import com.app.erl.model.entity.response.ForgotPasswordResponse;
 import com.app.erl.model.entity.response.OrderDetailsResponse;
 import com.app.erl.model.entity.response.OrderListResponse;
 import com.app.erl.model.entity.response.OrderResourcesResponse;
+import com.app.erl.model.entity.response.PromoCodeResponse;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -34,6 +37,10 @@ public interface ManageOrderInterface {
     @Multipart
     @POST("client-order-detail")
     Observable<OrderDetailsResponse> clientOrderDetails(@Part("order_id") int order_id);
+
+    @Multipart
+    @POST("check-promocode")
+    Observable<PromoCodeResponse> checkPromoCode(@Part("code") RequestBody code);
 
 
 }

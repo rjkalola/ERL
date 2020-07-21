@@ -19,4 +19,6 @@
     <color name="colorActiveHourModule">#dc9e51</color>
     <color name="colorInActiveHourModule">#faf5ef</color>
 
+    <color name="colorGreen">#4CAF50</color>
+
 </resources>

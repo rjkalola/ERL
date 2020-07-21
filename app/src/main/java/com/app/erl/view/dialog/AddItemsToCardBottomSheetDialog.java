@@ -31,19 +31,20 @@ public class AddItemsToCardBottomSheetDialog extends BottomSheetDialog {
     private static SelectedServiceItemListener listener = null;
     private static List<ServiceItemInfo> list;
     private static int rootPosition = 0;
-    private static String itemImage;
+    private static String itemImage, serviceName;
     private ServiceTypeListAdapter adapter;
 
     public AddItemsToCardBottomSheetDialog(@NonNull Context context) {
         super(context);
     }
 
-    public static AddItemsToCardBottomSheetDialog newInstance(Context mContext, int position, List<ServiceItemInfo> listItems, String image, SelectedServiceItemListener selectedServiceItemListener) {
+    public static AddItemsToCardBottomSheetDialog newInstance(Context mContext, int position, String name, List<ServiceItemInfo> listItems, String image, SelectedServiceItemListener selectedServiceItemListener) {
         context = mContext;
         listener = selectedServiceItemListener;
         rootPosition = position;
         list = listItems;
         itemImage = image;
+        serviceName = name;
         return new AddItemsToCardBottomSheetDialog(mContext);
     }
 
@@ -56,7 +57,10 @@ public class AddItemsToCardBottomSheetDialog extends BottomSheetDialog {
             GlideUtil.loadImage(itemImage, binding.imgItem, null, null, Constant.ImageScaleType.CENTER_CROP, null);
         setAdapter();
 
-        binding.imgClose.setOnClickListener(v -> dismiss());
+        binding.txtSelect.setOnClickListener(v -> dismiss());
+
+        if (!StringHelper.isEmpty(serviceName))
+            binding.txtTitle.setText(serviceName);
 
         setContentView(sheetView);
     }
