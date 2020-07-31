@@ -594,7 +594,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginStart="@dimen/_8sdp"
                             android:layout_toEndOf="@+id/txtPromoCodeTitle"
-                            android:background="@drawable/img_dotted_line_rectangle">
+                            android:background="@drawable/img_dotted_line_rectangle_corner_5dp">
 
                             <EditText
                                 android:id="@+id/edtPromoCode"

@@ -77,7 +77,6 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.txtVerify:
                 if (validateCode()) {
-
                     int type = 0;
                     if (otpType == AppConstant.Type.SIGN_UP)
                         type = 1;

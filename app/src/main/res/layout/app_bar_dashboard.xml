@@ -15,11 +15,20 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/divider" />
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/routHeader"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_96sdp"
-            android:background="@drawable/img_order_items_header_bg"
             android:gravity="center_horizontal">
+
+            <View
+                android:id="@+id/dividerHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/toolbar"
+                android:layout_alignBottom="@+id/toolbar"
+                android:background="@color/colorYellowDark"
+                android:visibility="visible" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -46,7 +55,7 @@
 
             </androidx.appcompat.widget.Toolbar>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <View
             android:id="@+id/divider"

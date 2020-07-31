@@ -230,6 +230,9 @@
     <string name="lbl_call">Call</string>
     <string name="lbl_whatsapp">Whatsapp</string>
     <string name="error_empty_promo_code">Please enter promo code</string>
+    <string name="lbl_erl_wallet_balance">Erl Wallet Balance</string>
+    <string name="lbl_coupon_code_for_add_money_to_wallet">Coupon code for add money to wallet</string>
+    <string name="lbl_view_transaction_history">View Transaction History</string>
 
     <!--    <string name/=""></string>-->
 

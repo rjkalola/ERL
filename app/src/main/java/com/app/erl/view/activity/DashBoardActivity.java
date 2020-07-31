@@ -33,6 +33,7 @@ import com.app.erl.util.ViewPagerDisableSwipe;
 import com.app.erl.view.fragment.HomeFragment;
 import com.app.erl.view.fragment.MyOrderFragment;
 import com.app.erl.view.fragment.PriceListFragment;
+import com.app.erl.view.fragment.WalletFragment;
 import com.app.erl.viewModel.UserAuthenticationViewModel;
 import com.app.utilities.callbacks.DialogButtonClickListener;
 import com.app.utilities.utils.AlertDialogHelper;
@@ -206,7 +207,7 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
         pagerAdapter.addFrag(HomeFragment.newInstance(), "");
         pagerAdapter.addFrag(PriceListFragment.newInstance(), "");
         pagerAdapter.addFrag(MyOrderFragment.newInstance(), "");
-        pagerAdapter.addFrag(MyOrderFragment.newInstance(), "");
+        pagerAdapter.addFrag(WalletFragment.newInstance(), "");
 
         viewPager.setAdapter(pagerAdapter);
         setupTab(selectedTabIndex);
@@ -219,18 +220,22 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
             case 0:
                 binding.appBarLayout.viewPager.setCurrentItem(position);
                 setupHomeButton(false, getString(R.string.lbl_dashboard), false);
+                binding.appBarLayout.routHeader.setBackgroundColor(getResources().getColor(R.color.transparent));
                 break;
             case 1:
                 binding.appBarLayout.viewPager.setCurrentItem(position);
                 setupHomeButton(false, getString(R.string.lbl_price_list), false);
+                binding.appBarLayout.routHeader.setBackgroundResource(R.drawable.img_order_items_header_bg);
                 break;
             case 2:
                 binding.appBarLayout.viewPager.setCurrentItem(position);
                 setupHomeButton(false, getString(R.string.my_order), false);
+                binding.appBarLayout.routHeader.setBackgroundResource(R.drawable.img_order_items_header_bg);
                 break;
             case 3:
                 binding.appBarLayout.viewPager.setCurrentItem(position);
                 setupHomeButton(false, getString(R.string.lbl_wallet), false);
+                binding.appBarLayout.routHeader.setBackgroundResource(R.drawable.img_order_items_header_bg);
                 break;
         }
     }

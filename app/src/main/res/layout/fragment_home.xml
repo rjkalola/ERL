@@ -11,53 +11,54 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:id="@+id/routPagerView"
+            android:layout_width="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_height="wrap_content">
+
+            <com.app.erl.util.PagerImageViewByWidth
+                android:id="@+id/imgOfferSized"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.app.erl.util.HeightWrappingViewPager
+                android:id="@+id/vpOffers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/imgOfferSized"
+                android:layout_alignBottom="@+id/imgOfferSized"
+                android:minHeight="@dimen/_200sdp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDots"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/vpOffers"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/_10sdp" />
+
+        </RelativeLayout>
+
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_below="@+id/routPagerView"
             android:fillViewport="true"
             app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical">
-
-                <RelativeLayout
-                    android:id="@+id/routPagerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.app.erl.util.SquareImageViewByWidth
-                        android:id="@+id/imgOfferSized"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <com.app.erl.util.HeightWrappingViewPager
-                        android:id="@+id/vpOffers"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/imgOfferSized"
-                        android:layout_alignBottom="@+id/imgOfferSized"
-                        android:minHeight="@dimen/_200sdp" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvDots"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/vpOffers"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="@dimen/_10sdp" />
-
-                </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/routPlaceOrder"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="@dimen/_42sdp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/_20ssp"
                     android:background="@drawable/img_dashboard_button_background"
                     android:gravity="center_vertical">
 
@@ -83,7 +84,7 @@
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="@dimen/_42sdp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/_16ssp"
+                    android:layout_marginTop="@dimen/_14ssp"
                     android:background="@drawable/img_dashboard_button_background"
                     android:gravity="center_vertical">
 
@@ -109,7 +110,7 @@
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="@dimen/_42sdp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/_16ssp"
+                    android:layout_marginTop="@dimen/_14ssp"
                     android:background="@drawable/img_dashboard_button_background"
                     android:gravity="center_vertical">
 
@@ -135,8 +136,7 @@
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="@dimen/_42sdp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/_16ssp"
-                    android:layout_marginBottom="@dimen/_14sdp"
+                    android:layout_marginTop="@dimen/_14ssp"
                     android:background="@drawable/img_dashboard_button_background"
                     android:gravity="center_vertical">
 

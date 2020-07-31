@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.app.erl.util.SquareImageViewByWidth
+        <com.app.erl.util.PagerImageViewByWidth
             android:id="@+id/imgSlide"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
