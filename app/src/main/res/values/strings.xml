@@ -93,6 +93,8 @@
     <string name="lbl_select_item">Select Item</string>
     <string name="lbl_display_tab_name_and_count">%s (%d)</string>
     <string name="lbl_display_price">AED %s</string>
+    <string name="lbl_display_added_price">+%s AED</string>
+    <string name="lbl_display_deduct_price">-%s AED</string>
     <string name="add">Add</string>
     <string name="add_item">Add Item</string>
     <string name="lbl_continue">Continue</string>
@@ -181,8 +183,6 @@
     <string name="lbl_total_amount">Total:</string>
     <string name="lbl_remove">Remove</string>
 
-    <!--    <string name=""></string>-->
-
     <!--Validation message-->
     <string name="error_empty_name">Please enter name</string>
     <string name="error_empty_email">Please enter email</string>
@@ -200,6 +200,7 @@
     <string name="error_empty_area">Please select area</string>
     <string name="placeholder_empty_address">No Address Found</string>
     <string name="placeholder_empty_order">No Order Found</string>
+    <string name="placeholder_empty_transaction_history">No Transaction History Found</string>
     <string name="error_empty_order_date">Please select pickup date</string>
     <string name="error_empty_order_time">Please select pickup time</string>
     <string name="error_empty_delivery_date">Please select deliver date</string>
@@ -233,6 +234,8 @@
     <string name="lbl_erl_wallet_balance">Erl Wallet Balance</string>
     <string name="lbl_coupon_code_for_add_money_to_wallet">Coupon code for add money to wallet</string>
     <string name="lbl_view_transaction_history">View Transaction History</string>
+    <string name="lbl_transaction_history">Transaction History</string>
+    <string name="error_empty_coupon_code">Please enter coupon code</string>
 
     <!--    <string name/=""></string>-->
 

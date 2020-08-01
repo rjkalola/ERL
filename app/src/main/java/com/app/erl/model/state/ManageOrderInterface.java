@@ -10,6 +10,7 @@ import com.app.erl.model.entity.response.OrderDetailsResponse;
 import com.app.erl.model.entity.response.OrderListResponse;
 import com.app.erl.model.entity.response.OrderResourcesResponse;
 import com.app.erl.model.entity.response.PromoCodeResponse;
+import com.app.erl.model.entity.response.TransactionHistoryResponse;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -42,5 +43,11 @@ public interface ManageOrderInterface {
     @POST("check-promocode")
     Observable<PromoCodeResponse> checkPromoCode(@Part("code") RequestBody code);
 
+    @Multipart
+    @POST("add-coupon")
+    Observable<PromoCodeResponse> addCouponCode(@Part("code") RequestBody code);
+
+    @GET("transaction-history")
+    Observable<TransactionHistoryResponse> getTransactionHistory();
 
 }

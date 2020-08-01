@@ -107,6 +107,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name="com.app.erl.view.activity.TransactionHistoryActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="com.app.erl.view.activity.MyOrderListActivity"
             android:screenOrientation="portrait" />
 

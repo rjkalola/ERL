@@ -34,7 +34,6 @@
             style="@style/SmallFontTextView"
             android:layout_marginTop="@dimen/_8sdp"
             android:fontFamily="@font/montserrat_bold"
-            android:text="AED 143"
             android:textAllCaps="true"
             android:textColor="@color/colorYellowDark"
             android:textSize="@dimen/_14ssp" />
@@ -52,7 +51,7 @@
             android:textColor="@color/colorPrimaryText" />
 
         <EditText
-            android:id="@+id/edtPromoCode"
+            android:id="@+id/edtCouponCode"
             android:layout_width="@dimen/_170sdp"
             android:layout_height="@dimen/_34sdp"
             android:layout_marginTop="@dimen/_22sdp"
@@ -62,7 +61,7 @@
             android:inputType="textCapCharacters"
             android:singleLine="true"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="@dimen/_9ssp" />
+            android:textSize="@dimen/_11ssp" />
 
         <TextView
             android:id="@+id/txtOk"
@@ -74,7 +73,7 @@
             android:text="@string/ok"
             android:textAllCaps="true"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_9ssp" />
+            android:textSize="@dimen/_10ssp" />
 
         <TextView
             android:id="@+id/txtViewTransactionHistory"

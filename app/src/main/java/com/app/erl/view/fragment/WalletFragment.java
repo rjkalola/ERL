@@ -1,31 +1,30 @@
 package com.app.erl.view.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.erl.R;
 import com.app.erl.adapter.MyOrderListAdapter;
-import com.app.erl.callback.SelectItemListener;
-import com.app.erl.databinding.FragmentMyOrderBinding;
 import com.app.erl.databinding.FragmentWalletBinding;
 import com.app.erl.model.entity.response.OrderListResponse;
-import com.app.erl.util.AppConstant;
+import com.app.erl.model.entity.response.PromoCodeResponse;
 import com.app.erl.util.AppUtils;
 import com.app.erl.util.LoginViewModelFactory;
 import com.app.erl.util.ResourceProvider;
-import com.app.erl.view.activity.MyOrderDetailsActivity;
+import com.app.erl.view.activity.TransactionHistoryActivity;
 import com.app.erl.viewModel.ManageOrderViewModel;
 import com.app.utilities.utils.AlertDialogHelper;
+import com.app.utilities.utils.StringHelper;
+import com.app.utilities.utils.ToastHelper;
 
 public class WalletFragment extends BaseFragment implements View.OnClickListener {
     private final int LAYOUT_ACTIVITY = R.layout.fragment_wallet;
@@ -53,28 +52,33 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
 
         manageOrderViewModel = ViewModelProviders.of(this, new LoginViewModelFactory(new ResourceProvider(getResources()))).get(ManageOrderViewModel.class);
         manageOrderViewModel.createView(this);
-        manageOrderViewModel.orderListResponse()
-                .observe(this, getOrderListResponse());
+        manageOrderViewModel.mPromoCodeResponse()
+                .observe(this, promoCodeResponse());
+
+        binding.txtOk.setOnClickListener(this);
+        binding.txtViewTransactionHistory.setOnClickListener(this);
 
         return binding.getRoot();
     }
 
     @Override
     public void onClick(View v) {
-        Bundle bundle = new Bundle();
         switch (v.getId()) {
-//            case R.id.txtStartWork:
-//                startStopWork();
-//                break;
+            case R.id.txtOk:
+                if (!StringHelper.isEmpty(binding.edtCouponCode.getText().toString().trim())) {
+                    manageOrderViewModel.addCouponCodeRequest(binding.edtCouponCode.getText().toString().trim());
+                } else {
+                    ToastHelper.normal(mContext, getString(R.string.error_empty_coupon_code), Toast.LENGTH_SHORT, false);
+                }
+                break;
+            case R.id.txtViewTransactionHistory:
+                moveActivity(mContext, TransactionHistoryActivity.class, false, false, null);
+                break;
         }
     }
 
-    public void loadData(boolean showProgress) {
-        manageOrderViewModel.getClientOrders(10, 0, showProgress);
-    }
-
-    public Observer getOrderListResponse() {
-        return (Observer<OrderListResponse>) response -> {
+    public Observer promoCodeResponse() {
+        return (Observer<PromoCodeResponse>) response -> {
             try {
                 if (response == null) {
                     AlertDialogHelper.showDialog(mContext, null,
@@ -83,7 +87,8 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
                     return;
                 }
                 if (response.isSuccess()) {
-
+                    binding.edtCouponCode.setText("");
+                    setWalletBalance(response.getAmount());
                 } else {
                     AppUtils.handleUnauthorized(mContext, response);
                 }
@@ -93,11 +98,8 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         };
     }
 
-    public OrderListResponse getOrdersData() {
-        return ordersData;
+    public void setWalletBalance(int walletBalance) {
+        binding.txtWalletBalance.setText(String.format(mContext.getString(R.string.lbl_display_price), Integer.toString(walletBalance)));
     }
 
-    public void setOrdersData(OrderListResponse ordersData) {
-        this.ordersData = ordersData;
-    }
 }

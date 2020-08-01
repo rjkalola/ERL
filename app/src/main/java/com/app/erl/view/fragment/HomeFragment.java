@@ -145,6 +145,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 if (response.isSuccess()) {
                     setDashBoardData(response);
                     setOfferPagerAdapter();
+                    ((DashBoardActivity) getActivity()).setWalletBalance(response.getWallet());
                 } else {
                     AppUtils.handleUnauthorized(mContext, response);
                 }
@@ -153,6 +154,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
         };
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

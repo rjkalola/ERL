@@ -159,6 +159,14 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
+    public void setWalletBalance(int walletBalance) {
+        for (int i = 0; i < pagerAdapter.getmFragmentList().size(); i++) {
+            if (pagerAdapter.getmFragmentList().get(i) instanceof WalletFragment) {
+                ((WalletFragment) (pagerAdapter.getmFragmentList().get(i))).setWalletBalance(walletBalance);
+            }
+        }
+    }
+
     @Override
     public void onPositiveButtonClicked(int dialogIdentifier) {
         if (dialogIdentifier == AppConstant.DialogIdentifier.LOGOUT) {
