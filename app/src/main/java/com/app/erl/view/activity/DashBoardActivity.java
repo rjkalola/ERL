@@ -56,7 +56,7 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
-//        bindingNavHeader = DataBindingUtil.bind(binding.navView.getHeaderView(0));
+        bindingNavHeader = DataBindingUtil.bind(binding.navView.getHeaderView(0));
         mContext = this;
         userAuthenticationViewModel = ViewModelProviders.of(this, new LoginViewModelFactory(new ResourceProvider(getResources()))).get(UserAuthenticationViewModel.class);
         userAuthenticationViewModel.createView(this);

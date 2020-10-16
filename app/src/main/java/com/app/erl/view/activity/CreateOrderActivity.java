@@ -572,7 +572,7 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
 
             if (manageOrderViewModel.getSaveOrderRequest().getPromo_amount() != 0) {
                 binding.routPromoCode.setVisibility(View.VISIBLE);
-                int promoDiscount = totalAmount * manageOrderViewModel.getSaveOrderRequest().getPromo_amount() / 100;
+                int promoDiscount = Math.round((float) totalAmount * manageOrderViewModel.getSaveOrderRequest().getPromo_amount() / 100);
                 setPrice(binding.txtPromoCode, String.valueOf(promoDiscount));
                 totalAmount = totalAmount - promoDiscount;
             } else {

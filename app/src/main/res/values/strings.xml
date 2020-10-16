@@ -188,7 +188,7 @@
     <string name="error_empty_email">Please enter email</string>
     <string name="error_invalid_email">Please enter valid email</string>
     <string name="error_empty_phone">Please enter phone number</string>
-    <string name="error_empty_email_or_password">Please enter email or password</string>
+    <string name="error_empty_email_or_phone">Please enter email or phone</string>
     <string name="error_empty_current_password">Please enter current password</string>
     <string name="error_empty_password">Please enter password</string>
     <string name="error_empty_confirm_password">Please enter confirm password</string>

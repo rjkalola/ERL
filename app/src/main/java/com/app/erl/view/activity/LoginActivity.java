@@ -102,7 +102,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //                isValid = false;
 //            }
         } else {
-            ValidationUtil.setErrorIntoEditext(binding.edtEmail, mContext.getString(R.string.error_empty_email_or_password));
+            ValidationUtil.setErrorIntoEditext(binding.edtEmail, mContext.getString(R.string.error_empty_email_or_phone));
             isValid = false;
         }
         return isValid;
