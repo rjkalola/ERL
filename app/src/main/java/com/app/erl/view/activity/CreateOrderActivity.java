@@ -282,9 +282,10 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
                         manageOrderViewModel.getSaveOrderRequest().setAddress("");
                         manageOrderViewModel.getSaveOrderRequest().setAddress_id(0);
                     }
-
+                    
                     if (orderType == 0) {
                         manageOrderViewModel.getSaveOrderRequest().setWallet_balance(response.getWallet());
+                        manageOrderViewModel.getSaveOrderRequest().setMax_wallet_deduction(response.getMax_wallet_deduction());
                         binding.cbWalletBalance.setText(String.format(mContext.getString(R.string.lbl_display_wallet_balance), String.valueOf(response.getWallet())));
                         calculateTotalAmount();
                     }
@@ -580,9 +581,20 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
             }
 
             if (binding.cbWalletBalance.isChecked()) {
-                if (totalAmount >= getOrderData().getWallet()) {
-                    totalAmount = totalAmount - getOrderData().getWallet();
-                    setPrice(binding.txtWalletBalance, String.valueOf(getOrderData().getWallet()));
+                int walletDiscount = getOrderData().getWallet() * getOrderData().getMax_wallet_deduction() / 100;
+                Log.e("test", "walletDiscount:" + walletDiscount);
+
+//                if (totalAmount >= getOrderData().getWallet()) {
+//                    totalAmount = totalAmount - getOrderData().getWallet();
+//                    setPrice(binding.txtWalletBalance, String.valueOf(getOrderData().getWallet()));
+//                } else {
+//                    setPrice(binding.txtWalletBalance, String.valueOf(totalAmount));
+//                    totalAmount = 0;
+//                }
+
+                if (totalAmount >= walletDiscount) {
+                    totalAmount = totalAmount - walletDiscount;
+                    setPrice(binding.txtWalletBalance, String.valueOf(walletDiscount));
                 } else {
                     setPrice(binding.txtWalletBalance, String.valueOf(totalAmount));
                     totalAmount = 0;

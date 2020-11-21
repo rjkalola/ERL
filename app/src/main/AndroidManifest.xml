@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
-        tools:replace="android:allowBackup">
+        tools:replace="android:allowBackup,label,theme,name">
 
         <activity
             android:name="com.app.erl.view.activity.SplashActivity"
@@ -116,6 +116,8 @@
 
         <activity
             android:name="com.app.erl.view.activity.MyOrderDetailsActivity"
+            android:launchMode="singleInstance"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
 
         <activity
@@ -160,6 +162,14 @@
 
         <activity
             android:name="com.app.erl.view.activity.ContactUsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.app.erl.view.activity.SuccessTransactionActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.app.erl.view.activity.FailedTransactionActivity"
             android:screenOrientation="portrait" />
 
         <provider

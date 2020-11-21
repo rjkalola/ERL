@@ -15,6 +15,7 @@
       <module fileurl="file://$PROJECT_DIR$/Imagepickers/Imagepickers.iml" filepath="$PROJECT_DIR$/Imagepickers/Imagepickers.iml" group="ERL Git/Imagepickers" />
       <module fileurl="file://$PROJECT_DIR$/Utilities/Utilities.iml" filepath="$PROJECT_DIR$/Utilities/Utilities.iml" group="ERL Git/Utilities" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="ERL Git/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/telrlibrary-release/telrlibrary-release.iml" filepath="$PROJECT_DIR$/.idea/modules/telrlibrary-release/telrlibrary-release.iml" group="ERL Git/telrlibrary-release" />
     </modules>
   </component>
 </project>

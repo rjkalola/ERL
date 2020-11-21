@@ -32,8 +32,6 @@ public class SplashActivity extends BaseActivity {
 //        TimeZone tz = cal.getTimeZone();
 //        Log.e("test","TimeZone2"+tz.getID());
 //        Log.e("test","TimeZone2"+tz.getDisplayName(true, TimeZone.SHORT));
-
-
     }
 
     public void callTimerCount() {

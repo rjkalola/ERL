@@ -45,6 +45,7 @@
     <string name="ERR112">Address not found</string>
     <string name="ERR113">Email already registered</string>
     <string name="ERR114">Phone number already registered</string>
+    <string name="ERR115">Client not found</string>
 
     <string name="dash_sign">-</string>
     <string name="login">Login</string>
@@ -236,9 +237,11 @@
     <string name="lbl_view_transaction_history">View Transaction History</string>
     <string name="lbl_transaction_history">Transaction History</string>
     <string name="error_empty_coupon_code">Please enter coupon code</string>
-
-    <!--    <string name/=""></string>-->
-
+    <string name="lbl_payment_success_title">Transaction Completed Successfully</string>
+    <string name="lbl_payment_success_sub_title">Thank you for your billing</string>
+    <string name="lbl_payment_fail_title">Your payment failed</string>
+    <string name="lbl_payment_fail_sub_title">Please try again</string>
+    
     <!--    <string name=""></string>-->
 
     <integer-array name="navigationItemsDrawable">

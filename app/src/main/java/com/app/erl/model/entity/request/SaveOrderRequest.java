@@ -9,7 +9,7 @@ import java.util.List;
 
 @Parcel
 public class SaveOrderRequest {
-    int pickup_hour_id, deliver_hour_id, address_id, lu_service_hour_type_id, type, promo_amount, wallet_balance;
+    int pickup_hour_id, deliver_hour_id, address_id, lu_service_hour_type_id, type, promo_amount, wallet_balance,max_wallet_deduction;
     String pickup_date, deliver_date,pickup_hour,deliver_hour, delivery_note, promo_code, address;
     boolean deduct_wallet;
     List<ServiceItemInfo> order = new ArrayList<>();
@@ -140,5 +140,13 @@ public class SaveOrderRequest {
 
     public void setDeliver_hour(String deliver_hour) {
         this.deliver_hour = deliver_hour;
+    }
+
+    public int getMax_wallet_deduction() {
+        return max_wallet_deduction;
+    }
+
+    public void setMax_wallet_deduction(int max_wallet_deduction) {
+        this.max_wallet_deduction = max_wallet_deduction;
     }
 }

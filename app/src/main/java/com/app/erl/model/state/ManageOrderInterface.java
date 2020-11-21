@@ -1,11 +1,8 @@
 package com.app.erl.model.state;
 
 
-import com.app.erl.model.entity.request.SaveAddressRequest;
 import com.app.erl.model.entity.request.SaveOrderRequest;
-import com.app.erl.model.entity.response.AddressResourcesResponse;
 import com.app.erl.model.entity.response.BaseResponse;
-import com.app.erl.model.entity.response.ForgotPasswordResponse;
 import com.app.erl.model.entity.response.OrderDetailsResponse;
 import com.app.erl.model.entity.response.OrderListResponse;
 import com.app.erl.model.entity.response.OrderResourcesResponse;
@@ -50,4 +47,9 @@ public interface ManageOrderInterface {
     @GET("transaction-history")
     Observable<TransactionHistoryResponse> getTransactionHistory();
 
+    @Multipart
+    @POST("store-payment-info")
+    Observable<BaseResponse> storePaymentInfo(@Part("order_id") RequestBody order_id
+            , @Part("status") RequestBody status
+            , @Part("code") RequestBody code);
 }

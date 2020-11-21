@@ -17,10 +17,11 @@ import com.app.erl.injection.module.UserAuthenticationModule;
 import com.app.erl.util.AppConstant;
 import com.app.erl.util.LocaleManager;
 import com.app.erl.util.VariantConfig;
+import com.telr.mobile.sdk.TelrApplication;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
-public class ERLApp extends Application {
+public class ERLApp extends TelrApplication {
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
@@ -35,8 +36,8 @@ public class ERLApp extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleManager.setNewLocale(base, "en"));
-        CalligraphyContextWrapper.wrap(base);
-
+//        CalligraphyContextWrapper.wrap(base);
+        ViewPumpContextWrapper.wrap(base);
     }
 
     @Override

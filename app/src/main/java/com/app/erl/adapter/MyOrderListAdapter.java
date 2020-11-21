@@ -1,6 +1,7 @@
 package com.app.erl.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,9 @@ import com.app.erl.callback.SelectItemListener;
 import com.app.erl.databinding.RowMyOrderListBinding;
 import com.app.erl.model.entity.info.OrderInfo;
 import com.app.erl.util.AppConstant;
+import com.app.erl.util.AppUtils;
+import com.app.erl.view.activity.MyOrderDetailsActivity;
+import com.telr.mobile.sdk.activty.WebviewActivity;
 
 import java.util.List;
 
@@ -43,11 +47,21 @@ public class MyOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         itemViewHolder.getData(info);
         itemViewHolder.binding.txtPrice.setText(String.format(mContext.getString(R.string.lbl_display_price), info.getTotal_price()));
 
+        if (info.isShow_payment_button())
+            itemViewHolder.binding.txtPay.setVisibility(View.VISIBLE);
+
         itemViewHolder.binding.routMainView.setOnClickListener(v -> {
             if (listener != null) {
                 setPosition(position);
                 listener.onSelectItem(position, AppConstant.Action.VIEW_ORDER);
             }
+        });
+
+        itemViewHolder.binding.txtPay.setOnClickListener(v -> {
+            AppConstant.ORDER_ID = info.getId();
+            AppConstant.PAYMENT_CITY = info.getCity_name();
+            AppConstant.PAYMENT_ADDRESS = info.getAddress();
+            AppUtils.sendMessage(mContext, info.getAmount_pay());
         });
     }
 

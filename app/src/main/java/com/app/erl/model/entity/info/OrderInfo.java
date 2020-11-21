@@ -10,8 +10,9 @@ import java.util.List;
 @Parcel
 public class OrderInfo {
     int id, status_id;
-    String order_no, pickup_date, pickup_time, delivery_note, total_price, ordered_at, status,payment_type,order_type;
+    String order_no, pickup_date, pickup_time, delivery_note, total_price, ordered_at, status,payment_type,order_type,amount_pay,address,city_name;
     List<ServiceItemInfo> order;
+    boolean show_payment_button;
     SaveAddressRequest info;
 
     public int getId() {
@@ -116,6 +117,38 @@ public class OrderInfo {
 
     public void setInfo(SaveAddressRequest info) {
         this.info = info;
+    }
+
+    public String getAmount_pay() {
+        return amount_pay;
+    }
+
+    public void setAmount_pay(String amount_pay) {
+        this.amount_pay = amount_pay;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity_name() {
+        return city_name;
+    }
+
+    public void setCity_name(String city_name) {
+        this.city_name = city_name;
+    }
+
+    public boolean isShow_payment_button() {
+        return show_payment_button;
+    }
+
+    public void setShow_payment_button(boolean show_payment_button) {
+        this.show_payment_button = show_payment_button;
     }
 }
 

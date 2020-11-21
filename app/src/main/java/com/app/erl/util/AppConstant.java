@@ -1,7 +1,6 @@
 package com.app.erl.util;
 
 public final class AppConstant {
-
     public static final String DEVICE_TYPE = "1";
     public static final int DATA_PER_PAGE = 20;
     public static final int MAX_ALBUM_LENGTH = 8;
@@ -15,6 +14,12 @@ public final class AppConstant {
     public static final int IMAGE_QUALITY = 80;
     public static boolean isOpenChatScreen = false;
 
+    public static String KEY = "b34cW~84F5r-tdv7";        // TODO: Insert your Key here
+    public static String STORE_ID = "23954";    // TODO: Insert your Store ID here
+    public static boolean isSecurityEnabled = false;
+    public static int ORDER_ID = 0;
+    public static String PAYMENT_CITY = "";
+    public static String PAYMENT_ADDRESS = "";
 
     public static final class DialogIdentifier {
         public static final int LOGOUT = 1;

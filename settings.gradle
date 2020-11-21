@@ -1,1 +1,2 @@
+include ':telrlibrary-release'
 include ':app', ':Utilities', ':Imagepickers'
