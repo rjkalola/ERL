@@ -2,20 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ERL Git 2020-05-30.iml" filepath="$PROJECT_DIR$/ERL Git 2020-05-30.iml" group="ERL Git 2020-05-30" />
-      <module fileurl="file://$PROJECT_DIR$/Imagepickers/ERL Git 2020-05-30-Imagepickers.iml" filepath="$PROJECT_DIR$/Imagepickers/ERL Git 2020-05-30-Imagepickers.iml" group="ERL Git 2020-05-30/Imagepickers" />
-      <module fileurl="file://$PROJECT_DIR$/Utilities/ERL Git 2020-05-30-Utilities.iml" filepath="$PROJECT_DIR$/Utilities/ERL Git 2020-05-30-Utilities.iml" group="ERL Git 2020-05-30/Utilities" />
-      <module fileurl="file://$PROJECT_DIR$/app/ERL Git 2020-05-30-app.iml" filepath="$PROJECT_DIR$/app/ERL Git 2020-05-30-app.iml" group="ERL Git 2020-05-30/app" />
-      <module fileurl="file://$PROJECT_DIR$/Imagepickers/ERL Git-Imagepickers.iml" filepath="$PROJECT_DIR$/Imagepickers/ERL Git-Imagepickers.iml" group="ERL Git/Imagepickers" />
-      <module fileurl="file://$PROJECT_DIR$/Utilities/ERL Git-Utilities.iml" filepath="$PROJECT_DIR$/Utilities/ERL Git-Utilities.iml" group="ERL Git/Utilities" />
-      <module fileurl="file://$PROJECT_DIR$/app/ERL Git-app.iml" filepath="$PROJECT_DIR$/app/ERL Git-app.iml" group="ERL Git/app" />
-      <module fileurl="file://$PROJECT_DIR$/ERL-ERL Git.iml" filepath="$PROJECT_DIR$/ERL-ERL Git.iml" group="ERL Git" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ERL_Git.iml" filepath="$PROJECT_DIR$/.idea/modules/ERL_Git.iml" group="ERL_Git" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ERL_Git_2020-05-30.iml" filepath="$PROJECT_DIR$/.idea/modules/ERL_Git_2020-05-30.iml" group="ERL_Git_2020-05-30" />
-      <module fileurl="file://$PROJECT_DIR$/Imagepickers/Imagepickers.iml" filepath="$PROJECT_DIR$/Imagepickers/Imagepickers.iml" group="ERL Git/Imagepickers" />
-      <module fileurl="file://$PROJECT_DIR$/Utilities/Utilities.iml" filepath="$PROJECT_DIR$/Utilities/Utilities.iml" group="ERL Git/Utilities" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="ERL Git/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/telrlibrary-release/telrlibrary-release.iml" filepath="$PROJECT_DIR$/.idea/modules/telrlibrary-release/telrlibrary-release.iml" group="ERL Git/telrlibrary-release" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ERL_Git.iml" filepath="$PROJECT_DIR$/.idea/modules/ERL_Git.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Imagepickers/ERL_Git.Imagepickers.iml" filepath="$PROJECT_DIR$/.idea/modules/Imagepickers/ERL_Git.Imagepickers.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Utilities/ERL_Git.Utilities.iml" filepath="$PROJECT_DIR$/.idea/modules/Utilities/ERL_Git.Utilities.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ERL_Git.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ERL_Git.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/telrlibrary-release/ERL_Git.telrlibrary-release.iml" filepath="$PROJECT_DIR$/.idea/modules/telrlibrary-release/ERL_Git.telrlibrary-release.iml" />
     </modules>
   </component>
 </project>

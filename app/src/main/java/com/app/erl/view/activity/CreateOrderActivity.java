@@ -174,7 +174,38 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
                 if (getOrderData() != null
                         && getOrderData().getPickup_hours() != null
                         && getOrderData().getPickup_hours().size() > 0) {
-                    showSelectTimeDialog(AppConstant.DialogIdentifier.SELECT_TIME, v);
+                    if (!StringHelper.isEmpty(binding.edtSelectDate.getText().toString())) {
+                        List<ModuleInfo> list = new ArrayList<>();
+                        ModuleInfo moduleInfo = null;
+                        SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormatsConstants.DD_MMMM_YYYY_SPACE, Locale.US);
+
+                        for (PickUpTimeInfo info : getOrderData().getPickup_hours()) {
+                            moduleInfo = new ModuleInfo();
+                            moduleInfo.setId(info.getId());
+                            moduleInfo.setName(String.format(getString(R.string.lbl_display_time), info.getStart_time(), info.getEnd_time()));
+
+                            try {
+                                Date datePickUpDate = dateFormat.parse(binding.edtSelectDate.getText().toString().trim());
+                                Date dateCurrentDate = dateFormat.parse(dateFormat.format(new Date()));
+                                boolean isSameDay = DateHelper.isSameDay(datePickUpDate, dateCurrentDate);
+                                if (isSameDay) {
+                                    if (isTimeAvailable(info.getStart_time()))
+                                        list.add(moduleInfo);
+                                } else {
+                                    list.add(moduleInfo);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        if (list.size() > 0)
+                            showSelectTimeDialog(AppConstant.DialogIdentifier.SELECT_TIME, v, list);
+                        else
+                            ToastHelper.error(mContext, getString(R.string.msg_empty_pickup_slot), Toast.LENGTH_SHORT, false);
+                    } else {
+                        ToastHelper.error(mContext, getString(R.string.error_empty_order_date), Toast.LENGTH_LONG, false);
+                    }
                 } else {
                     ToastHelper.error(mContext, getString(R.string.msg_currently_no_service_available), Toast.LENGTH_SHORT, false);
                 }
@@ -217,7 +248,15 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
                     if (getOrderData() != null
                             && getOrderData().getPickup_hours() != null
                             && getOrderData().getPickup_hours().size() > 0) {
-                        showSelectTimeDialog(AppConstant.DialogIdentifier.SELECT_DELIVER_TIME, v);
+                        List<ModuleInfo> list = new ArrayList<>();
+                        ModuleInfo moduleInfo = null;
+                        for (PickUpTimeInfo info : getOrderData().getPickup_hours()) {
+                            moduleInfo = new ModuleInfo();
+                            moduleInfo.setId(info.getId());
+                            moduleInfo.setName(String.format(getString(R.string.lbl_display_time), info.getStart_time(), info.getEnd_time()));
+                            list.add(moduleInfo);
+                        }
+                        showSelectTimeDialog(AppConstant.DialogIdentifier.SELECT_DELIVER_TIME, v, list);
                     } else {
                         ToastHelper.error(mContext, getString(R.string.msg_currently_no_service_available), Toast.LENGTH_SHORT, false);
                     }
@@ -246,6 +285,27 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
                 }
                 break;
         }
+    }
+
+    public boolean isTimeAvailable(String time) {
+        boolean isAvailable = false;
+        try {
+            String maxTime = "03:00 PM";
+            SimpleDateFormat df = new SimpleDateFormat("hh:mm a", Locale.US);
+            Date date1 = df.parse(time);
+            Date date2 = df.parse(maxTime);
+            Date dateCurrentDate = df.parse(df.format(new Date()));
+
+            if (dateCurrentDate.before(date2) && dateCurrentDate.before(date1)) {
+                isAvailable = true;
+            } else {
+                isAvailable = false;
+            }
+            Log.e("test", "isLess:" + isAvailable);
+        } catch (Exception e) {
+
+        }
+        return isAvailable;
     }
 
     private void setSelectedItemsAdapter() {
@@ -282,7 +342,7 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
                         manageOrderViewModel.getSaveOrderRequest().setAddress("");
                         manageOrderViewModel.getSaveOrderRequest().setAddress_id(0);
                     }
-                    
+
                     if (orderType == 0) {
                         manageOrderViewModel.getSaveOrderRequest().setWallet_balance(response.getWallet());
                         manageOrderViewModel.getSaveOrderRequest().setMax_wallet_deduction(response.getMax_wallet_deduction());
@@ -362,6 +422,9 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
             SimpleDateFormat dateFormat1 = new SimpleDateFormat(DateFormatsConstants.YYYY_MM_DD_DASH, Locale.US);
             manageOrderViewModel.getSaveOrderRequest().setPickup_date(dateFormat1.format(dobDate.getTime()));
 
+            binding.edtSelectTime.setText("");
+            manageOrderViewModel.getSaveOrderRequest().setPickup_hour_id(0);
+
             binding.edtSelectDeliverDate.setText("");
             manageOrderViewModel.getSaveOrderRequest().setDeliver_date("");
 
@@ -397,15 +460,7 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
         selectTimeDialog.show(fm, "selectTimeDialog");
     }
 
-    public void showSelectTimeDialog(int dialogIdentifier, View v) {
-        List<ModuleInfo> list = new ArrayList<>();
-        ModuleInfo moduleInfo = null;
-        for (PickUpTimeInfo info : getOrderData().getPickup_hours()) {
-            moduleInfo = new ModuleInfo();
-            moduleInfo.setId(info.getId());
-            moduleInfo.setName(String.format(getString(R.string.lbl_display_time), info.getStart_time(), info.getEnd_time()));
-            list.add(moduleInfo);
-        }
+    public void showSelectTimeDialog(int dialogIdentifier, View v, List<ModuleInfo> list) {
         PopupMenuHelper.showPopupMenu(mContext, v, list, dialogIdentifier);
     }
 
@@ -591,6 +646,15 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
 //                    setPrice(binding.txtWalletBalance, String.valueOf(totalAmount));
 //                    totalAmount = 0;
 //                }
+
+               /* if (totalAmount >= walletDiscount) {
+                    totalAmount = totalAmount - walletDiscount;
+                    setPrice(binding.txtWalletBalance, String.valueOf(walletDiscount));
+                } else {
+                    setPrice(binding.txtWalletBalance, String.valueOf(totalAmount));
+                    totalAmount = 0;
+                }*/
+
 
                 if (totalAmount >= walletDiscount) {
                     totalAmount = totalAmount - walletDiscount;

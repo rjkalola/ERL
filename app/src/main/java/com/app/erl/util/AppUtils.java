@@ -699,7 +699,7 @@ public final class AppUtils {
         mobile.setKey(AppConstant.KEY);                              // Authentication Key : The Authentication Key will be supplied by Telr as part of the Mobile API setup process after you request that this integration type is enabled for your account. This should not be stored permanently within the App.
         App app = new App();
         app.setId("123456789");                          // Application installation ID
-        app.setName("Telr SDK DEMO");                    // Application name
+        app.setName("ERL");                    // Application name
         app.setUser("123456");                           // Application user ID : Your reference for the customer/user that is running the App. This should relate to their account within your systems.
         app.setVersion("0.0.1");                         // Application version
         app.setSdk("123");
@@ -713,7 +713,7 @@ public final class AppUtils {
                                                         */
         tran.setClazz("paypage");                       // Transaction class only 'paypage' is allowed on mobile, which means 'use the hosted payment page to capture and process the card details'
         tran.setCartid(String.valueOf(new BigInteger(128, new Random()))); //// Transaction cart ID : An example use of the cart ID field would be your own transaction or order reference.
-        tran.setDescription("Test Mobile API");         // Transaction description
+        tran.setDescription("ERL");         // Transaction description
         tran.setCurrency("AED");                        // Transaction currency : Currency must be sent as a 3 character ISO code. A list of currency codes can be found at the end of this document. For voids or refunds, this must match the currency of the original transaction.
         tran.setAmount(amount);                         // Transaction amount : The transaction amount must be sent in major units, for example 9 dollars 50 cents must be sent as 9.50 not 950. There must be no currency symbol, and no thousands separators. Thedecimal part must be separated using a dot.
         //tran.setRef(???);                           // (Optinal) Previous transaction reference : The previous transaction reference is required for any continuous authority transaction. It must contain the reference that was supplied in the response for the original transaction.

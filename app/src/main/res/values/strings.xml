@@ -151,6 +151,8 @@
     <string name="lbl_total_paces">Total Paces:</string>
     <string name="lbl_total_price">Total Price:</string>
     <string name="msg_currently_no_service_available">Currently there are no service available in your area. Please change address</string>
+    <string name="msg_empty_pickup_slot">No pickup slot available. Please select another date</string>
+
     <string name="msg_cancel_order">Are you sure you want to cancel this order?</string>
     <string name="save">Save</string>
     <string name="lbl_full_name">Full Name:</string>
@@ -241,7 +243,7 @@
     <string name="lbl_payment_success_sub_title">Thank you for your billing</string>
     <string name="lbl_payment_fail_title">Your payment failed</string>
     <string name="lbl_payment_fail_sub_title">Please try again</string>
-    
+
     <!--    <string name=""></string>-->
 
     <integer-array name="navigationItemsDrawable">

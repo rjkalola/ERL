@@ -1,7 +1,6 @@
 package com.app.erl.view.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -24,7 +23,6 @@ import com.app.erl.util.ResourceProvider;
 import com.app.erl.viewModel.ManageOrderViewModel;
 import com.app.utilities.callbacks.DialogButtonClickListener;
 import com.app.utilities.utils.AlertDialogHelper;
-import com.telr.mobile.sdk.activty.WebviewActivity;
 
 @Keep
 public class MyOrderDetailsActivity extends BaseActivity implements View.OnClickListener, DialogButtonClickListener {
