@@ -96,6 +96,7 @@ public final class AppConstant {
         public static final int PRIVACY_POLICY = 2;
         public static final int OUR_SERVICES = 3;
         public static final int SIGN_UP = 4;
+        public static final int ABOUT_APP = 5;
     }
 
     public static final class LocationMode {
@@ -114,6 +115,7 @@ public final class AppConstant {
         public static final int SELECT_PHOTO = 6;
         public static final int SELECT_SERVICE_HOUR_TYPE = 7;
         public static final int PREVIEW_IMAGE = 8;
+        public static final int SHOW_FEEDBACK_DIALOG = 9;
         public static final String UPDATE_CHAT_DATA = "updatechatdata";
     }
 

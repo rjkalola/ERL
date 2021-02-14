@@ -170,7 +170,7 @@
     <string name="msg_your_order_has_been_successfully_placed">Your order has been successfully placed.</string>
     <string name="hint_say_something">Say Something&#8230;</string>
     <string name="lbl_order_summery">Order Summary</string>
-    <string name="lbl_pay_invoice">Pay Invoice</string>
+    <string name="lbl_invoice">Invoice</string>
     <string name="lbl_pay">Pay</string>
     <string name="lbl_available_wallet">Available Wallet:</string>
     <string name="lbl_total_payable_amount">Total payable amount is:</string>
@@ -243,6 +243,10 @@
     <string name="lbl_payment_success_sub_title">Thank you for your billing</string>
     <string name="lbl_payment_fail_title">Your payment failed</string>
     <string name="lbl_payment_fail_sub_title">Please try again</string>
+    <string name="feedback">Give Feedback</string>
+    <string name="write_review">Write review here...</string>
+    <string name="submit">Submit</string>
+    <string name="error_empty_rating">Give rating and write your review</string>
 
     <!--    <string name=""></string>-->
 
@@ -250,7 +254,6 @@
         <item>@drawable/ic_nav_my_profile</item>
         <item>@drawable/ic_nav_my_order</item>
         <item>@drawable/ic_nav_our_services</item>
-        <item>@drawable/ic_nav_settings</item>
         <item>@drawable/ic_nav_privacy_policy</item>
         <item>@drawable/ic_nav_terms_and_conditions</item>
         <item>@drawable/ic_nav_about_app</item>
@@ -262,7 +265,6 @@
         <item>@string/my_profile</item>
         <item>@string/my_order</item>
         <item>@string/lbl_services</item>
-        <item>@string/settings</item>
         <item>@string/privacy_policy</item>
         <item>@string/terms_and_conditions</item>
         <item>@string/about_app</item>

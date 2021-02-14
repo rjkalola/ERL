@@ -138,7 +138,11 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
         } else if (item.equals(getString(R.string.privacy_policy))) {
             bundle.putInt(AppConstant.IntentKey.TYPE, AppConstant.Type.PRIVACY_POLICY);
             moveActivity(mContext, PrivacyPolicyActivity.class, false, false, bundle);
-        } else if (item.equals(getString(R.string.logout))) {
+        }else if (item.equals(getString(R.string.about_app))) {
+            bundle.putInt(AppConstant.IntentKey.TYPE, AppConstant.Type.ABOUT_APP);
+            moveActivity(mContext, PrivacyPolicyActivity.class, false, false, bundle);
+        }
+        else if (item.equals(getString(R.string.logout))) {
             AlertDialogHelper.showDialog(mContext, "", getString(R.string.logout_msg), getString(R.string.yes), getString(R.string.no), false, this, AppConstant.DialogIdentifier.LOGOUT);
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START);

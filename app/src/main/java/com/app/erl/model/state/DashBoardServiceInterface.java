@@ -25,6 +25,9 @@ public interface DashBoardServiceInterface {
     @GET("privacy-policy")
     Observable<PrivacyPolicyResponse> getPrivacyPolicy();
 
+    @GET("about-us")
+    Observable<PrivacyPolicyResponse> getAboutApp();
+
     @GET("our-services")
     Observable<OurServicesResponse> getOurServices();
 

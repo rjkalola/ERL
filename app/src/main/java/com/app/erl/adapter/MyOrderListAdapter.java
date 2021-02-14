@@ -1,7 +1,6 @@
 package com.app.erl.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,6 @@ import com.app.erl.databinding.RowMyOrderListBinding;
 import com.app.erl.model.entity.info.OrderInfo;
 import com.app.erl.util.AppConstant;
 import com.app.erl.util.AppUtils;
-import com.app.erl.view.activity.MyOrderDetailsActivity;
-import com.telr.mobile.sdk.activty.WebviewActivity;
 
 import java.util.List;
 
@@ -43,12 +40,33 @@ public class MyOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+
         OrderInfo info = list.get(position);
         itemViewHolder.getData(info);
+
         itemViewHolder.binding.txtPrice.setText(String.format(mContext.getString(R.string.lbl_display_price), info.getTotal_price()));
 
-        if (info.isShow_payment_button())
-            itemViewHolder.binding.txtPay.setVisibility(View.VISIBLE);
+        if (info.isShow_payment_button() || info.isShow_feedback()) {
+            itemViewHolder.binding.routButtonsView.setVisibility(View.VISIBLE);
+
+            if (info.isShow_payment_button())
+                itemViewHolder.binding.txtPay.setVisibility(View.VISIBLE);
+            else
+                itemViewHolder.binding.txtPay.setVisibility(View.GONE);
+
+            if (info.isShow_feedback())
+                itemViewHolder.binding.txtGiveFeedback.setVisibility(View.VISIBLE);
+            else
+                itemViewHolder.binding.txtGiveFeedback.setVisibility(View.GONE);
+
+            if (info.isShow_payment_button() && info.isShow_feedback())
+                itemViewHolder.binding.dividerButtons.setVisibility(View.VISIBLE);
+            else
+                itemViewHolder.binding.dividerButtons.setVisibility(View.GONE);
+
+        } else {
+            itemViewHolder.binding.routButtonsView.setVisibility(View.GONE);
+        }
 
         itemViewHolder.binding.routMainView.setOnClickListener(v -> {
             if (listener != null) {
@@ -62,6 +80,13 @@ public class MyOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             AppConstant.PAYMENT_CITY = info.getCity_name();
             AppConstant.PAYMENT_ADDRESS = info.getAddress();
             AppUtils.sendMessage(mContext, info.getAmount_pay());
+        });
+
+        itemViewHolder.binding.txtGiveFeedback.setOnClickListener(v -> {
+            if (listener != null) {
+                setPosition(position);
+                listener.onSelectItem(position, AppConstant.Action.SHOW_FEEDBACK_DIALOG);
+            }
         });
     }
 

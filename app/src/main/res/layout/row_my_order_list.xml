@@ -151,19 +151,50 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/txtPay"
-            style="@style/VerySmallFontTextView"
+        <LinearLayout
+            android:id="@+id/routButtonsView"
             android:layout_width="match_parent"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:text="@string/lbl_pay"
-            android:background="@drawable/img_button_bg"
-            android:padding="@dimen/_8sdp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_9sdp"
-            android:gravity="center"
-            android:visibility="gone"
-            android:textAllCaps="true"
-            android:textColor="@color/colorWhite" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtPay"
+                style="@style/VerySmallFontTextView"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/img_button_bg"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="center"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/lbl_pay"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/dividerButtons"
+                android:layout_width="@dimen/_8sdp"
+                android:layout_height="@dimen/_8sdp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txtGiveFeedback"
+                style="@style/VerySmallFontTextView"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/img_button_bg"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="center"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/feedback"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
 
         <View
             style="@style/Divider"

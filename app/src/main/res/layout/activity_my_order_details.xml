@@ -36,7 +36,7 @@
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/montserrat_semi_bold"
                     android:gravity="center"
-                    android:text="@string/lbl_pay_invoice"
+                    android:text="@string/lbl_invoice"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/_16ssp" />

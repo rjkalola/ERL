@@ -52,4 +52,10 @@ public interface ManageOrderInterface {
     Observable<BaseResponse> storePaymentInfo(@Part("order_id") RequestBody order_id
             , @Part("status") RequestBody status
             , @Part("code") RequestBody code);
+
+    @Multipart
+    @POST("store-feedback")
+    Observable<BaseResponse> storeFeedback(@Part("order_id") RequestBody order_id
+            , @Part("rating") RequestBody rating
+            , @Part("comment") RequestBody comment);
 }

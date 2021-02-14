@@ -12,7 +12,7 @@ public class OrderInfo {
     int id, status_id;
     String order_no, pickup_date, pickup_time, delivery_note, total_price, ordered_at, status,payment_type,order_type,amount_pay,address,city_name;
     List<ServiceItemInfo> order;
-    boolean show_payment_button;
+    boolean show_payment_button,show_feedback;
     SaveAddressRequest info;
 
     public int getId() {
@@ -149,6 +149,14 @@ public class OrderInfo {
 
     public void setShow_payment_button(boolean show_payment_button) {
         this.show_payment_button = show_payment_button;
+    }
+
+    public boolean isShow_feedback() {
+        return show_feedback;
+    }
+
+    public void setShow_feedback(boolean show_feedback) {
+        this.show_feedback = show_feedback;
     }
 }
 

@@ -51,6 +51,8 @@ public class PrivacyPolicyActivity extends BaseActivity implements View.OnClickL
                 binding.txtTitle.setText(getString(R.string.terms_and_conditions));
             } else if (action == AppConstant.Type.PRIVACY_POLICY) {
                 binding.txtTitle.setText(getString(R.string.privacy_policy));
+            }else if (action == AppConstant.Type.ABOUT_APP) {
+                binding.txtTitle.setText(getString(R.string.about_app));
             }
             dashBoardViewModel.getPrivacyPolicyRequest(action);
         }

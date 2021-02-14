@@ -262,6 +262,35 @@ public class ManageOrderViewModel extends BaseViewModel {
         }.rxSingleCall(manageOrderInterface.storePaymentInfo(orderIdBody, statusBody, codeBody));
     }
 
+    public void storeFeedbackRequest(int orderId, float rating, String comment) {
+        RequestBody orderIdBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(orderId));
+        RequestBody ratingBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(rating));
+        RequestBody commentBody = RequestBody.create(MediaType.parse("text/plain"), comment);
+
+        if (view != null) {
+            view.showProgress();
+        }
+
+        new RXRetroManager<BaseResponse>() {
+            @Override
+            protected void onSuccess(BaseResponse response) {
+                if (view != null) {
+                    mBaseResponse.postValue(response);
+                    view.hideProgress();
+                }
+            }
+
+            @Override
+            protected void onFailure(RetrofitException retrofitException, String errorCode) {
+                super.onFailure(retrofitException, errorCode);
+                if (view != null) {
+                    view.showApiError(retrofitException, errorCode);
+                    view.hideProgress();
+                }
+            }
+        }.rxSingleCall(manageOrderInterface.storeFeedback(orderIdBody, ratingBody, commentBody));
+    }
+
     public MutableLiveData<BaseResponse> mBaseResponse() {
         if (mBaseResponse == null) {
             mBaseResponse = new MutableLiveData<>();

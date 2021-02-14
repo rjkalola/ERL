@@ -9,24 +9,28 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.erl.R;
 import com.app.erl.adapter.MyOrderListAdapter;
+import com.app.erl.callback.OnSubmitRateListener;
 import com.app.erl.callback.SelectItemListener;
 import com.app.erl.databinding.FragmentMyOrderBinding;
+import com.app.erl.model.entity.response.BaseResponse;
 import com.app.erl.model.entity.response.OrderListResponse;
 import com.app.erl.util.AppConstant;
 import com.app.erl.util.AppUtils;
 import com.app.erl.util.LoginViewModelFactory;
 import com.app.erl.util.ResourceProvider;
 import com.app.erl.view.activity.MyOrderDetailsActivity;
+import com.app.erl.view.dialog.RateUsDialog;
 import com.app.erl.viewModel.ManageOrderViewModel;
 import com.app.utilities.utils.AlertDialogHelper;
 
-public class MyOrderFragment extends BaseFragment implements View.OnClickListener, SelectItemListener {
+public class MyOrderFragment extends BaseFragment implements View.OnClickListener, SelectItemListener, OnSubmitRateListener {
     private final int LAYOUT_ACTIVITY = R.layout.fragment_my_order;
     private FragmentMyOrderBinding binding;
     private Context mContext;
@@ -54,6 +58,8 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
         manageOrderViewModel.createView(this);
         manageOrderViewModel.orderListResponse()
                 .observe(this, getOrderListResponse());
+        manageOrderViewModel.mBaseResponse()
+                .observe(this, storeRatingResponse());
 
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
             loadData(false);
@@ -118,6 +124,28 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
         };
     }
 
+    public Observer storeRatingResponse() {
+        return (Observer<BaseResponse>) response -> {
+            binding.swipeRefreshLayout.setRefreshing(false);
+            binding.loadMore.setVisibility(View.GONE);
+            try {
+                if (response == null) {
+                    AlertDialogHelper.showDialog(mContext, null,
+                            mContext.getString(R.string.error_unknown), mContext.getString(R.string.ok),
+                            null, false, null, 0);
+                    return;
+                }
+                if (response.isSuccess()) {
+
+                } else {
+                    AppUtils.handleUnauthorized(mContext, response);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+    }
+
     @Override
     public void onSelectItem(int position, int action) {
         switch (action) {
@@ -127,9 +155,18 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
                 Intent i = new Intent(mContext, MyOrderDetailsActivity.class);
                 i.putExtras(bundle);
                 startActivityForResult(i, AppConstant.IntentKey.VIEW_ORDER);
-
+                break;
+            case AppConstant.Action.SHOW_FEEDBACK_DIALOG:
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                RateUsDialog rateUsDialog = RateUsDialog.newInstance(mContext, adapter.getList().get(adapter.getPosition()).getId(), this);
+                rateUsDialog.show(fm, "rateUsDialog");
                 break;
         }
+    }
+
+    @Override
+    public void onSubmitRate(int orderId, float rating, String comment) {
+        manageOrderViewModel.storeFeedbackRequest(orderId, rating, comment);
     }
 
     public OrderListResponse getOrdersData() {

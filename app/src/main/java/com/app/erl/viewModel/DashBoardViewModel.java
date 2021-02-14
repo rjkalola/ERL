@@ -89,6 +89,8 @@ public class DashBoardViewModel extends BaseViewModel {
             observable = dashBoardServiceInterface.getTermsConditions();
         } else if (action == AppConstant.Type.PRIVACY_POLICY) {
             observable = dashBoardServiceInterface.getPrivacyPolicy();
+        }else if (action == AppConstant.Type.ABOUT_APP) {
+            observable = dashBoardServiceInterface.getAboutApp();
         }
 
         new RXRetroManager<PrivacyPolicyResponse>() {
