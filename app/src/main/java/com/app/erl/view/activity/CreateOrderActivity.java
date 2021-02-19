@@ -71,13 +71,15 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
     private ActivityCreateOrderBinding binding;
     private Context mContext;
     private String fromTime, toTime;
-    private int serviceHourTypeId = 0, orderType = 0, totalAmount;
+    private int serviceHourTypeId = 0, orderType = 0, totalAmount, pickupTimeIndex = 0;
     private ServiceSelectedItemsTitleListAdapter adapter;
     private String DATE_PICKER = "DATE_PICKER", DELIVER_DATE_PICKER = "DELIVER_DATE_PICKER";
     private String[] LOCATION_PERMISSION = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     private ManageOrderViewModel manageOrderViewModel;
     private OrderResourcesResponse orderData;
     private List<ItemInfo> listItems;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormatsConstants.DD_MMMM_YYYY_SPACE, Locale.US);
+    private SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.US);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -174,29 +176,31 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
                 if (getOrderData() != null
                         && getOrderData().getPickup_hours() != null
                         && getOrderData().getPickup_hours().size() > 0) {
+
                     if (!StringHelper.isEmpty(binding.edtSelectDate.getText().toString())) {
                         List<ModuleInfo> list = new ArrayList<>();
-                        ModuleInfo moduleInfo = null;
-                        SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormatsConstants.DD_MMMM_YYYY_SPACE, Locale.US);
+//                        ModuleInfo moduleInfo = null;
+//                        SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormatsConstants.DD_MMMM_YYYY_SPACE, Locale.US);
 
-                        for (PickUpTimeInfo info : getOrderData().getPickup_hours()) {
-                            moduleInfo = new ModuleInfo();
+                        for (PickUpTimeInfo info : getPickUpTimeSlot()) {
+                            ModuleInfo moduleInfo = new ModuleInfo();
                             moduleInfo.setId(info.getId());
                             moduleInfo.setName(String.format(getString(R.string.lbl_display_time), info.getStart_time(), info.getEnd_time()));
+                            list.add(moduleInfo);
 
-                            try {
-                                Date datePickUpDate = dateFormat.parse(binding.edtSelectDate.getText().toString().trim());
-                                Date dateCurrentDate = dateFormat.parse(dateFormat.format(new Date()));
-                                boolean isSameDay = DateHelper.isSameDay(datePickUpDate, dateCurrentDate);
-                                if (isSameDay) {
-                                    if (isTimeAvailable(info.getStart_time()))
-                                        list.add(moduleInfo);
-                                } else {
-                                    list.add(moduleInfo);
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+//                            try {
+//                                Date datePickUpDate = dateFormat.parse(binding.edtSelectDate.getText().toString().trim());
+//                                Date dateCurrentDate = dateFormat.parse(dateFormat.format(new Date()));
+//                                boolean isSameDay = DateHelper.isSameDay(datePickUpDate, dateCurrentDate);
+//                                if (isSameDay) {
+//                                    if (isTimeAvailable(info.getStart_time()))
+//                                        list.add(moduleInfo);
+//                                } else {
+//                                    list.add(moduleInfo);
+//                                }
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
                         }
 
                         if (list.size() > 0)
@@ -204,59 +208,68 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
                         else
                             ToastHelper.error(mContext, getString(R.string.msg_empty_pickup_slot), Toast.LENGTH_SHORT, false);
                     } else {
-                        ToastHelper.error(mContext, getString(R.string.error_empty_order_date), Toast.LENGTH_LONG, false);
+                        ToastHelper.error(mContext, getString(R.string.error_empty_order_date), Toast.LENGTH_SHORT, false);
                     }
                 } else {
                     ToastHelper.error(mContext, getString(R.string.msg_currently_no_service_available), Toast.LENGTH_SHORT, false);
                 }
                 break;
             case R.id.edtSelectDeliverDate:
-                String date = DateHelper.changeDateFormat(binding.edtSelectDate.getText().toString(), DateFormatsConstants.DD_MMM_YYYY_SPACE, DateFormatsConstants.DD_MM_YYYY_DASH);
-                if (!StringHelper.isEmpty(date)) {
-                    try {
-                        c.setTime(DateHelper.stringToDate(date, DateFormatsConstants.DD_MM_YYYY_DASH));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    int day = 0;
-                    switch (serviceHourTypeId) {
-                        case 1:
-                            day = 3;
-                            break;
-                        case 2:
-                            day = 2;
-                            break;
-                        case 3:
-                            day = 0;
-                            break;
-                    }
-                    c.add(Calendar.DAY_OF_WEEK, day);
-                    Date newDate = c.getTime();
+                if (!StringHelper.isEmpty(binding.edtSelectDate.getText().toString().trim())
+                        && !StringHelper.isEmpty(binding.edtSelectTime.getText().toString().trim())) {
+                    String date = DateHelper.changeDateFormat(binding.edtSelectDate.getText().toString(), DateFormatsConstants.DD_MMM_YYYY_SPACE, DateFormatsConstants.DD_MM_YYYY_DASH);
+                    if (!StringHelper.isEmpty(date)) {
+                        try {
+                            c.setTime(DateHelper.stringToDate(date, DateFormatsConstants.DD_MM_YYYY_DASH));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        int day = 0;
+                        switch (serviceHourTypeId) {
+                            case 1:
+                                day = 2;
+                                break;
+                            case 2:
+                                day = 1;
+                                break;
+                            case 3:
+                                day = 0;
+                                break;
+                        }
+                        c.add(Calendar.DAY_OF_WEEK, day);
+                        Date newDate = c.getTime();
 
-                    if (!StringHelper.isEmpty(binding.edtSelectDate.getText().toString())) {
-                        String date_ = DateHelper.changeDateFormat(binding.edtSelectDate.getText().toString(), DateFormatsConstants.DD_MMM_YYYY_SPACE, DateFormatsConstants.DD_MM_YYYY_DASH);
-                        showDatePicker(newDate.getTime(), 0, DELIVER_DATE_PICKER, date_);
+                        if (!StringHelper.isEmpty(binding.edtSelectDate.getText().toString())) {
+                            String date_ = DateHelper.changeDateFormat(binding.edtSelectDate.getText().toString(), DateFormatsConstants.DD_MMM_YYYY_SPACE, DateFormatsConstants.DD_MM_YYYY_DASH);
+                            showDatePicker(newDate.getTime(), 0, DELIVER_DATE_PICKER, date_);
+                        } else {
+                            showDatePicker(newDate.getTime(), 0, DELIVER_DATE_PICKER, null);
+                        }
                     } else {
-                        showDatePicker(newDate.getTime(), 0, DELIVER_DATE_PICKER, null);
+                        ToastHelper.error(mContext, getString(R.string.error_empty_order_date), Toast.LENGTH_SHORT, false);
                     }
+                    break;
                 } else {
-                    ToastHelper.error(mContext, getString(R.string.error_empty_order_date), Toast.LENGTH_LONG, false);
+                    ToastHelper.error(mContext, getString(R.string.error_empty_pickup_date_and_time), Toast.LENGTH_SHORT, false);
                 }
-                break;
             case R.id.edtSelectDeliverTime:
                 if (!StringHelper.isEmpty(binding.edtSelectDeliverDate.getText().toString().trim())) {
                     if (getOrderData() != null
                             && getOrderData().getPickup_hours() != null
                             && getOrderData().getPickup_hours().size() > 0) {
                         List<ModuleInfo> list = new ArrayList<>();
-                        ModuleInfo moduleInfo = null;
-                        for (PickUpTimeInfo info : getOrderData().getPickup_hours()) {
-                            moduleInfo = new ModuleInfo();
+                        for (PickUpTimeInfo info : getDeliverTimeSlot()) {
+                            ModuleInfo moduleInfo = new ModuleInfo();
                             moduleInfo.setId(info.getId());
                             moduleInfo.setName(String.format(getString(R.string.lbl_display_time), info.getStart_time(), info.getEnd_time()));
                             list.add(moduleInfo);
                         }
-                        showSelectTimeDialog(AppConstant.DialogIdentifier.SELECT_DELIVER_TIME, v, list);
+
+                        if (list.size() > 0)
+                            showSelectTimeDialog(AppConstant.DialogIdentifier.SELECT_DELIVER_TIME, v, list);
+                        else
+                            ToastHelper.error(mContext, getString(R.string.msg_empty_deliver_slot), Toast.LENGTH_SHORT, false);
+
                     } else {
                         ToastHelper.error(mContext, getString(R.string.msg_currently_no_service_available), Toast.LENGTH_SHORT, false);
                     }
@@ -285,27 +298,6 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
                 }
                 break;
         }
-    }
-
-    public boolean isTimeAvailable(String time) {
-        boolean isAvailable = false;
-        try {
-            String maxTime = "03:00 PM";
-            SimpleDateFormat df = new SimpleDateFormat("hh:mm a", Locale.US);
-            Date date1 = df.parse(time);
-            Date date2 = df.parse(maxTime);
-            Date dateCurrentDate = df.parse(df.format(new Date()));
-
-            if (dateCurrentDate.before(date2) && dateCurrentDate.before(date1)) {
-                isAvailable = true;
-            } else {
-                isAvailable = false;
-            }
-            Log.e("test", "isLess:" + isAvailable);
-        } catch (Exception e) {
-
-        }
-        return isAvailable;
     }
 
     private void setSelectedItemsAdapter() {
@@ -438,6 +430,10 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
             binding.edtSelectDeliverDate.setText(dateFormat.format(dobDate.getTime()));
             SimpleDateFormat dateFormat1 = new SimpleDateFormat(DateFormatsConstants.YYYY_MM_DD_DASH, Locale.US);
             manageOrderViewModel.getSaveOrderRequest().setDeliver_date(dateFormat1.format(dobDate.getTime()));
+
+            binding.edtSelectDeliverTime.setText("");
+            manageOrderViewModel.getSaveOrderRequest().setDeliver_hour_id(0);
+            manageOrderViewModel.getSaveOrderRequest().setDeliver_hour("");
         }
     }
 
@@ -529,9 +525,15 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
     public void onEvent(ModuleSelection moduleInfo) {
         if (moduleInfo != null) {
             if (moduleInfo.getType() == AppConstant.DialogIdentifier.SELECT_TIME) {
+                pickupTimeIndex = moduleInfo.getPosition();
+                Log.e("test", "pickupTimeIndex:" + pickupTimeIndex);
                 binding.edtSelectTime.setText(moduleInfo.getInfo().getName());
                 manageOrderViewModel.getSaveOrderRequest().setPickup_hour_id(moduleInfo.getInfo().getId());
                 manageOrderViewModel.getSaveOrderRequest().setPickup_hour(moduleInfo.getInfo().getName());
+
+                binding.edtSelectDeliverTime.setText("");
+                manageOrderViewModel.getSaveOrderRequest().setDeliver_hour_id(0);
+                manageOrderViewModel.getSaveOrderRequest().setDeliver_hour("");
             } else if (moduleInfo.getType() == AppConstant.DialogIdentifier.SELECT_DELIVER_TIME) {
                 binding.edtSelectDeliverTime.setText(moduleInfo.getInfo().getName());
                 manageOrderViewModel.getSaveOrderRequest().setDeliver_hour_id(moduleInfo.getInfo().getId());
@@ -543,27 +545,27 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
     private boolean validate() {
         boolean valid = true;
         if (ValidationUtil.isEmptyEditText(manageOrderViewModel.getSaveOrderRequest().getPickup_date())) {
-            ToastHelper.error(mContext, getString(R.string.error_empty_order_date), Toast.LENGTH_LONG, false);
+            ToastHelper.error(mContext, getString(R.string.error_empty_order_date), Toast.LENGTH_SHORT, false);
             valid = false;
             return valid;
         }
         if (manageOrderViewModel.getSaveOrderRequest().getPickup_hour_id() == 0) {
-            ToastHelper.error(mContext, getString(R.string.error_empty_order_time), Toast.LENGTH_LONG, false);
+            ToastHelper.error(mContext, getString(R.string.error_empty_order_time), Toast.LENGTH_SHORT, false);
             valid = false;
             return valid;
         }
         if (ValidationUtil.isEmptyEditText(manageOrderViewModel.getSaveOrderRequest().getDeliver_date())) {
-            ToastHelper.error(mContext, getString(R.string.error_empty_delivery_date), Toast.LENGTH_LONG, false);
+            ToastHelper.error(mContext, getString(R.string.error_empty_delivery_date), Toast.LENGTH_SHORT, false);
             valid = false;
             return valid;
         }
         if (manageOrderViewModel.getSaveOrderRequest().getDeliver_hour_id() == 0) {
-            ToastHelper.error(mContext, getString(R.string.error_empty_delivery_time), Toast.LENGTH_LONG, false);
+            ToastHelper.error(mContext, getString(R.string.error_empty_delivery_time), Toast.LENGTH_SHORT, false);
             valid = false;
             return valid;
         }
         if (manageOrderViewModel.getSaveOrderRequest().getAddress_id() == 0) {
-            ToastHelper.error(mContext, getString(R.string.error_empty_address), Toast.LENGTH_LONG, false);
+            ToastHelper.error(mContext, getString(R.string.error_empty_address), Toast.LENGTH_SHORT, false);
             valid = false;
             return valid;
         }
@@ -582,7 +584,7 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
             manageOrderViewModel.getSaveOrderRequest().setOrder(order);
 
             if (manageOrderViewModel.getSaveOrderRequest().getOrder().size() == 0) {
-                ToastHelper.error(mContext, getString(R.string.error_select_at_least_one_item), Toast.LENGTH_LONG, false);
+                ToastHelper.error(mContext, getString(R.string.error_select_at_least_one_item), Toast.LENGTH_SHORT, false);
                 valid = false;
                 return valid;
             }
@@ -682,6 +684,157 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
 
     public void setPrice(TextView textView, String price) {
         textView.setText(String.format(mContext.getString(R.string.lbl_display_price), price));
+    }
+
+    public boolean isTimeAvailable(String time) {
+        boolean isAvailable = false;
+        try {
+            String maxTime = "03:00 PM";
+            SimpleDateFormat df = new SimpleDateFormat("hh:mm a", Locale.US);
+            Date date1 = df.parse(time);
+            Date date2 = df.parse(maxTime);
+            Date dateCurrentDate = df.parse(df.format(new Date()));
+
+            if (dateCurrentDate.before(date2) && dateCurrentDate.before(date1)) {
+                isAvailable = true;
+            } else {
+                isAvailable = false;
+            }
+            Log.e("test", "isLess:" + isAvailable);
+        } catch (Exception e) {
+
+        }
+        return isAvailable;
+    }
+
+    public List<PickUpTimeInfo> getPickUpTimeSlot() {
+        List<PickUpTimeInfo> list = new ArrayList<>();
+        switch (serviceHourTypeId) {
+            case 1:
+            case 2:
+                try {
+                    Date currentDate = dateFormat.parse(dateFormat.format(new Date()));
+                    Date currentTime = timeFormat.parse(timeFormat.format(new Date()));
+                    Date pickUpDate = dateFormat.parse(binding.edtSelectDate.getText().toString().trim());
+
+                    for (int i = 0; i < getOrderData().getPickup_hours().size(); i++) {
+                        Date startTime = timeFormat.parse(getOrderData().getPickup_hours().get(i).getStart_time());
+                        if (DateHelper.isSameDay(pickUpDate, currentDate)) {
+                            if (currentTime.before(startTime)) {
+                                list.add(getOrderData().getPickup_hours().get(i));
+                            }
+                        } else {
+                            list.add(getOrderData().getPickup_hours().get(i));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 3:
+                try {
+                    Date currentDate = dateFormat.parse(dateFormat.format(new Date()));
+                    Date currentTime = timeFormat.parse(timeFormat.format(new Date()));
+                    Date pickUpDate = dateFormat.parse(binding.edtSelectDate.getText().toString().trim());
+
+                    for (int i = 0; i < getOrderData().getPickup_hours().size(); i++) {
+                        Date startTime = timeFormat.parse(getOrderData().getPickup_hours().get(i).getStart_time());
+                        Date maxTime = timeFormat.parse("03:00 PM");
+
+                        if (DateHelper.isSameDay(pickUpDate, currentDate)) {
+                            if (currentTime.before(maxTime) && currentTime.before(startTime)) {
+                                list.add(getOrderData().getPickup_hours().get(i));
+                            }
+                        } else {
+                            list.add(getOrderData().getPickup_hours().get(i));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+        return list;
+    }
+
+    public List<PickUpTimeInfo> getDeliverTimeSlot() {
+        List<PickUpTimeInfo> list = new ArrayList<>();
+        if (getOrderData() != null
+                && getOrderData().getPickup_hours() != null
+                && getOrderData().getPickup_hours().size() > 0) {
+
+            switch (serviceHourTypeId) {
+                case 1:
+                    try {
+                        Date pickUpTime = timeFormat.parse(getPickUpTimeSlot().get(pickupTimeIndex).getStart_time());
+                        Date pickUpDate = dateFormat.parse(binding.edtSelectDate.getText().toString().trim());
+                        Date deliverDate = dateFormat.parse(binding.edtSelectDeliverDate.getText().toString().trim());
+                        long days = DateHelper.dayDiff(pickUpDate, deliverDate);
+
+                        for (int i = 0; i < getOrderData().getPickup_hours().size(); i++) {
+                            Date startTime = timeFormat.parse(getOrderData().getPickup_hours().get(i).getStart_time());
+                            if (days <= 2) {
+                                if (pickUpTime.before(startTime)) {
+                                    list.add(getOrderData().getPickup_hours().get(i));
+                                }
+                            } else {
+                                list.add(getOrderData().getPickup_hours().get(i));
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 2:
+                    try {
+                        Date pickUpTime = timeFormat.parse(getPickUpTimeSlot().get(pickupTimeIndex).getStart_time());
+                        Date pickUpDate = dateFormat.parse(binding.edtSelectDate.getText().toString().trim());
+                        Date deliverDate = dateFormat.parse(binding.edtSelectDeliverDate.getText().toString().trim());
+                        long days = DateHelper.dayDiff(pickUpDate, deliverDate);
+
+                        for (int i = 0; i < getOrderData().getPickup_hours().size(); i++) {
+                            Date startTime = timeFormat.parse(getOrderData().getPickup_hours().get(i).getStart_time());
+                            if (days <= 1) {
+                                if (pickUpTime.before(startTime)) {
+                                    list.add(getOrderData().getPickup_hours().get(i));
+                                }
+                            } else {
+                                list.add(getOrderData().getPickup_hours().get(i));
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 3:
+                    try {
+                        Date currentDate = dateFormat.parse(dateFormat.format(new Date()));
+                        Date currentTime = timeFormat.parse(timeFormat.format(new Date()));
+                        Date pickUpTime = timeFormat.parse(getPickUpTimeSlot().get(pickupTimeIndex).getStart_time());
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(pickUpTime);
+                        calendar.add(Calendar.HOUR, 5);
+                        Date deliverDate = dateFormat.parse(binding.edtSelectDeliverDate.getText().toString().trim());
+
+                        for (int i = 0; i < getOrderData().getPickup_hours().size(); i++) {
+                            Date startTime = timeFormat.parse(getOrderData().getPickup_hours().get(i).getStart_time());
+                            Date maxTime = timeFormat.parse("03:00 PM");
+
+                            if (DateHelper.isSameDay(deliverDate, currentDate)) {
+                                if (currentTime.before(maxTime) && calendar.getTime().before(startTime)) {
+                                    list.add(getOrderData().getPickup_hours().get(i));
+                                }
+                            } else {
+                                list.add(getOrderData().getPickup_hours().get(i));
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+        }
+        return list;
     }
 
     public OrderResourcesResponse getOrderData() {

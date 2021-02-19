@@ -152,6 +152,7 @@
     <string name="lbl_total_price">Total Price:</string>
     <string name="msg_currently_no_service_available">Currently there are no service available in your area. Please change address</string>
     <string name="msg_empty_pickup_slot">No pickup slot available. Please select another date</string>
+    <string name="msg_empty_deliver_slot">No deliver slot available. Please select another date</string>
 
     <string name="msg_cancel_order">Are you sure you want to cancel this order?</string>
     <string name="save">Save</string>
@@ -206,6 +207,7 @@
     <string name="placeholder_empty_transaction_history">No Transaction History Found</string>
     <string name="error_empty_order_date">Please select pickup date</string>
     <string name="error_empty_order_time">Please select pickup time</string>
+    <string name="error_empty_pickup_date_and_time">Please select pickup date &amp; time</string>
     <string name="error_empty_delivery_date">Please select deliver date</string>
     <string name="error_empty_delivery_time">Please select deliver time</string>
     <string name="error_empty_address">Please select address</string>
