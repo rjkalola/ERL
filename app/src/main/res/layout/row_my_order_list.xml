@@ -81,13 +81,41 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/txtDate"
-            style="@style/SmallFontTextView"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="@{info.pickup_date}"
-            android:textColor="@color/colorSecondaryLightText"
-            android:textSize="@dimen/_9ssp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp">
+
+            <TextView
+                android:id="@+id/txtServiceTypeTitle"
+                style="@style/VerySmallFontTextView"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:text="@string/service_type"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimaryText" />
+
+            <TextView
+                android:id="@+id/txtServiceType"
+                style="@style/VerySmallFontTextView"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_toEndOf="@+id/txtServiceTypeTitle"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@{info.service_type_name}"
+                android:textColor="@color/colorPrimaryText" />
+
+            <TextView
+                android:id="@+id/txtDate"
+                style="@style/SmallFontTextView"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@{info.pickup_date}"
+                android:textColor="@color/colorSecondaryLightText"
+                android:textSize="@dimen/_9ssp" />
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

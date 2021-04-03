@@ -129,6 +129,9 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
                     binding.txtTotalPayableAmount.setText(String.format(mContext.getString(R.string.lbl_display_price), getOrderDetails().getAmount_pay()));
                     binding.txtAvailableWallet.setText(String.format(mContext.getString(R.string.lbl_display_price), String.valueOf(getOrderDetails().getWallet())));
                     binding.txtOrderNumber.setText(getOrderDetails().getOrder_no());
+                    binding.txtServiceType.setText(getOrderDetails().getService_type_name());
+                    binding.txtPickUpTime.setText(getOrderDetails().getPickup_date() + "  " + getOrderDetails().getPickup_time());
+                    binding.txtDeliverTime.setText(getOrderDetails().getDeliver_date() + "  " + getOrderDetails().getDelivery_time());
 
                     AppConstant.PAYMENT_CITY = response.getCity_name();
                     AppConstant.PAYMENT_ADDRESS = response.getAddress();

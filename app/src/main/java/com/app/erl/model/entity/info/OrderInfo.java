@@ -10,7 +10,7 @@ import java.util.List;
 @Parcel
 public class OrderInfo {
     int id, status_id;
-    String order_no, pickup_date, pickup_time, delivery_note, total_price, ordered_at, status,payment_type,order_type,amount_pay,address,city_name;
+    String order_no, pickup_date, pickup_time, deliver_date,delivery_time,delivery_note, total_price, ordered_at, status,payment_type,order_type,amount_pay,address,city_name,service_type_name;
     List<ServiceItemInfo> order;
     boolean show_payment_button,show_feedback;
     SaveAddressRequest info;
@@ -53,6 +53,22 @@ public class OrderInfo {
 
     public void setPickup_time(String pickup_time) {
         this.pickup_time = pickup_time;
+    }
+
+    public String getDeliver_date() {
+        return deliver_date;
+    }
+
+    public void setDeliver_date(String deliver_date) {
+        this.deliver_date = deliver_date;
+    }
+
+    public String getDelivery_time() {
+        return delivery_time;
+    }
+
+    public void setDelivery_time(String delivery_time) {
+        this.delivery_time = delivery_time;
     }
 
     public String getDelivery_note() {
@@ -103,22 +119,6 @@ public class OrderInfo {
         this.order_type = order_type;
     }
 
-    public List<ServiceItemInfo> getOrder() {
-        return order;
-    }
-
-    public void setOrder(List<ServiceItemInfo> order) {
-        this.order = order;
-    }
-
-    public SaveAddressRequest getInfo() {
-        return info;
-    }
-
-    public void setInfo(SaveAddressRequest info) {
-        this.info = info;
-    }
-
     public String getAmount_pay() {
         return amount_pay;
     }
@@ -143,6 +143,22 @@ public class OrderInfo {
         this.city_name = city_name;
     }
 
+    public String getService_type_name() {
+        return service_type_name;
+    }
+
+    public void setService_type_name(String service_type_name) {
+        this.service_type_name = service_type_name;
+    }
+
+    public List<ServiceItemInfo> getOrder() {
+        return order;
+    }
+
+    public void setOrder(List<ServiceItemInfo> order) {
+        this.order = order;
+    }
+
     public boolean isShow_payment_button() {
         return show_payment_button;
     }
@@ -157,6 +173,14 @@ public class OrderInfo {
 
     public void setShow_feedback(boolean show_feedback) {
         this.show_feedback = show_feedback;
+    }
+
+    public SaveAddressRequest getInfo() {
+        return info;
+    }
+
+    public void setInfo(SaveAddressRequest info) {
+        this.info = info;
     }
 }
 

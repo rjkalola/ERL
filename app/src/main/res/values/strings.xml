@@ -249,6 +249,7 @@
     <string name="write_review">Write review here...</string>
     <string name="submit">Submit</string>
     <string name="error_empty_rating">Give rating and write your review</string>
+    <string name="service_type">Service Type:</string>
 
     <!--    <string name=""></string>-->
 

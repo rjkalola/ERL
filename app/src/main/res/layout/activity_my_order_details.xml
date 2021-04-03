@@ -58,8 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/btnPay"
-            android:visibility="gone"
-            android:layout_below="@+id/routHeaderView">
+            android:layout_below="@+id/routHeaderView"
+            android:visibility="gone">
 
             <LinearLayout
                 android:id="@+id/routDetailsView"
@@ -72,35 +72,102 @@
                 android:paddingBottom="@dimen/_10sdp"
                 android:visibility="visible">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        style="@style/SmallFontTextView"
-                        android:fontFamily="@font/montserrat_semi_bold"
-                        android:text="@string/lbl_order_number"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/_10ssp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/txtOrderNumber"
-                        style="@style/SmallFontTextView"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:fontFamily="@font/montserrat_medium"
-                        android:text="@{info.order_no}"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/_10ssp" />
+                        <TextView
+                            style="@style/SmallFontTextView"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:text="@string/lbl_order_number"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="@dimen/_10ssp" />
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/txtOrderNumber"
+                            style="@style/SmallFontTextView"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="@dimen/_10ssp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/SmallFontTextView"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:text="@string/service_type"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="@dimen/_10ssp" />
+
+                        <TextView
+                            android:id="@+id/txtServiceType"
+                            style="@style/SmallFontTextView"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="@dimen/_10ssp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
 
                 <View
                     android:id="@+id/divider"
                     style="@style/Divider"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@color/colorYellowDark" />
+
+                <TextView
+                    style="@style/SmallFontTextView"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:text="@string/lbl_pick_up_time_slot"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/_10ssp" />
+
+                <TextView
+                    android:id="@+id/txtPickUpTime"
+                    style="@style/SmallFontTextView"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/_10ssp" />
+
+                <TextView
+                    style="@style/SmallFontTextView"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:text="@string/lbl_deliver_time_slot"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/_10ssp" />
+
+                <TextView
+                    android:id="@+id/txtDeliverTime"
+                    style="@style/SmallFontTextView"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/_10ssp" />
+
+                <View
+                    style="@style/Divider"
+                    android:layout_marginTop="@dimen/_14sdp"
                     android:background="@color/colorYellowDark" />
 
                 <TextView
@@ -194,9 +261,9 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="center_horizontal"
             android:background="@color/colorPrimaryText"
+            android:visibility="gone"
             app:mrl_rippleColor="#2C7A7A7A"
             app:mrl_rippleDelayClick="false"
-            android:visibility="gone"
             app:mrl_rippleDuration="100"
             app:mrl_rippleOverlay="true">
 

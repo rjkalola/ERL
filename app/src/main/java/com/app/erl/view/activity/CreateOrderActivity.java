@@ -686,27 +686,6 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
         textView.setText(String.format(mContext.getString(R.string.lbl_display_price), price));
     }
 
-    public boolean isTimeAvailable(String time) {
-        boolean isAvailable = false;
-        try {
-            String maxTime = "03:00 PM";
-            SimpleDateFormat df = new SimpleDateFormat("hh:mm a", Locale.US);
-            Date date1 = df.parse(time);
-            Date date2 = df.parse(maxTime);
-            Date dateCurrentDate = df.parse(df.format(new Date()));
-
-            if (dateCurrentDate.before(date2) && dateCurrentDate.before(date1)) {
-                isAvailable = true;
-            } else {
-                isAvailable = false;
-            }
-            Log.e("test", "isLess:" + isAvailable);
-        } catch (Exception e) {
-
-        }
-        return isAvailable;
-    }
-
     public List<PickUpTimeInfo> getPickUpTimeSlot() {
         List<PickUpTimeInfo> list = new ArrayList<>();
         switch (serviceHourTypeId) {
