@@ -56,7 +56,8 @@ public class PriceListFragment extends BaseFragment implements View.OnClickListe
     private ServiceItemsResponse serviceItemsData;
     private ServiceHourTypeListAdapter serviceHourTypeListAdapter;
     private ViewPagerAdapter pagerAdapter;
-    private int selectedHourTypePosition = 0, totalItemCount = 0, totalPrice = 0, itemPosition = 0;
+    private int selectedHourTypePosition = 0, totalItemCount = 0, itemPosition = 0;
+    private double totalPrice = 0;
 
     public static final PriceListFragment newInstance() {
         return new PriceListFragment();
@@ -238,7 +239,7 @@ public class PriceListFragment extends BaseFragment implements View.OnClickListe
         menu.findItem(R.id.actionArchived).setVisible(false);
         menu.findItem(R.id.actionNotification).setVisible(false);
         menu.findItem(R.id.actionSelectedItemCount).setVisible(true);
-        menu.findItem(R.id.actionSearch).setVisible(true);
+        menu.findItem(R.id.actionSearch).setVisible(false);
 
         if (mMenu != null)
             setCartCountMenu(totalItemCount);

@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.app.erl.BuildConfig;
 import com.app.erl.ERLApp;
 import com.app.erl.R;
 import com.app.erl.adapter.NavigationItemsListAdapter;
@@ -44,13 +45,13 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 public class DashBoardActivity extends BaseActivity implements View.OnClickListener, SelectINavigationItemListener, DialogButtonClickListener, SelectItemListener {
     private ActivityDashboardBinding binding;
-//    private NavHeaderDashboardBinding bindingNavHeader;
+    //    private NavHeaderDashboardBinding bindingNavHeader;
     private UserAuthenticationViewModel userAuthenticationViewModel;
     private Context mContext;
 
     private ActionBarDrawerToggle toggle;
     private ViewPagerAdapter pagerAdapter;
-    private int selectedTabIndex = 0;
+    private int selectedTabIndex = 0, appVersion = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -138,11 +139,10 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
         } else if (item.equals(getString(R.string.privacy_policy))) {
             bundle.putInt(AppConstant.IntentKey.TYPE, AppConstant.Type.PRIVACY_POLICY);
             moveActivity(mContext, PrivacyPolicyActivity.class, false, false, bundle);
-        }else if (item.equals(getString(R.string.about_app))) {
+        } else if (item.equals(getString(R.string.about_app))) {
             bundle.putInt(AppConstant.IntentKey.TYPE, AppConstant.Type.ABOUT_APP);
             moveActivity(mContext, PrivacyPolicyActivity.class, false, false, bundle);
-        }
-        else if (item.equals(getString(R.string.logout))) {
+        } else if (item.equals(getString(R.string.logout))) {
             AlertDialogHelper.showDialog(mContext, "", getString(R.string.logout_msg), getString(R.string.yes), getString(R.string.no), false, this, AppConstant.DialogIdentifier.LOGOUT);
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START);
@@ -176,6 +176,8 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
         if (dialogIdentifier == AppConstant.DialogIdentifier.LOGOUT) {
             ERLApp.get().clearData();
             moveActivity(mContext, LoginActivity.class, true, true, null);
+        } else if (dialogIdentifier == AppConstant.DialogIdentifier.UPDATE_APP) {
+            AppUtils.openPlayStore(mContext);
         }
     }
 
@@ -311,4 +313,19 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
                 });
     }
 
+    public void checkAppVersion(int version) {
+        this.appVersion = version;
+        if (BuildConfig.VERSION_CODE < appVersion) {
+            AlertDialogHelper.showDialog(mContext, getString(R.string.title_app_update),
+                    getString(R.string.msg_app_update), mContext.getString(R.string.update),
+                    null, false, this, AppConstant.DialogIdentifier.UPDATE_APP);
+        }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkAppVersion(appVersion);
+    }
 }

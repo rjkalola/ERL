@@ -8,8 +8,7 @@ import java.util.List;
 
 public class OrderDetailsResponse extends BaseResponse {
     private List<OrderItemInfo> info;
-    private int total_price;
-    private String order_no, wallet,amount_pay,address,city_name,service_type_name, pickup_date, pickup_time, deliver_date,delivery_time;
+    private String order_no, wallet,amount_pay,address,city_name,service_type_name, pickup_date, pickup_time, deliver_date,delivery_time,total_price;
     private boolean show_payment_button;
 
     public List<OrderItemInfo> getInfo() {
@@ -20,11 +19,11 @@ public class OrderDetailsResponse extends BaseResponse {
         this.info = info;
     }
 
-    public int getTotal_price() {
+    public String getTotal_price() {
         return total_price;
     }
 
-    public void setTotal_price(int total_price) {
+    public void setTotal_price(String total_price) {
         this.total_price = total_price;
     }
 

@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.app.erl.BuildConfig;
 import com.app.erl.R;
 import com.app.erl.adapter.DashboardOfferPagerAdapter;
 import com.app.erl.adapter.DashboardOfferPagerDotsAdapter;
@@ -30,6 +31,7 @@ import com.app.erl.view.activity.ContactUsActivity;
 import com.app.erl.view.activity.DashBoardActivity;
 import com.app.erl.view.activity.StoreLocatorActivity;
 import com.app.erl.viewModel.DashBoardViewModel;
+import com.app.utilities.callbacks.DialogButtonClickListener;
 import com.app.utilities.utils.AlertDialogHelper;
 import com.app.utilities.utils.StringHelper;
 
@@ -146,6 +148,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     setDashBoardData(response);
                     setOfferPagerAdapter();
                     ((DashBoardActivity) getActivity()).setWalletBalance(response.getWallet());
+                    ((DashBoardActivity) getActivity()).checkAppVersion(response.getAndroid_version_code());
                 } else {
                     AppUtils.handleUnauthorized(mContext, response);
                 }
@@ -156,7 +159,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
 
-    @Override
+  /*  @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.dashboard_menu, menu);
@@ -170,7 +173,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
-    }
+    }*/
+
+
 
     public ClientDashBoardResponse getDashBoardData() {
         return dashBoardData;

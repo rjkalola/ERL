@@ -71,7 +71,8 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
     private ActivityCreateOrderBinding binding;
     private Context mContext;
     private String fromTime, toTime;
-    private int serviceHourTypeId = 0, orderType = 0, totalAmount, pickupTimeIndex = 0;
+    private int serviceHourTypeId = 0, orderType = 0, pickupTimeIndex = 0;
+    private double totalAmount;
     private ServiceSelectedItemsTitleListAdapter adapter;
     private String DATE_PICKER = "DATE_PICKER", DELIVER_DATE_PICKER = "DELIVER_DATE_PICKER";
     private String[] LOCATION_PERMISSION = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};

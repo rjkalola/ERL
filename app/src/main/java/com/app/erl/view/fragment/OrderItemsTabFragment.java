@@ -89,10 +89,6 @@ public class OrderItemsTabFragment extends BaseFragment implements View.OnClickL
             adapter.getList().get(rootPosition).getServiceList().get(itemPosition).setQuantity(quantity);
             ((DashBoardActivity) getActivity()).refreshTotalItemPrice();
         }
-
-
-        Log.e("test", "rootPosition:" + rootPosition);
-        Log.e("test", "itemPosition:" + itemPosition);
     }
 
     public void showAddItemsToCardBottomSheetDialog(int rootPosition, String serviceName, List<ServiceItemInfo> listItems, String itemImage) {

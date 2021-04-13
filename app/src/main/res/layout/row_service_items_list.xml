@@ -36,34 +36,34 @@
                 android:textSize="@dimen/_9ssp" />
 
             <TextView
+                android:id="@+id/txtDryCleanPrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/montserrat_semi_bold"
                 android:gravity="center"
-                android:text="@{Integer.toString(info.dry_clean_price)}"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/_9ssp" />
 
             <TextView
+                android:id="@+id/txtIronDryCleanPrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/montserrat_semi_bold"
                 android:gravity="center"
-                android:text="@{Integer.toString(info.iron_dry_clean_price)}"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/_9ssp" />
 
             <TextView
+                android:id="@+id/txtIronPrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/montserrat_semi_bold"
                 android:gravity="center"
-                android:text="@{Integer.toString(info.iron_price)}"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/_9ssp" />

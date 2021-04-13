@@ -14,6 +14,7 @@ import com.app.erl.callback.SelectItemListener;
 import com.app.erl.databinding.RowServiceItemsListBinding;
 import com.app.erl.model.entity.info.ItemInfo;
 import com.app.erl.util.AppConstant;
+import com.app.erl.util.AppUtils;
 
 import java.util.List;
 
@@ -41,6 +42,10 @@ public class ServiceItemsListAdapter extends RecyclerView.Adapter<RecyclerView.V
         final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
         ItemInfo info = list.get(position);
         itemViewHolder.getData(info);
+
+        itemViewHolder.binding.txtDryCleanPrice.setText(AppUtils.displayServicePrice(info.getDry_clean_price()));
+        itemViewHolder.binding.txtIronPrice.setText(AppUtils.displayServicePrice(info.getIron_price()));
+        itemViewHolder.binding.txtIronDryCleanPrice.setText(AppUtils.displayServicePrice(info.getIron_dry_clean_price()));
 
         itemViewHolder.binding.routMainView.setOnClickListener(v -> {
             if (listener != null) {
@@ -93,4 +98,5 @@ public class ServiceItemsListAdapter extends RecyclerView.Adapter<RecyclerView.V
     public void setList(List<ItemInfo> list) {
         this.list = list;
     }
+
 }

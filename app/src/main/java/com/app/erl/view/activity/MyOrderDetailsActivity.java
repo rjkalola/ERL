@@ -125,7 +125,7 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
                     binding.routMainView.setVisibility(View.VISIBLE);
                     if (response.isShow_payment_button())
                         binding.btnPay.setVisibility(View.VISIBLE);
-                    binding.txtTotalPrice.setText(String.format(mContext.getString(R.string.lbl_display_price), String.valueOf(getOrderDetails().getTotal_price())));
+                    binding.txtTotalPrice.setText(String.format(mContext.getString(R.string.lbl_display_price), getOrderDetails().getTotal_price()));
                     binding.txtTotalPayableAmount.setText(String.format(mContext.getString(R.string.lbl_display_price), getOrderDetails().getAmount_pay()));
                     binding.txtAvailableWallet.setText(String.format(mContext.getString(R.string.lbl_display_price), String.valueOf(getOrderDetails().getWallet())));
                     binding.txtOrderNumber.setText(getOrderDetails().getOrder_no());

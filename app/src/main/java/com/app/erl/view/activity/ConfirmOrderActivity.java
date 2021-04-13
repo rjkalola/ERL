@@ -54,7 +54,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
     private ManageOrderViewModel manageOrderViewModel;
 
     private List<ItemInfo> listItems;
-    private int totalAmount;
+    private double totalAmount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

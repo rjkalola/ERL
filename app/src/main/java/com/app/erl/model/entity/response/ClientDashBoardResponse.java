@@ -10,8 +10,8 @@ import java.util.List;
 @Parcel
 public class ClientDashBoardResponse extends BaseResponse {
     List<ClientDashBoardInfo> info;
-    String contact_number,contact_email;
-    int wallet;
+    String contact_number, contact_email;
+    int wallet, android_version_code;
 
     public void copyData(ClientDashBoardResponse data) {
         this.info = data.getInfo();
@@ -47,6 +47,14 @@ public class ClientDashBoardResponse extends BaseResponse {
 
     public void setWallet(int wallet) {
         this.wallet = wallet;
+    }
+
+    public int getAndroid_version_code() {
+        return android_version_code;
+    }
+
+    public void setAndroid_version_code(int android_version_code) {
+        this.android_version_code = android_version_code;
     }
 }
 

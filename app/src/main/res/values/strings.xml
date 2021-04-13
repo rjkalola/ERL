@@ -250,6 +250,9 @@
     <string name="submit">Submit</string>
     <string name="error_empty_rating">Give rating and write your review</string>
     <string name="service_type">Service Type:</string>
+    <string name="msg_app_update">The current App version is outdated, You must update it to the latest version.</string>
+    <string name="title_app_update">Update Required</string>
+    <string name="update">Update</string>
 
     <!--    <string name=""></string>-->
 
