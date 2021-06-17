@@ -686,14 +686,14 @@ public final class AppUtils {
         Intent intent = new Intent(mContext, WebviewActivity.class);
         // intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-        intent.putExtra(WebviewActivity.EXTRA_MESSAGE, AppUtils.getMobileRequest(mContext,amount));
+        intent.putExtra(WebviewActivity.EXTRA_MESSAGE, AppUtils.getMobileRequest(mContext, amount));
         intent.putExtra(WebviewActivity.SUCCESS_ACTIVTY_CLASS_NAME, "com.app.erl.view.activity.SuccessTransactionActivity");
         intent.putExtra(WebviewActivity.FAILED_ACTIVTY_CLASS_NAME, "com.app.erl.view.activity.FailedTransactionActivity");
         intent.putExtra(WebviewActivity.IS_SECURITY_ENABLED, AppConstant.isSecurityEnabled);
         mContext.startActivity(intent);
     }
 
-    public static MobileRequest getMobileRequest(Context mContext,String amount) {
+    public static MobileRequest getMobileRequest(Context mContext, String amount) {
         MobileRequest mobile = new MobileRequest();
         mobile.setStore(AppConstant.STORE_ID);                       // Store ID
         mobile.setKey(AppConstant.KEY);                              // Authentication Key : The Authentication Key will be supplied by Telr as part of the Mobile API setup process after you request that this integration type is enabled for your account. This should not be stored permanently within the App.
@@ -748,5 +748,9 @@ public final class AppUtils {
             return String.format("%d", (long) d);
         else
             return String.format("%s", d);
+    }
+
+    public static DecimalFormat getDecimalFormat() {
+        return new DecimalFormat("##.##");
     }
 }

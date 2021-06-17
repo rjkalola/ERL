@@ -621,25 +621,25 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
         }
 
         if (isValid) {
-            setPrice(binding.txtFinalAmount, String.valueOf(totalAmount));
+            setPrice(binding.txtFinalAmount, totalAmount);
 
-            int tax = Math.round((float) totalAmount * 5 / 100);
-            setPrice(binding.txtTotalTax, String.valueOf(tax));
+            double tax = (float) totalAmount * 5 / 100;
+            setPrice(binding.txtTotalTax, tax);
             totalAmount = totalAmount + tax;
 
-            setPrice(binding.txtTotalAmount, String.valueOf(totalAmount));
+            setPrice(binding.txtTotalAmount, totalAmount);
 
             if (manageOrderViewModel.getSaveOrderRequest().getPromo_amount() != 0) {
                 binding.routPromoCode.setVisibility(View.VISIBLE);
-                int promoDiscount = Math.round((float) totalAmount * manageOrderViewModel.getSaveOrderRequest().getPromo_amount() / 100);
-                setPrice(binding.txtPromoCode, String.valueOf(promoDiscount));
+                double promoDiscount = (float) totalAmount * manageOrderViewModel.getSaveOrderRequest().getPromo_amount() / 100;
+                setPrice(binding.txtPromoCode, promoDiscount);
                 totalAmount = totalAmount - promoDiscount;
             } else {
                 binding.routPromoCode.setVisibility(View.GONE);
             }
 
             if (binding.cbWalletBalance.isChecked()) {
-                int walletDiscount = getOrderData().getWallet() * getOrderData().getMax_wallet_deduction() / 100;
+                double walletDiscount = getOrderData().getWallet() * getOrderData().getMax_wallet_deduction() / 100;
                 Log.e("test", "walletDiscount:" + walletDiscount);
 
 //                if (totalAmount >= getOrderData().getWallet()) {
@@ -661,9 +661,9 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
 
                 if (totalAmount >= walletDiscount) {
                     totalAmount = totalAmount - walletDiscount;
-                    setPrice(binding.txtWalletBalance, String.valueOf(walletDiscount));
+                    setPrice(binding.txtWalletBalance, walletDiscount);
                 } else {
-                    setPrice(binding.txtWalletBalance, String.valueOf(totalAmount));
+                    setPrice(binding.txtWalletBalance, totalAmount);
                     totalAmount = 0;
                 }
             }
@@ -673,18 +673,21 @@ public class CreateOrderActivity extends BaseActivity implements View.OnClickLis
             else
                 binding.routPromoWalletAmountView.setVisibility(View.GONE);
 
-            setPrice(binding.txtTotalPayableAmount, String.valueOf(totalAmount));
+            setPrice(binding.txtTotalPayableAmount, totalAmount);
         } else {
-            setPrice(binding.txtTotalAmount, String.valueOf(0));
-            setPrice(binding.txtFinalAmount, String.valueOf(0));
-            setPrice(binding.txtTotalTax, String.valueOf(0));
-            setPrice(binding.txtTotalPayableAmount, String.valueOf(0));
+            setPrice(binding.txtTotalAmount, 0);
+            setPrice(binding.txtFinalAmount, 0);
+            setPrice(binding.txtTotalTax, 0);
+            setPrice(binding.txtTotalPayableAmount, 0);
             binding.routPromoWalletAmountView.setVisibility(View.GONE);
         }
     }
 
-    public void setPrice(TextView textView, String price) {
-        textView.setText(String.format(mContext.getString(R.string.lbl_display_price), price));
+    public void setPrice(TextView textView, double price) {
+        if (price == 0)
+            textView.setText(String.format(mContext.getString(R.string.lbl_display_price), "0"));
+        else
+            textView.setText(String.format(mContext.getString(R.string.lbl_display_price), AppUtils.getDecimalFormat().format(price)));
     }
 
     public List<PickUpTimeInfo> getPickUpTimeSlot() {

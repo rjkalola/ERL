@@ -9,7 +9,8 @@ import java.util.List;
 
 @Parcel
 public class SaveOrderRequest {
-    int pickup_hour_id, deliver_hour_id, address_id, lu_service_hour_type_id, type, promo_amount, wallet_balance,max_wallet_deduction;
+    int pickup_hour_id, deliver_hour_id, address_id, lu_service_hour_type_id, type ;
+    double wallet_balance,max_wallet_deduction,promo_amount;
     String pickup_date, deliver_date,pickup_hour,deliver_hour, delivery_note, promo_code, address;
     boolean deduct_wallet;
     List<ServiceItemInfo> order = new ArrayList<>();
@@ -102,20 +103,12 @@ public class SaveOrderRequest {
         this.promo_code = promo_code;
     }
 
-    public int getPromo_amount() {
+    public double getPromo_amount() {
         return promo_amount;
     }
 
-    public void setPromo_amount(int promo_amount) {
+    public void setPromo_amount(double promo_amount) {
         this.promo_amount = promo_amount;
-    }
-
-    public int getWallet_balance() {
-        return wallet_balance;
-    }
-
-    public void setWallet_balance(int wallet_balance) {
-        this.wallet_balance = wallet_balance;
     }
 
     public String getAddress() {
@@ -142,11 +135,19 @@ public class SaveOrderRequest {
         this.deliver_hour = deliver_hour;
     }
 
-    public int getMax_wallet_deduction() {
+    public double getWallet_balance() {
+        return wallet_balance;
+    }
+
+    public void setWallet_balance(double wallet_balance) {
+        this.wallet_balance = wallet_balance;
+    }
+
+    public double getMax_wallet_deduction() {
         return max_wallet_deduction;
     }
 
-    public void setMax_wallet_deduction(int max_wallet_deduction) {
+    public void setMax_wallet_deduction(double max_wallet_deduction) {
         this.max_wallet_deduction = max_wallet_deduction;
     }
 }

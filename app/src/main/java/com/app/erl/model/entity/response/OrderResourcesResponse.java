@@ -9,7 +9,8 @@ import java.util.List;
 public class OrderResourcesResponse extends BaseResponse {
     private List<PickUpTimeInfo> pickup_hours;
     private SaveAddressRequest info;
-    private int wallet, max_wallet_deduction;
+    private int max_wallet_deduction;
+    private double wallet;
 
     public List<PickUpTimeInfo> getPickup_hours() {
         return pickup_hours;
@@ -27,11 +28,11 @@ public class OrderResourcesResponse extends BaseResponse {
         this.info = info;
     }
 
-    public int getWallet() {
+    public double getWallet() {
         return wallet;
     }
 
-    public void setWallet(int wallet) {
+    public void setWallet(double wallet) {
         this.wallet = wallet;
     }
 

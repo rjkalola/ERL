@@ -11,7 +11,8 @@ import java.util.List;
 public class ClientDashBoardResponse extends BaseResponse {
     List<ClientDashBoardInfo> info;
     String contact_number, contact_email;
-    int wallet, android_version_code;
+    int android_version_code;
+    double wallet;
 
     public void copyData(ClientDashBoardResponse data) {
         this.info = data.getInfo();
@@ -41,11 +42,11 @@ public class ClientDashBoardResponse extends BaseResponse {
         this.contact_email = contact_email;
     }
 
-    public int getWallet() {
+    public double getWallet() {
         return wallet;
     }
 
-    public void setWallet(int wallet) {
+    public void setWallet(double wallet) {
         this.wallet = wallet;
     }
 

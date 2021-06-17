@@ -163,7 +163,7 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
-    public void setWalletBalance(int walletBalance) {
+    public void setWalletBalance(double walletBalance) {
         for (int i = 0; i < pagerAdapter.getmFragmentList().size(); i++) {
             if (pagerAdapter.getmFragmentList().get(i) instanceof WalletFragment) {
                 ((WalletFragment) (pagerAdapter.getmFragmentList().get(i))).setWalletBalance(walletBalance);

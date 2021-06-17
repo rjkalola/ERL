@@ -548,7 +548,7 @@
 
                         <TextView
                             android:id="@+id/txtTotalPayableAmount"
-                            android:layout_width="@dimen/_60sdp"
+                            android:layout_width="@dimen/_122sdp"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="@dimen/_8sdp"
@@ -562,7 +562,7 @@
 
                         <RelativeLayout
                             android:id="@+id/routTotalPayableAmountTemp"
-                            android:layout_width="@dimen/_62sdp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true">
 

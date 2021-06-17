@@ -98,8 +98,8 @@ public class WalletFragment extends BaseFragment implements View.OnClickListener
         };
     }
 
-    public void setWalletBalance(int walletBalance) {
-        binding.txtWalletBalance.setText(String.format(mContext.getString(R.string.lbl_display_price), Integer.toString(walletBalance)));
+    public void setWalletBalance(double walletBalance) {
+        binding.txtWalletBalance.setText(String.format(mContext.getString(R.string.lbl_display_price), Double.toString(walletBalance)));
     }
 
 }
