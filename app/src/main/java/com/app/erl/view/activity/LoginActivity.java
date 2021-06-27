@@ -2,6 +2,7 @@ package com.app.erl.view.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -10,14 +11,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.app.erl.ERLApp;
 import com.app.erl.R;
 import com.app.erl.databinding.ActivityLoginBinding;
 import com.app.erl.model.entity.response.UserResponse;
+import com.app.erl.util.AppConstant;
 import com.app.erl.util.AppUtils;
 import com.app.erl.util.LoginViewModelFactory;
 import com.app.erl.util.ResourceProvider;
 import com.app.erl.viewModel.UserAuthenticationViewModel;
 import com.app.utilities.utils.AlertDialogHelper;
+import com.app.utilities.utils.StringHelper;
 import com.app.utilities.utils.ToastHelper;
 import com.app.utilities.utils.ValidationUtil;
 
@@ -36,6 +40,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         userAuthenticationViewModel.createView(this);
         userAuthenticationViewModel.mUserResponse()
                 .observe(this, getUserResponse());
+
+        if (!StringHelper.isEmpty(ERLApp.preferenceGetString(AppConstant.SharedPrefKey.REMEMBERED_EMAIL, ""))) {
+            binding.cbRememberPassword.setChecked(true);
+            userAuthenticationViewModel.getLoginRequest().setEmail(ERLApp.preferenceGetString(AppConstant.SharedPrefKey.REMEMBERED_EMAIL, ""));
+            userAuthenticationViewModel.getLoginRequest().setPassword(ERLApp.preferenceGetString(AppConstant.SharedPrefKey.REMEMBERED_PASSWORD, ""));
+            Log.e("test", "Email:" + ERLApp.preferenceGetString(AppConstant.SharedPrefKey.REMEMBERED_EMAIL, ""));
+//            binding.edtEmail.setText(ERLApp.preferenceGetString(AppConstant.SharedPrefKey.REMEMBERED_EMAIL, ""));
+//            binding.edtPassword.setText(ERLApp.preferenceGetString(AppConstant.SharedPrefKey.REMEMBERED_PASSWORD, ""));
+        }
+
         binding.setUserAuthenticationViewModel(userAuthenticationViewModel);
 
         binding.txtLogin.setOnClickListener(this);
@@ -74,6 +88,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 }
                 if (response.isSuccess()) {
                     AppUtils.setUserPrefrence(mContext, response.getInfo());
+
+                    if (binding.cbRememberPassword.isChecked()) {
+                        ERLApp.preferencePutString(AppConstant.SharedPrefKey.REMEMBERED_EMAIL, binding.edtEmail.getText().toString().trim());
+                        ERLApp.preferencePutString(AppConstant.SharedPrefKey.REMEMBERED_PASSWORD, binding.edtPassword.getText().toString().trim());
+                    } else {
+                        ERLApp.preferencePutString(AppConstant.SharedPrefKey.REMEMBERED_EMAIL, "");
+                        ERLApp.preferencePutString(AppConstant.SharedPrefKey.REMEMBERED_PASSWORD, "");
+                    }
+
                     moveActivity(mContext, DashBoardActivity.class, true, true, null);
                 } else {
                     AppUtils.handleUnauthorized(mContext, response);
@@ -96,7 +119,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         if (!ValidationUtil.isEmptyEditText(userAuthenticationViewModel.getLoginRequest().getEmail())) {
 //            if (ValidationUtil.isValidEmail(binding.edtEmail.getText().toString())) {
-                binding.edtEmail.setError(null);
+            binding.edtEmail.setError(null);
 //            } else {
 //                ValidationUtil.setErrorIntoEditext(binding.edtEmail, mContext.getString(R.string.error_invalid_email));
 //                isValid = false;

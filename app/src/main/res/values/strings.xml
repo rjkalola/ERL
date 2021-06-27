@@ -253,6 +253,8 @@
     <string name="msg_app_update">The current App version is outdated, You must update it to the latest version.</string>
     <string name="title_app_update">Update Required</string>
     <string name="update">Update</string>
+    <string name="remember_credential">Remember Credentials?</string>
+    <string name="phone_number_hint">ex: 555315666</string>
 
     <!--    <string name=""></string>-->
 

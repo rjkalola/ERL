@@ -103,6 +103,14 @@
                 android:textSize="@dimen/_11ssp" />
         </LinearLayout>
 
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cbRememberPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_9sdp"
+            android:text="@string/remember_credential" />
+
         <com.balysv.materialripple.MaterialRippleLayout
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"

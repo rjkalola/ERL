@@ -87,6 +87,8 @@ public final class AppConstant {
         public static final String USER_INFO = "USER_INFO";
         public static final String APP_LANGUAGE = "APP_LANGUAGE";
         public static final String THEME_MODE = "THEME_MODE";
+        public static final String REMEMBERED_EMAIL = "REMEMBERED_EMAIL";
+        public static final String REMEMBERED_PASSWORD = "REMEMBERED_PASSWORD";
     }
 
     public static final class Type {

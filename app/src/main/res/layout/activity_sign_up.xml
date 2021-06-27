@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
                     android:fontFamily="@font/montserrat_regular"
-                    android:hint="@string/hint_phone"
+                    android:hint="@string/phone_number_hint"
                     android:imeOptions="actionNext"
                     android:inputType="phone"
                     android:maxLength="15"
