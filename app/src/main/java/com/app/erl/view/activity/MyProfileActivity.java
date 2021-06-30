@@ -106,6 +106,8 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                     return;
                 }
                 if (response.isSuccess()) {
+                    binding.routDetailsView.setVisibility(View.VISIBLE);
+                    binding.btnSave.setVisibility(View.VISIBLE);
                     setProfileData(response);
                     binding.setInfo(getProfileData());
                     if (!StringHelper.isEmpty(getProfileData().getImage())) {

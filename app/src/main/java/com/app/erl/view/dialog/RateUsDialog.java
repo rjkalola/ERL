@@ -58,7 +58,7 @@ public class RateUsDialog extends DialogFragment {
         binding = DataBindingUtil.bind(view);
 
         binding.txtSubmit.setOnClickListener(v -> {
-            if (binding.ratingBar.getRating() > 0 && !StringHelper.isEmpty(binding.edtFeedback.getText().toString().trim())) {
+            if (binding.ratingBar.getRating() > 0) {
                 if (listener != null)
                     listener.onSubmitRate(orderId, binding.ratingBar.getRating(), binding.edtFeedback.getText().toString().trim());
                 dismiss();

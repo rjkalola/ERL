@@ -99,7 +99,7 @@
                 android:paddingTop="@dimen/_20sdp"
                 android:paddingEnd="@dimen/_20sdp"
                 android:paddingBottom="@dimen/_10sdp"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <TextView
                     style="@style/SmallFontTextView"
@@ -150,13 +150,14 @@
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_2sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
+                    android:focusable="false"
                     android:background="@color/transparent"
                     android:fontFamily="@font/montserrat_semi_bold"
                     android:hint="@string/dash_sign"
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:text="@={info.phone}"
-                    android:textColor="@color/colorYellowDark"
+                    android:textColor="@color/colorSecondaryLightText"
                     android:textSize="@dimen/_13ssp" />
 
                 <View
@@ -182,13 +183,14 @@
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_2sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
+                    android:focusable="false"
                     android:background="@color/transparent"
                     android:fontFamily="@font/montserrat_semi_bold"
                     android:hint="@string/dash_sign"
                     android:imeOptions="actionDone"
                     android:inputType="textEmailAddress"
                     android:text="@={info.email}"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/colorSecondaryLightText"
                     android:textSize="@dimen/_13ssp" />
 
                 <View
@@ -237,6 +239,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@color/colorPrimaryText"
             app:mrl_rippleColor="#2C7A7A7A"
+            android:visibility="gone"
             app:mrl_rippleDelayClick="false"
             app:mrl_rippleDuration="100"
             app:mrl_rippleOverlay="true">

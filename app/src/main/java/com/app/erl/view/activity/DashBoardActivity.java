@@ -65,7 +65,7 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
                 .observe(this, getBaseResponse());
 
         setSupportActionBar(binding.appBarLayout.toolbar);
-        setupToolbar(getString(R.string.lbl_dashboard), false);
+        setupToolbar(getString(R.string.app_name), false);
 
         toggle = new ActionBarDrawerToggle(
                 this, binding.drawerLayout, binding.appBarLayout.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -233,7 +233,7 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
         switch (position) {
             case 0:
                 binding.appBarLayout.viewPager.setCurrentItem(position);
-                setupHomeButton(false, getString(R.string.lbl_dashboard), false);
+                setupHomeButton(false, getString(R.string.app_name), false);
                 binding.appBarLayout.routHeader.setBackgroundColor(getResources().getColor(R.color.transparent));
                 break;
             case 1:
