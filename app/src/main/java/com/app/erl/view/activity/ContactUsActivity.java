@@ -1,11 +1,14 @@
 package com.app.erl.view.activity;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -72,8 +75,8 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
     }
 
     public void openWhatsApp(String mobileNumber) {
-        PackageManager pm = getPackageManager();
-        try {
+//        PackageManager pm = getPackageManager();
+       /* try {
 //            String toNumber = "xxxxxxxxxx"; // Replace with mobile phone number without +Sign or leading zeros, but with country code.
             //Suppose your country is India and your phone number is “xxxxxxxxxx”, then you need to send “91xxxxxxxxxx”.
             Intent sendIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + "" + mobileNumber + "?body=" + ""));
@@ -82,6 +85,16 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(mContext, "WhatsApp not Installed", Toast.LENGTH_LONG).show();
+
+        }*/
+
+        try {
+            mobileNumber = mobileNumber.replace(" ", "").replace("+", "");
+            Intent sendIntent = new Intent("android.intent.action.MAIN");
+            sendIntent.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
+            sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(mobileNumber) + "@s.whatsapp.net");
+            startActivity(sendIntent);
+        } catch (Exception e) {
 
         }
     }
