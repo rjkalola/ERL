@@ -50,14 +50,14 @@
 
         <RelativeLayout
             android:id="@+id/routCall"
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_42sdp"
+            android:layout_width="@dimen/_240sdp"
+            android:layout_height="@dimen/_46sdp"
             android:layout_marginTop="@dimen/_55sdp"
             android:background="@drawable/img_dashboard_button_background">
 
             <ImageView
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
+                android:layout_width="@dimen/_27sdp"
+                android:layout_height="@dimen/_27sdp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/_22sdp"
                 android:padding="@dimen/_2sdp"
@@ -72,23 +72,22 @@
                 android:text="@string/lbl_call"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryText"
-                android:textSize="@dimen/_11ssp" />
+                android:textSize="@dimen/_15ssp" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/routWhatsApp"
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_42sdp"
+            android:layout_width="@dimen/_240sdp"
+            android:layout_height="@dimen/_46sdp"
             android:layout_marginTop="@dimen/_18sdp"
             android:background="@drawable/img_dashboard_button_background">
 
             <ImageView
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
+                android:layout_width="@dimen/_27sdp"
+                android:layout_height="@dimen/_27sdp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/_22sdp"
-                android:padding="@dimen/_2sdp"
                 android:src="@drawable/ic_contact_whatsapp" />
 
             <TextView
@@ -100,23 +99,21 @@
                 android:text="@string/lbl_whatsapp"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryText"
-                android:textSize="@dimen/_11ssp" />
-
+                android:textSize="@dimen/_15ssp" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/routEmail"
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_42sdp"
+            android:layout_width="@dimen/_240sdp"
+            android:layout_height="@dimen/_46sdp"
             android:layout_marginTop="@dimen/_18sdp"
             android:background="@drawable/img_dashboard_button_background">
 
             <ImageView
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
+                android:layout_width="@dimen/_27sdp"
+                android:layout_height="@dimen/_27sdp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/_22sdp"
-                android:padding="@dimen/_2sdp"
                 android:src="@drawable/ic_contact_email" />
 
             <TextView
@@ -128,7 +125,7 @@
                 android:text="@string/hint_email"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryText"
-                android:textSize="@dimen/_11ssp" />
+                android:textSize="@dimen/_15ssp" />
 
         </RelativeLayout>
 
