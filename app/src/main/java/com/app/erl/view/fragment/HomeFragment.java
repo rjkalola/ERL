@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,7 +14,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
-import com.app.erl.BuildConfig;
 import com.app.erl.R;
 import com.app.erl.adapter.DashboardOfferPagerAdapter;
 import com.app.erl.adapter.DashboardOfferPagerDotsAdapter;
@@ -31,7 +28,6 @@ import com.app.erl.view.activity.ContactUsActivity;
 import com.app.erl.view.activity.DashBoardActivity;
 import com.app.erl.view.activity.StoreLocatorActivity;
 import com.app.erl.viewModel.DashBoardViewModel;
-import com.app.utilities.callbacks.DialogButtonClickListener;
 import com.app.utilities.utils.AlertDialogHelper;
 import com.app.utilities.utils.StringHelper;
 

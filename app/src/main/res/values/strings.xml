@@ -255,6 +255,8 @@
     <string name="update">Update</string>
     <string name="remember_credential">Remember Credentials?</string>
     <string name="phone_number_hint">ex: 501234567</string>
+    <string name="lbl_display_wallet_balance_note">(20% Applicable Wallet Balance)</string>
+
 
     <!--    <string name=""></string>-->
 

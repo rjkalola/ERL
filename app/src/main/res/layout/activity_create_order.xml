@@ -641,17 +641,34 @@
                             android:visibility="gone" />
                     </RelativeLayout>
 
-                    <CheckBox
-                        android:id="@+id/cbWalletBalance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_18sdp"
-                        android:layout_marginBottom="@dimen/_14sdp"
-                        android:fontFamily="@font/montserrat_medium"
-                        android:text="@string/lbl_display_wallet_balance"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/_9ssp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox
+                            android:id="@+id/cbWalletBalance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_18sdp"
+                            android:layout_marginBottom="@dimen/_6sdp"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="@string/lbl_display_wallet_balance"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="@dimen/_9ssp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_14sdp"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:text="@string/lbl_display_wallet_balance_note"
+                            android:textColor="@color/colorSecondaryText"
+                            android:textSize="@dimen/_9sdp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
