@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ERL.iml" filepath="$PROJECT_DIR$/.idea/modules/ERL.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Imagepickers/ERL.Imagepickers.iml" filepath="$PROJECT_DIR$/.idea/modules/Imagepickers/ERL.Imagepickers.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Utilities/ERL.Utilities.iml" filepath="$PROJECT_DIR$/.idea/modules/Utilities/ERL.Utilities.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ERL.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ERL.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/telrlibrary-release/ERL.telrlibrary-release.iml" filepath="$PROJECT_DIR$/.idea/modules/telrlibrary-release/ERL.telrlibrary-release.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ERL_Git.iml" filepath="$PROJECT_DIR$/.idea/modules/ERL_Git.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Imagepickers/ERL_Git.Imagepickers.iml" filepath="$PROJECT_DIR$/.idea/modules/Imagepickers/ERL_Git.Imagepickers.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Utilities/ERL_Git.Utilities.iml" filepath="$PROJECT_DIR$/.idea/modules/Utilities/ERL_Git.Utilities.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ERL_Git.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ERL_Git.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/telrlibrary-release/ERL_Git.telrlibrary-release.iml" filepath="$PROJECT_DIR$/.idea/modules/telrlibrary-release/ERL_Git.telrlibrary-release.iml" />
     </modules>
   </component>
 </project>

@@ -186,6 +186,9 @@
     <string name="lbl_display_wallet_balance">Wallet Balance: AED %s</string>
     <string name="lbl_total_amount">Total:</string>
     <string name="lbl_remove">Remove</string>
+    <string name="title_tax">Tax:</string>
+    <string name="lbl_wallet_used">Wallet Used:</string>
+    <string name="lbl_promo_discount">Promo Discount:</string>
 
     <!--Validation message-->
     <string name="error_empty_name">Please enter name</string>

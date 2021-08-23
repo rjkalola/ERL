@@ -186,9 +186,127 @@
                     android:layout_marginBottom="@dimen/_12sdp"
                     android:nestedScrollingEnabled="false" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp">
+
+                    <TextView
+                        style="@style/SmallFontTextView"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="@string/lbl_price"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_10ssp" />
+
+                    <TextView
+                        android:id="@+id/txtPrice"
+                        style="@style/SmallFontTextView"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:fontFamily="@font/montserrat_semi_bold"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_10ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp">
+
+                    <TextView
+                        style="@style/SmallFontTextView"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="@string/title_tax"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_10ssp" />
+
+                    <TextView
+                        android:id="@+id/txtTax"
+                        style="@style/SmallFontTextView"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:fontFamily="@font/montserrat_semi_bold"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_10ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/routWalletDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp">
+
+                    <TextView
+                        style="@style/SmallFontTextView"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="@string/lbl_wallet_used"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_10ssp" />
+
+                    <TextView
+                        android:id="@+id/txtWalletUsed"
+                        style="@style/SmallFontTextView"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:fontFamily="@font/montserrat_semi_bold"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_10ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/routPromoDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp">
+
+                    <TextView
+                        style="@style/SmallFontTextView"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="@string/lbl_promo_discount"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_10ssp" />
+
+                    <TextView
+                        android:id="@+id/txtPromoDiscount"
+                        style="@style/SmallFontTextView"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:fontFamily="@font/montserrat_semi_bold"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_10ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp">
+
+                    <TextView
+                        style="@style/SmallFontTextView"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="@string/lbl_total_amount"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_10ssp" />
+
+                    <TextView
+                        android:id="@+id/txtTotalAmount"
+                        style="@style/SmallFontTextView"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:fontFamily="@font/montserrat_semi_bold"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/_10ssp" />
+
+                </LinearLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/SmallFontTextView"
@@ -214,7 +332,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_14sdp">
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/SmallFontTextView"
@@ -241,14 +360,16 @@
                     android:text="@string/lbl_total_payable_amount"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_10ssp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/txtTotalPayableAmount"
                     style="@style/SmallFontTextView"
                     android:fontFamily="@font/montserrat_semi_bold"
                     android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textSize="@dimen/_10ssp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

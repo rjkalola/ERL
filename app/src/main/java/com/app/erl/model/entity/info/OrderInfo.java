@@ -10,7 +10,7 @@ import java.util.List;
 @Parcel
 public class OrderInfo {
     int id, status_id;
-    String order_no, pickup_date, pickup_time, deliver_date,delivery_time,delivery_note, total_price, ordered_at, status,payment_type,order_type,amount_pay,address,city_name,service_type_name;
+    String order_no, pickup_date, pickup_time, deliver_date,delivery_time,delivery_note, total_price, ordered_at, status,payment_type,order_type,amount_pay,address,city_name,service_type_name,wallet_amount,promo_price,price_without_tax,tax_price,invoice_price;
     List<ServiceItemInfo> order;
     boolean show_payment_button,show_feedback;
     SaveAddressRequest info;
@@ -181,6 +181,46 @@ public class OrderInfo {
 
     public void setInfo(SaveAddressRequest info) {
         this.info = info;
+    }
+
+    public String getWallet_amount() {
+        return wallet_amount;
+    }
+
+    public void setWallet_amount(String wallet_amount) {
+        this.wallet_amount = wallet_amount;
+    }
+
+    public String getPromo_price() {
+        return promo_price;
+    }
+
+    public void setPromo_price(String promo_price) {
+        this.promo_price = promo_price;
+    }
+
+    public String getPrice_without_tax() {
+        return price_without_tax;
+    }
+
+    public void setPrice_without_tax(String price_without_tax) {
+        this.price_without_tax = price_without_tax;
+    }
+
+    public String getTax_price() {
+        return tax_price;
+    }
+
+    public void setTax_price(String tax_price) {
+        this.tax_price = tax_price;
+    }
+
+    public String getInvoice_price() {
+        return invoice_price;
+    }
+
+    public void setInvoice_price(String invoice_price) {
+        this.invoice_price = invoice_price;
     }
 }
 

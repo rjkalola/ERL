@@ -23,6 +23,7 @@ import com.app.erl.util.ResourceProvider;
 import com.app.erl.viewModel.ManageOrderViewModel;
 import com.app.utilities.callbacks.DialogButtonClickListener;
 import com.app.utilities.utils.AlertDialogHelper;
+import com.app.utilities.utils.StringHelper;
 
 @Keep
 public class MyOrderDetailsActivity extends BaseActivity implements View.OnClickListener, DialogButtonClickListener {
@@ -132,6 +133,26 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
                     binding.txtServiceType.setText(getOrderDetails().getService_type_name());
                     binding.txtPickUpTime.setText(getOrderDetails().getPickup_date() + "  " + getOrderDetails().getPickup_time());
                     binding.txtDeliverTime.setText(getOrderDetails().getDeliver_date() + "  " + getOrderDetails().getDelivery_time());
+
+
+                    binding.txtPrice.setText(String.format(mContext.getString(R.string.lbl_display_price), getOrderDetails().getPrice_without_tax()));
+                    binding.txtTax.setText(String.format(mContext.getString(R.string.lbl_display_price), getOrderDetails().getTax_price()));
+                    if (!StringHelper.isEmpty(getOrderDetails().getWallet_amount())
+                            && Double.parseDouble(getOrderDetails().getWallet_amount()) > 0) {
+                        binding.routWalletDetails.setVisibility(View.VISIBLE);
+                        binding.txtWalletUsed.setText(String.format(mContext.getString(R.string.lbl_display_price), getOrderDetails().getWallet_amount()));
+                    } else {
+                        binding.routWalletDetails.setVisibility(View.GONE);
+                    }
+                    if (!StringHelper.isEmpty(getOrderDetails().getPromo_price())
+                            && Double.parseDouble(getOrderDetails().getPromo_price()) > 0) {
+                        binding.routPromoDetails.setVisibility(View.VISIBLE);
+                        binding.txtPromoDiscount.setText(String.format(mContext.getString(R.string.lbl_display_price), getOrderDetails().getPromo_price()));
+                    } else {
+                        binding.routPromoDetails.setVisibility(View.GONE);
+                    }
+
+                    binding.txtTotalAmount.setText(String.format(mContext.getString(R.string.lbl_display_price), getOrderDetails().getTotal_price()));
 
                     AppConstant.PAYMENT_CITY = response.getCity_name();
                     AppConstant.PAYMENT_ADDRESS = response.getAddress();

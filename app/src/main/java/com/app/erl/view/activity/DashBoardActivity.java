@@ -142,6 +142,18 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
         } else if (item.equals(getString(R.string.about_app))) {
             bundle.putInt(AppConstant.IntentKey.TYPE, AppConstant.Type.ABOUT_APP);
             moveActivity(mContext, PrivacyPolicyActivity.class, false, false, bundle);
+        } else if (item.equals(getString(R.string.share))) {
+            try {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, mContext.getString(R.string.app_name));
+                String shareMessage= "Download "+mContext.getString(R.string.app_name)+" App\n";
+                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID ;
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                startActivity(Intent.createChooser(shareIntent, ""));
+            } catch(Exception e) {
+                //e.toString();
+            }
         } else if (item.equals(getString(R.string.logout))) {
             AlertDialogHelper.showDialog(mContext, "", getString(R.string.logout_msg), getString(R.string.yes), getString(R.string.no), false, this, AppConstant.DialogIdentifier.LOGOUT);
         }
