@@ -28,6 +28,7 @@
     <string name="msg_unauthorized">We are signing you out as we found your account access from another device</string>
     <string name="error_network">There is a problem connecting to the Server, please check your network connection, and then try again.</string>
     <string name="error_internet_connection">Please check your internet connection</string>
+    <string name="error_accept_terms_conditions">You must accept the terms and conditions to register an account</string>
 
     //Error Strings
     <string name="ERR100">Parameters Missing</string>

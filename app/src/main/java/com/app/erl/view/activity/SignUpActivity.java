@@ -2,7 +2,13 @@ package com.app.erl.view.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.URLSpan;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -47,6 +53,8 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 //        binding.edtPassword.addTextChangedListener(this);
 //        binding.edtPhoneNumber.addTextChangedListener(this);
 //        binding.edtConfirmPassword.addTextChangedListener(this);
+
+        customTextView(binding.cbTermsConditions);
     }
 
     @Override
@@ -57,10 +65,14 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.txtSignUp:
                 if (isValid()) {
-                    if (AppUtils.isNetworkConnected(mContext))
-                        userAuthenticationViewModel.sendSignUpRequest();
-                    else
+                    if (AppUtils.isNetworkConnected(mContext)) {
+                        if (binding.cbTermsConditions.isChecked())
+                            userAuthenticationViewModel.sendSignUpRequest();
+                        else
+                            ToastHelper.error(mContext, getString(R.string.error_accept_terms_conditions), Toast.LENGTH_SHORT, false);
+                    } else {
                         ToastHelper.error(mContext, getString(R.string.error_internet_connection), Toast.LENGTH_SHORT, false);
+                    }
                 }
                 break;
         }
@@ -180,5 +192,40 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
             binding.btnSignUp.setAlpha(1f);
         else
             binding.btnSignUp.setAlpha(0.5f);
+    }
+
+    public void customTextView(CheckBox view) {
+        String value = "<html> By continuing, you agree to ERL’s <font color='red'><a href=\"http://app.erl.ae/terms-condition\">Terms of Service</a></font> and acknowledge ERL’s <font color='red'><a href=\"http://app.erl.ae/privacy-policy\">Privacy Policy</a></font>.</html>";
+        Spannable spannedText = (Spannable)
+                Html.fromHtml(value);
+        view.setMovementMethod(LinkMovementMethod.getInstance());
+
+        Spannable processedText = removeUnderlines(spannedText);
+        view.setText(processedText);
+    }
+
+    public Spannable removeUnderlines(Spannable p_Text) {
+        URLSpan[] spans = p_Text.getSpans(0, p_Text.length(), URLSpan.class);
+        for (URLSpan span : spans) {
+            int start = p_Text.getSpanStart(span);
+            int end = p_Text.getSpanEnd(span);
+            p_Text.removeSpan(span);
+            span = new URLSpanNoUnderline(span.getURL());
+            p_Text.setSpan(span, start, end, 0);
+        }
+        return p_Text;
+    }
+
+    private class URLSpanNoUnderline extends URLSpan {
+        public URLSpanNoUnderline(String url) {
+            super(url);
+        }
+
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            super.updateDrawState(ds);
+            ds.setUnderlineText(false);
+            ds.setColor(getResources().getColor(R.color.colorRed));
+        }
     }
 }

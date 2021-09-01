@@ -40,7 +40,7 @@ public class MyOrderDetailsActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_order_details);
         mContext = this;
-
+        
         manageOrderViewModel = ViewModelProviders.of(this, new LoginViewModelFactory(new ResourceProvider(getResources()))).get(ManageOrderViewModel.class);
         manageOrderViewModel.createView(this);
         manageOrderViewModel.mOrderDetailsResponse()
